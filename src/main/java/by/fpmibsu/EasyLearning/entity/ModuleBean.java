@@ -43,7 +43,7 @@ public class ModuleBean {
             throw new IllegalArgumentException("CardBean points to null");
         }
 
-        cards.set(index, card);
+        cards.set(index, new CardBean(card));
     }
 
     public void setModuleName(String moduleName) {

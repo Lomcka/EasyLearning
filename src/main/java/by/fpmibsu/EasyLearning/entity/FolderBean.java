@@ -38,7 +38,7 @@ public class FolderBean {
             throw new IllegalArgumentException("module points to null");
         }
 
-        modules.set(index, module);
+        modules.set(index, new ModuleBean(module));
     }
 
     public void setFolderName(String folderName) {
