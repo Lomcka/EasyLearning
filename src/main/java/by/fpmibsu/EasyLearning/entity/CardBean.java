@@ -12,7 +12,7 @@ public class CardBean {
         }
 
         if (translation == null) {
-            throw new IllegalArgumentException("translation null");
+            throw new IllegalArgumentException("translation is null");
         }
 
         this.word = word;
