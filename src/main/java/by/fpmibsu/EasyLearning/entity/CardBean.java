@@ -11,9 +11,9 @@ public class CardBean {
         this.translation = translation;
     }
 
-    public CardBean(CardBean cardInfo) {
-        this.word = cardInfo.getWord();
-        this.translation = cardInfo.getTranslation();
+    public CardBean(CardBean cardBean) {
+        word = cardBean.getWord();
+        translation = cardBean.getTranslation();
     }
 
     public String getWord() {
@@ -28,9 +28,9 @@ public class CardBean {
         this.word = word;
     }
 
-    public void setCard(CardBean word) {
-        this.word = word.getWord();
-        this.translation = word.getTranslation();
+    public void setCard(CardBean cardBean) {
+        word = cardBean.getWord();
+        translation = cardBean.getTranslation();
     }
 
     public void setTranslation(String translation) {

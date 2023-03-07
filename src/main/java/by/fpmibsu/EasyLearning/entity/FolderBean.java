@@ -32,6 +32,7 @@ public class FolderBean {
     public void setModule(ModuleBean module, int index) {
         modules.get(index).setModule(module);
     }
+
     public void setFolderName(String folderName) {
         this.folderName = folderName;
     }

@@ -21,6 +21,7 @@ public class ModuleBean {
     public ArrayList<CardBean> getCards() {
         return new ArrayList<>(cards);
     }
+
     public CardBean getCard(int index) {
         return new CardBean(cards.get(index));
     }
@@ -40,9 +41,11 @@ public class ModuleBean {
     public void setCard(CardBean card, int index) {
         cards.get(index).setCard(card);
     }
+
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -56,11 +59,6 @@ public class ModuleBean {
         ModuleBean module = (ModuleBean) obj;
 
         return cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
-    }
-
-    @Override
-    protected ModuleBean clone() {
-        return new ModuleBean(moduleName, cards);
     }
 
     private ArrayList<CardBean> cards;
