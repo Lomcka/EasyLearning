@@ -7,6 +7,14 @@ public class CardBean {
     }
 
     public CardBean(String word, String translation) {
+        if (word == null) {
+            throw new IllegalArgumentException("word is null");
+        }
+
+        if (translation == null) {
+            throw new IllegalArgumentException("translation null");
+        }
+
         this.word = word;
         this.translation = translation;
     }
@@ -26,7 +34,7 @@ public class CardBean {
 
     public void setWord(String word) {
         if (word == null) {
-            throw new IllegalArgumentException("word points to null");
+            throw new IllegalArgumentException("word is null");
         }
 
         this.word = word;
@@ -34,7 +42,7 @@ public class CardBean {
 
     public void setTranslation(String translation) {
         if (translation == null) {
-            throw new IllegalArgumentException("translation points to null");
+            throw new IllegalArgumentException("translation is null");
         }
 
         this.translation = translation;

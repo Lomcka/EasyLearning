@@ -7,6 +7,14 @@ public class UserInfoBean {
     }
 
     public UserInfoBean(String login, String password) {
+        if (login == null) {
+            throw new IllegalArgumentException("login is null");
+        }
+
+        if (password == null) {
+            throw new IllegalArgumentException("password is null");
+        }
+
         this.login = login;
         this.password = password;
     }
@@ -21,7 +29,7 @@ public class UserInfoBean {
 
     public void setLogin(String login) {
         if (login == null) {
-            throw new IllegalArgumentException("login points to null");
+            throw new IllegalArgumentException("login is null");
         }
 
         this.login = login;
@@ -29,7 +37,7 @@ public class UserInfoBean {
 
     public void setPassword(String password) {
         if (password == null) {
-            throw new IllegalArgumentException("password points to null");
+            throw new IllegalArgumentException("password is null");
         }
 
         this.password = password;

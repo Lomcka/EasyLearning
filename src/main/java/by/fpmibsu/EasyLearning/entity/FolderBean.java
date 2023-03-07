@@ -8,9 +8,17 @@ public class FolderBean {
         folderName = "";
     }
 
-    public FolderBean(String name, ArrayList<ModuleBean> modules) {
+    public FolderBean(String folderName, ArrayList<ModuleBean> modules) {
+        if (folderName == null) {
+            throw new IllegalArgumentException("folderName is null");
+        }
+
+        if (modules == null) {
+            throw new IllegalArgumentException("ArrayList modules is null");
+        }
+
         this.modules = new ArrayList<ModuleBean>(modules);
-        this.folderName = name;
+        this.folderName = folderName;
     }
 
     public ArrayList<ModuleBean> getModules() {
@@ -27,7 +35,7 @@ public class FolderBean {
 
     public void setModules(ArrayList<ModuleBean> modules) {
         if (modules == null) {
-            throw new IllegalArgumentException("ArrayList modules points to null");
+            throw new IllegalArgumentException("ArrayList modules is null");
         }
 
         this.modules = new ArrayList<ModuleBean>(modules);
@@ -35,7 +43,7 @@ public class FolderBean {
 
     public void setModule(ModuleBean module, int index) {
         if (module == null) {
-            throw new IllegalArgumentException("module points to null");
+            throw new IllegalArgumentException("module is null");
         }
 
         modules.set(index, new ModuleBean(module));
@@ -43,7 +51,7 @@ public class FolderBean {
 
     public void setFolderName(String folderName) {
         if (folderName == null) {
-            throw new IllegalArgumentException("folderName points to null");
+            throw new IllegalArgumentException("folderName is null");
         }
 
         this.folderName = folderName;

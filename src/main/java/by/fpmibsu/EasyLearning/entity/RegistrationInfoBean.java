@@ -8,6 +8,18 @@ public class RegistrationInfoBean {
     }
 
     public RegistrationInfoBean(String login, String password, String keyWord) {
+        if (login == null) {
+            throw new IllegalArgumentException("login is null");
+        }
+
+        if (password == null) {
+            throw new IllegalArgumentException("password is null");
+        }
+
+        if (keyWord == null) {
+            throw new IllegalArgumentException("keyWord is null");
+        }
+
         this.login = login;
         this.password = password;
         this.keyWord = keyWord;
@@ -27,7 +39,7 @@ public class RegistrationInfoBean {
 
     public void setLogin(String login) {
         if (login == null) {
-            throw new IllegalArgumentException("login points to null");
+            throw new IllegalArgumentException("login is null");
         }
 
         this.login = login;
@@ -35,7 +47,7 @@ public class RegistrationInfoBean {
 
     public void setPassword(String password) {
         if (password == null) {
-            throw new IllegalArgumentException("password points to null");
+            throw new IllegalArgumentException("password is null");
         }
 
         this.password = password;
@@ -43,7 +55,7 @@ public class RegistrationInfoBean {
 
     public void setKeyWord(String keyWord) {
         if (keyWord == null) {
-            throw new IllegalArgumentException("kewWord points to null");
+            throw new IllegalArgumentException("kewWord is null");
         }
 
         this.keyWord = keyWord;
