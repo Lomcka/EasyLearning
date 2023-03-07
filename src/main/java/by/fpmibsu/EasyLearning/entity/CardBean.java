@@ -20,6 +20,10 @@ public class CardBean {
     }
 
     public CardBean(CardBean cardBean) {
+        if (cardBean == null) {
+            throw new IllegalArgumentException("cardBean is null");
+        }
+
         word = cardBean.getWord();
         translation = cardBean.getTranslation();
     }
