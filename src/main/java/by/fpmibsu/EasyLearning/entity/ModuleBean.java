@@ -8,14 +8,14 @@ public class ModuleBean {
         moduleName = "";
     }
 
-    public ModuleBean(String moduleName, ArrayList<CardBean> words) {
-        this.cards = new ArrayList<>(words);
+    public ModuleBean(String moduleName, ArrayList<CardBean> cards) {
+        this.cards = new ArrayList<>(cards);
         this.moduleName = moduleName;
     }
 
     public ModuleBean(ModuleBean moduleBean) {
-        this.cards = moduleBean.getCards();
-        this.moduleName = moduleBean.getModuleName();
+        cards = moduleBean.getCards();
+        moduleName = moduleBean.getModuleName();
     }
 
     public ArrayList<CardBean> getCards() {
@@ -30,15 +30,15 @@ public class ModuleBean {
     }
 
     public void setModule(ModuleBean module) {
-        this.cards = module.getCards();
-        this.moduleName = module.getModuleName();
+        cards = module.getCards();
+        moduleName = module.getModuleName();
     }
     public void setCards(ArrayList<CardBean> cards) {
         this.cards = new ArrayList<>(cards);
     }
 
     public void setCard(CardBean card, int index) {
-        this.cards.get(index).setCard(card);
+        cards.get(index).setCard(card);
     }
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
