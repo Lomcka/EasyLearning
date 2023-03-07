@@ -4,11 +4,13 @@ public class RegistrationInfoBean {
     public RegistrationInfoBean() {
         login = "";
         password = "";
+        keyWord = "";
     }
 
-    public RegistrationInfoBean(String login, String password) {
+    public RegistrationInfoBean(String login, String password, String keyWord) {
         this.login = login;
         this.password = password;
+        this.keyWord = keyWord;
     }
 
     public String getLogin() {
@@ -17,6 +19,10 @@ public class RegistrationInfoBean {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
     }
 
     public void setLogin(String login) {
@@ -35,6 +41,14 @@ public class RegistrationInfoBean {
         this.password = password;
     }
 
+    public void setKeyWord(String keyWord) {
+        if (keyWord == null) {
+            throw new IllegalArgumentException("kewWord points to null");
+        }
+
+        this.keyWord = keyWord;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -47,9 +61,10 @@ public class RegistrationInfoBean {
 
         RegistrationInfoBean regInfo = (RegistrationInfoBean) obj;
 
-        return login.equals(regInfo.getLogin()) && password.equals(regInfo.getPassword());
+        return login.equals(regInfo.login) && password.equals(regInfo.password) && keyWord.equals(regInfo.keyWord);
     }
 
     private String login;
     private String password;
+    private String keyWord;
 }
