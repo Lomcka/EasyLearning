@@ -1,14 +1,19 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class CardInfo {
-    public CardInfo() {
+public class CardBean {
+    public CardBean() {
         word = "";
         translation = "";
     }
 
-    public CardInfo(String word, String translation) {
+    public CardBean(String word, String translation) {
         this.word = word;
         this.translation = translation;
+    }
+
+    public CardBean(CardBean cardInfo) {
+        this.word = cardInfo.getWord();
+        this.translation = cardInfo.getTranslation();
     }
 
     public String getWord() {
@@ -19,11 +24,11 @@ public class CardInfo {
         return translation;
     }
 
-    public void setCard(String word) {
+    public void setWord(String word) {
         this.word = word;
     }
 
-    public void setCard(CardInfo word) {
+    public void setCard(CardBean word) {
         this.word = word.getWord();
         this.translation = word.getTranslation();
     }
@@ -47,9 +52,9 @@ public class CardInfo {
             return false;
         }
 
-        CardInfo otherWord = (CardInfo) other;
+        CardBean otherCard = (CardBean) other;
 
-        return word.equals(otherWord.word) && translation.equals(otherWord.translation);
+        return word.equals(otherCard.word) && translation.equals(otherCard.translation);
     }
 
     private String word;

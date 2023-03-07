@@ -1,13 +1,13 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class UserInfo {
-    public UserInfo() {
+public class UserInfoBean {
+    public UserInfoBean() {
         login = "";
         password = "";
         keyWord = "";
     }
 
-    public UserInfo(String login, String password, String keyWord) {
+    public UserInfoBean(String login, String password, String keyWord) {
         this.login = login;
         this.password = password;
         this.keyWord = keyWord;
@@ -47,9 +47,9 @@ public class UserInfo {
             return false;
         }
 
-        UserInfo info = (UserInfo) obj;
+        UserInfoBean userInfo = (UserInfoBean) obj;
 
-        return login.equals(info.login) && password.equals(info.password) && keyWord.equals(info.keyWord);
+        return login.equals(userInfo.login) && password.equals(userInfo.password) && keyWord.equals(userInfo.keyWord);
     }
 
     private String login;

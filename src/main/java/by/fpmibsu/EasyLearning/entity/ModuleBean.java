@@ -2,39 +2,42 @@ package by.fpmibsu.EasyLearning.entity;
 
 import java.util.ArrayList;
 
-public class ModuleInfo {
-    public ModuleInfo() {
+public class ModuleBean {
+    public ModuleBean() {
         cards = new ArrayList<>();
         moduleName = "";
     }
 
-    public ModuleInfo(String moduleName, ArrayList<CardInfo> words) {
+    public ModuleBean(String moduleName, ArrayList<CardBean> words) {
         this.cards = new ArrayList<>(words);
         this.moduleName = moduleName;
     }
 
-    public ModuleInfo(ModuleInfo moduleInfo) {
-        this.cards = moduleInfo.getCards();
-        this.moduleName = moduleInfo.getModuleName();
+    public ModuleBean(ModuleBean moduleBean) {
+        this.cards = moduleBean.getCards();
+        this.moduleName = moduleBean.getModuleName();
     }
 
-    public ArrayList<CardInfo> getCards() {
+    public ArrayList<CardBean> getCards() {
         return new ArrayList<>(cards);
+    }
+    public CardBean getCard(int index) {
+        return new CardBean(cards.get(index));
     }
 
     public String getModuleName() {
         return moduleName;
     }
 
-    public void setModule(ModuleInfo module) {
+    public void setModule(ModuleBean module) {
         this.cards = module.getCards();
         this.moduleName = module.getModuleName();
     }
-    public void setCards(ArrayList<CardInfo> cards) {
+    public void setCards(ArrayList<CardBean> cards) {
         this.cards = new ArrayList<>(cards);
     }
 
-    public void setCard(CardInfo card, int index) {
+    public void setCard(CardBean card, int index) {
         this.cards.get(index).setCard(card);
     }
     public void setModuleName(String moduleName) {
@@ -50,16 +53,16 @@ public class ModuleInfo {
             return false;
         }
 
-        ModuleInfo info = (ModuleInfo) obj;
+        ModuleBean module = (ModuleBean) obj;
 
-        return (cards.equals(info.getCards()) && moduleName.equals(info.getModuleName()));
+        return (cards.equals(module.getCards()) && moduleName.equals(module.getModuleName()));
     }
 
     @Override
-    protected ModuleInfo clone() {
-        return new ModuleInfo(moduleName, cards);
+    protected ModuleBean clone() {
+        return new ModuleBean(moduleName, cards);
     }
 
-    private ArrayList<CardInfo> cards;
+    private ArrayList<CardBean> cards;
     private String moduleName;
 }

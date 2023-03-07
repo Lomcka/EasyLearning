@@ -1,12 +1,12 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class RegistrationInfo {
-    public RegistrationInfo() {
+public class RegistrationInfoBean {
+    public RegistrationInfoBean() {
         login = "";
         password = "";
     }
 
-    public RegistrationInfo(String login, String password) {
+    public RegistrationInfoBean(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -37,9 +37,9 @@ public class RegistrationInfo {
             return false;
         }
 
-        UserInfo info = (UserInfo) obj;
+        RegistrationInfoBean regInfo = (RegistrationInfoBean) obj;
 
-        return login.equals(info.getLogin()) && password.equals(info.getPassword());
+        return login.equals(regInfo.getLogin()) && password.equals(regInfo.getPassword());
     }
 
     private String login;
