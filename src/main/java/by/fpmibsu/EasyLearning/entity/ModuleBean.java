@@ -55,7 +55,7 @@ public class ModuleBean {
 
         ModuleBean module = (ModuleBean) obj;
 
-        return (cards.equals(module.getCards()) && moduleName.equals(module.getModuleName()));
+        return cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
     }
 
     @Override
