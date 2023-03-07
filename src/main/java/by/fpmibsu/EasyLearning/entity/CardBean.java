@@ -25,15 +25,18 @@ public class CardBean {
     }
 
     public void setWord(String word) {
+        if (word == null) {
+            throw new IllegalArgumentException("word points to null");
+        }
+
         this.word = word;
     }
 
-    public void setCard(CardBean cardBean) {
-        word = cardBean.getWord();
-        translation = cardBean.getTranslation();
-    }
-
     public void setTranslation(String translation) {
+        if (translation == null) {
+            throw new IllegalArgumentException("translation points to null");
+        }
+
         this.translation = translation;
     }
 

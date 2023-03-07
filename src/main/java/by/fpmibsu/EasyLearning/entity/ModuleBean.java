@@ -30,19 +30,27 @@ public class ModuleBean {
         return moduleName;
     }
 
-    public void setModule(ModuleBean module) {
-        cards = module.getCards();
-        moduleName = module.getModuleName();
-    }
     public void setCards(ArrayList<CardBean> cards) {
+        if (cards == null) {
+            throw new IllegalArgumentException("ArrayList cards points to null");
+        }
+
         this.cards = new ArrayList<>(cards);
     }
 
     public void setCard(CardBean card, int index) {
-        cards.get(index).setCard(card);
+        if (card == null) {
+            throw new IllegalArgumentException("CardBean points to null");
+        }
+
+        cards.set(index, card);
     }
 
     public void setModuleName(String moduleName) {
+        if (moduleName == null) {
+            throw new IllegalArgumentException("moduleName points to null");
+        }
+
         this.moduleName = moduleName;
     }
 

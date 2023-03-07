@@ -20,10 +20,18 @@ public class RegistrationInfoBean {
     }
 
     public void setLogin(String login) {
+        if (login == null) {
+            throw new IllegalArgumentException("login points to null");
+        }
+
         this.login = login;
     }
 
     public void setPassword(String password) {
+        if (password == null) {
+            throw new IllegalArgumentException("password points to null");
+        }
+
         this.password = password;
     }
 

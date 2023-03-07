@@ -26,14 +26,26 @@ public class FolderBean {
     }
 
     public void setModules(ArrayList<ModuleBean> modules) {
+        if (modules == null) {
+            throw new IllegalArgumentException("ArrayList modules points to null");
+        }
+
         this.modules = new ArrayList<ModuleBean>(modules);
     }
 
     public void setModule(ModuleBean module, int index) {
-        modules.get(index).setModule(module);
+        if (module == null) {
+            throw new IllegalArgumentException("module points to null");
+        }
+
+        modules.set(index, module);
     }
 
     public void setFolderName(String folderName) {
+        if (folderName == null) {
+            throw new IllegalArgumentException("folderName points to null");
+        }
+
         this.folderName = folderName;
     }
 
