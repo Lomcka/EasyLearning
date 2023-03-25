@@ -1,12 +1,14 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class UserInfoBean {
+public class UserInfoBean extends Bean {
     public UserInfoBean() {
+        super();
         login = "";
         password = "";
     }
 
-    public UserInfoBean(String login, String password) {
+    public UserInfoBean(Long id, String login, String password) {
+        super(id);
         if (login == null) {
             throw new IllegalArgumentException("login is null");
         }
@@ -55,7 +57,8 @@ public class UserInfoBean {
 
         UserInfoBean userInfo = (UserInfoBean) obj;
 
-        return login.equals(userInfo.getLogin()) && password.equals(userInfo.getPassword());
+        return id.equals(userInfo.getId()) &&
+                login.equals(userInfo.getLogin()) && password.equals(userInfo.getPassword());
     }
 
     private String login;

@@ -1,13 +1,14 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class RegistrationInfoBean {
+public class RegistrationInfoBean extends Bean {
     public RegistrationInfoBean() {
         login = "";
         password = "";
         keyWord = "";
     }
 
-    public RegistrationInfoBean(String login, String password, String keyWord) {
+    public RegistrationInfoBean(Long id, String login, String password, String keyWord) {
+        super(id);
         if (login == null) {
             throw new IllegalArgumentException("login is null");
         }
@@ -73,7 +74,8 @@ public class RegistrationInfoBean {
 
         RegistrationInfoBean regInfo = (RegistrationInfoBean) obj;
 
-        return login.equals(regInfo.login) && password.equals(regInfo.password) && keyWord.equals(regInfo.keyWord);
+        return id.equals(regInfo.getId()) && login.equals(regInfo.login) &&
+                password.equals(regInfo.password) && keyWord.equals(regInfo.keyWord);
     }
 
     private String login;
