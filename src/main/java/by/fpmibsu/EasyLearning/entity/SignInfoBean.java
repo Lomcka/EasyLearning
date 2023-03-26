@@ -1,13 +1,13 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class RegistrationInfoBean extends Bean {
-    public RegistrationInfoBean() {
+public class SignInfoBean extends Bean {
+    public SignInfoBean() {
+        super();
         login = "";
         password = "";
-        keyWord = "";
     }
 
-    public RegistrationInfoBean(Long id, String login, String password, String keyWord) {
+    public SignInfoBean(Long id, String login, String password) {
         super(id);
         if (login == null) {
             throw new IllegalArgumentException("login is null");
@@ -17,13 +17,8 @@ public class RegistrationInfoBean extends Bean {
             throw new IllegalArgumentException("password is null");
         }
 
-        if (keyWord == null) {
-            throw new IllegalArgumentException("keyWord is null");
-        }
-
         this.login = login;
         this.password = password;
-        this.keyWord = keyWord;
     }
 
     public String getLogin() {
@@ -32,10 +27,6 @@ public class RegistrationInfoBean extends Bean {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getKeyWord() {
-        return keyWord;
     }
 
     public void setLogin(String login) {
@@ -54,14 +45,6 @@ public class RegistrationInfoBean extends Bean {
         this.password = password;
     }
 
-    public void setKeyWord(String keyWord) {
-        if (keyWord == null) {
-            throw new IllegalArgumentException("kewWord is null");
-        }
-
-        this.keyWord = keyWord;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -72,13 +55,12 @@ public class RegistrationInfoBean extends Bean {
             return false;
         }
 
-        RegistrationInfoBean regInfo = (RegistrationInfoBean) obj;
+        SignInfoBean userInfo = (SignInfoBean) obj;
 
-        return id.equals(regInfo.getId()) && login.equals(regInfo.login) &&
-                password.equals(regInfo.password) && keyWord.equals(regInfo.keyWord);
+        return id.equals(userInfo.getId()) &&
+                login.equals(userInfo.getLogin()) && password.equals(userInfo.getPassword());
     }
 
     private String login;
     private String password;
-    private String keyWord;
 }
