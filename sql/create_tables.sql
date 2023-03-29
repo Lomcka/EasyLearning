@@ -9,7 +9,7 @@ CREATE TABLE users (
 
 CREATE TABLE passwords (
 	id serial,
-	user_id integer,
+	user_id integer NOT NULL,
 	password varchar(256) NOT NULL,
 	CONSTRAINT PK_passwords PRIMARY KEY(id),
 	CONSTRAINT FK_passwords_users FOREIGN KEY(user_id) REFERENCES users(id)
@@ -19,7 +19,7 @@ CREATE TABLE passwords (
 CREATE TABLE modules (
 	id bigserial,
 	name varchar(256) NOT NULL,
-	owner_id integer,
+	owner_id integer NOT NULL,
 	CONSTRAINT PK_modules PRIMARY KEY(id),
 	CONSTRAINT FK_modules_users FOREIGN KEY(owner_id) REFERENCES users(id)
 );
@@ -27,20 +27,20 @@ CREATE TABLE modules (
 CREATE TABLE folders (
 	id bigserial,
 	name varchar(256) NOT NULL,
-	owner_id integer,
+	owner_id integer NOT NULL,
 	CONSTRAINT PK_folders PRIMARY KEY(id),
 	CONSTRAINT FK_folders_users FOREIGN KEY(owner_id) REFERENCES users(id)
 );
 
 CREATE TABLE modules_readers (
-	module_id bigint,
-	reader_id integer,
+	module_id bigint NOT NULL,
+	reader_id integer NOT NULL,
 	CONSTRAINT FK_modules_readers_modules FOREIGN KEY(module_id) REFERENCES modules(id),
 	CONSTRAINT FK_modules_readers_users FOREIGN KEY(reader_id) REFERENCES users(id)
 );
 
 CREATE TABLE modules_contents (
-	module_id bigint,
+	module_id bigint NOT NULL,
 	card_id integer NOT NULL,
 	word varchar(256) NOT NULL,
 	translation varchar(256) NOT NULL,
@@ -49,8 +49,8 @@ CREATE TABLE modules_contents (
 );
 
 CREATE TABLE folders_contents (
-	folder_id bigint,
-	module_id bigint,
+	folder_id bigint NOT NULL,
+	module_id bigint NOT NULL,
 	CONSTRAINT FK_folders_contents_folders FOREIGN KEY(folder_id) REFERENCES folders(id),
 	CONSTRAINT FK_folders_contents_modules FOREIGN KEY(module_id) REFERENCES modules(id)
 );
