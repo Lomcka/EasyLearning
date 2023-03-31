@@ -55,10 +55,10 @@ public class SignInfoBean extends Bean {
             return false;
         }
 
-        SignInfoBean userInfo = (SignInfoBean) obj;
+        SignInfoBean signInfo = (SignInfoBean) obj;
 
-        return id.equals(userInfo.getId()) &&
-                login.equals(userInfo.getLogin()) && password.equals(userInfo.getPassword());
+        return id.equals(signInfo.getId()) &&
+                login.equals(signInfo.getLogin()) && password.equals(signInfo.getPassword());
     }
 
     private String login;

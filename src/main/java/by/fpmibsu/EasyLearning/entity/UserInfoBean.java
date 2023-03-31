@@ -56,7 +56,7 @@ public class UserInfoBean extends Bean {
 
     public void setKeyWord(String keyWord) {
         if (keyWord == null) {
-            throw new IllegalArgumentException("kewWord is null");
+            throw new IllegalArgumentException("keyWord is null");
         }
 
         this.keyWord = keyWord;
@@ -72,10 +72,10 @@ public class UserInfoBean extends Bean {
             return false;
         }
 
-        UserInfoBean regInfo = (UserInfoBean) obj;
+        UserInfoBean userInfo = (UserInfoBean) obj;
 
-        return id.equals(regInfo.getId()) && login.equals(regInfo.login) &&
-                password.equals(regInfo.password) && keyWord.equals(regInfo.keyWord);
+        return id.equals(userInfo.getId()) && login.equals(userInfo.login) &&
+                password.equals(userInfo.password) && keyWord.equals(userInfo.keyWord);
     }
 
     private String login;
