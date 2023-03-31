@@ -1,6 +1,6 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public abstract class Bean{
+public abstract class Bean {
     public Bean() {
         id = Long.valueOf(0);
     }
