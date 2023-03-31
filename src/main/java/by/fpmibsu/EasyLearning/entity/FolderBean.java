@@ -2,13 +2,14 @@ package by.fpmibsu.EasyLearning.entity;
 
 import java.util.ArrayList;
 
-public class FolderBean {
+public class FolderBean extends Bean {
     public FolderBean() {
         modules = new ArrayList<ModuleBean>();
         folderName = "";
     }
 
-    public FolderBean(String folderName, ArrayList<ModuleBean> modules) {
+    public FolderBean(Long id, String folderName, ArrayList<ModuleBean> modules) {
+        super(id);
         if (folderName == null) {
             throw new IllegalArgumentException("folderName is null");
         }
@@ -68,8 +69,10 @@ public class FolderBean {
         }
 
         FolderBean folder = (FolderBean) obj;
-        return modules.equals(folder.getModules()) && folderName.equals(folder.getFolderName());
+        return id.equals(folder.getId()) &&
+                modules.equals(folder.getModules()) && folderName.equals(folder.getFolderName());
     }
+
     private ArrayList<ModuleBean> modules;
     private String folderName;
 }

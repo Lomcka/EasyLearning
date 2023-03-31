@@ -1,12 +1,13 @@
 package by.fpmibsu.EasyLearning.entity;
 
-public class CardBean {
+public class CardBean extends Bean {
     public CardBean() {
         word = "";
         translation = "";
     }
 
-    public CardBean(String word, String translation) {
+    public CardBean(Long id, String word, String translation) {
+        super(id);
         if (word == null) {
             throw new IllegalArgumentException("word is null");
         }
@@ -24,6 +25,7 @@ public class CardBean {
             throw new IllegalArgumentException("cardBean is null");
         }
 
+        id = cardBean.getId();
         word = cardBean.getWord();
         translation = cardBean.getTranslation();
     }
@@ -54,7 +56,7 @@ public class CardBean {
 
     @Override
     public String toString() {
-        return word + " " + translation;
+        return id.toString() + " " + word + " " + translation;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class CardBean {
 
         CardBean otherCard = (CardBean) other;
 
-        return word.equals(otherCard.word) && translation.equals(otherCard.translation);
+        return id.equals(otherCard.getId()) && word.equals(otherCard.word) && translation.equals(otherCard.translation);
     }
 
     private String word;

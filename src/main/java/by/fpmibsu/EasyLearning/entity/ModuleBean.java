@@ -2,13 +2,14 @@ package by.fpmibsu.EasyLearning.entity;
 
 import java.util.ArrayList;
 
-public class ModuleBean {
+public class ModuleBean extends Bean {
     public ModuleBean() {
         cards = new ArrayList<>();
         moduleName = "";
     }
 
-    public ModuleBean(String moduleName, ArrayList<CardBean> cards) {
+    public ModuleBean(Long id, String moduleName, ArrayList<CardBean> cards) {
+        super(id);
         if (moduleName == null) {
             throw new IllegalArgumentException("moduleName is null");
         }
@@ -26,6 +27,7 @@ public class ModuleBean {
             throw new IllegalArgumentException("moduleBean is null");
         }
 
+        id = moduleBean.getId();
         cards = moduleBean.getCards();
         moduleName = moduleBean.getModuleName();
     }
@@ -78,7 +80,8 @@ public class ModuleBean {
 
         ModuleBean module = (ModuleBean) obj;
 
-        return cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
+        return id.equals(module.getId()) &&
+                cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
     }
 
     private ArrayList<CardBean> cards;
