@@ -2,7 +2,7 @@ package by.fpmibsu.EasyLearning.entity;
 
 public abstract class Bean {
     public Bean() {
-        id = Long.valueOf(0);
+        id = 0L;
     }
 
     public Bean(Long id) {
