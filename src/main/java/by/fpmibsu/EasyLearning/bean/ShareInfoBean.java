@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.Bean;
+package by.fpmibsu.EasyLearning.bean;
 
 public class ShareInfoBean extends Bean {
     public ShareInfoBean() {

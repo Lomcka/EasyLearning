@@ -1,6 +1,6 @@
-package by.fpmibsu.EasyLearning.Bean.DaoBean;
+package by.fpmibsu.EasyLearning.bean.dao_bean;
 
-import by.fpmibsu.EasyLearning.Bean.Bean;
+import by.fpmibsu.EasyLearning.bean.Bean;
 
 public class FolderDaoBean extends Bean {
     public FolderDaoBean() {

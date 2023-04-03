@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.Bean;
+package by.fpmibsu.EasyLearning.bean;
 
 import java.util.ArrayList;
 
