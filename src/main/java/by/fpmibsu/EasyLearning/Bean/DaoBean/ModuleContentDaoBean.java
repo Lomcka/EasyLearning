@@ -1,6 +1,6 @@
-package by.fpmibsu.EasyLearning.entity.DaoBean;
+package by.fpmibsu.EasyLearning.Bean.DaoBean;
 
-import by.fpmibsu.EasyLearning.entity.Bean;
+import by.fpmibsu.EasyLearning.Bean.Bean;
 
 public class ModuleContentDaoBean extends Bean {
     public ModuleContentDaoBean() {

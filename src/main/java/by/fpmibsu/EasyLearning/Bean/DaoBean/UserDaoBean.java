@@ -1,12 +1,14 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.Bean.DaoBean;
 
-public class ShareInfoBean extends Bean {
-    public ShareInfoBean() {
+import by.fpmibsu.EasyLearning.Bean.Bean;
+
+public class UserDaoBean extends Bean {
+    public UserDaoBean() {
         login = "";
         keyWord = "";
     }
 
-    public ShareInfoBean(Long id, String login, String keyWord) {
+    public UserDaoBean(Long id, String login, String keyWord) {
         super(id);
         if (login == null) {
             throw new IllegalArgumentException("login is null");
@@ -45,10 +47,10 @@ public class ShareInfoBean extends Bean {
             return false;
         }
 
-        ShareInfoBean shareInfo = (ShareInfoBean) obj;
+        UserDaoBean user = (UserDaoBean) obj;
 
-        return id.equals(shareInfo.getId()) &&
-                login.equals(shareInfo.getLogin()) && keyWord.equals(shareInfo.getKeyWord());
+        return id.equals(user.getId()) &&
+                login.equals(user.getLogin()) && keyWord.equals(user.getKeyWord());
     }
 
     private String login;

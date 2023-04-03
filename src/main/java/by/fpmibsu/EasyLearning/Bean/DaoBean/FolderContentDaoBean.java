@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.entity.DaoBean;
+package by.fpmibsu.EasyLearning.Bean.DaoBean;
 
 public class FolderContentDaoBean {
     public FolderContentDaoBean() {

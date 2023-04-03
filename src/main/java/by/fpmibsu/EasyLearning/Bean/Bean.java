@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.Bean;
 
 public abstract class Bean {
     public Bean() {

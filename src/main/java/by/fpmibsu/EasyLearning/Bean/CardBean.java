@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.Bean;
 
 public class CardBean extends Bean {
     public CardBean() {
