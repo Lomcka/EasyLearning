@@ -2,13 +2,13 @@ package by.fpmibsu.EasyLearning.entity;
 
 import java.util.ArrayList;
 
-public class ModuleInfoBean extends Bean {
-    public ModuleInfoBean() {
+public class ModuleBean extends Bean {
+    public ModuleBean() {
         cards = new ArrayList<>();
         moduleName = "";
     }
 
-    public ModuleInfoBean(Long id, String moduleName, ArrayList<CardInfoBean> cards) {
+    public ModuleBean(Long id, String moduleName, ArrayList<CardBean> cards) {
         super(id);
         if (moduleName == null) {
             throw new IllegalArgumentException("moduleName is null");
@@ -22,7 +22,7 @@ public class ModuleInfoBean extends Bean {
         this.moduleName = moduleName;
     }
 
-    public ModuleInfoBean(ModuleInfoBean moduleBean) {
+    public ModuleBean(ModuleBean moduleBean) {
         if (moduleBean == null) {
             throw new IllegalArgumentException("moduleBean is null");
         }
@@ -32,19 +32,19 @@ public class ModuleInfoBean extends Bean {
         moduleName = moduleBean.getModuleName();
     }
 
-    public ArrayList<CardInfoBean> getCards() {
+    public ArrayList<CardBean> getCards() {
         return new ArrayList<>(cards);
     }
 
-    public CardInfoBean getCard(int index) {
-        return new CardInfoBean(cards.get(index));
+    public CardBean getCard(int index) {
+        return new CardBean(cards.get(index));
     }
 
     public String getModuleName() {
         return moduleName;
     }
 
-    public void setCards(ArrayList<CardInfoBean> cards) {
+    public void setCards(ArrayList<CardBean> cards) {
         if (cards == null) {
             throw new IllegalArgumentException("ArrayList cards is null");
         }
@@ -52,12 +52,12 @@ public class ModuleInfoBean extends Bean {
         this.cards = new ArrayList<>(cards);
     }
 
-    public void setCard(CardInfoBean card, int index) {
+    public void setCard(CardBean card, int index) {
         if (card == null) {
             throw new IllegalArgumentException("CardBean is null");
         }
 
-        cards.set(index, new CardInfoBean(card));
+        cards.set(index, new CardBean(card));
     }
 
     public void setModuleName(String moduleName) {
@@ -78,12 +78,12 @@ public class ModuleInfoBean extends Bean {
             return false;
         }
 
-        ModuleInfoBean module = (ModuleInfoBean) obj;
+        ModuleBean module = (ModuleBean) obj;
 
         return id.equals(module.getId()) &&
                 cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
     }
 
-    private ArrayList<CardInfoBean> cards;
+    private ArrayList<CardBean> cards;
     private String moduleName;
 }

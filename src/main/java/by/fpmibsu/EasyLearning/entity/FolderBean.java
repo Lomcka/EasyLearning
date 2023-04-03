@@ -2,13 +2,13 @@ package by.fpmibsu.EasyLearning.entity;
 
 import java.util.ArrayList;
 
-public class FolderInfoBean extends Bean {
-    public FolderInfoBean() {
-        modules = new ArrayList<ModuleInfoBean>();
+public class FolderBean extends Bean {
+    public FolderBean() {
+        modules = new ArrayList<ModuleBean>();
         folderName = "";
     }
 
-    public FolderInfoBean(Long id, String folderName, ArrayList<ModuleInfoBean> modules) {
+    public FolderBean(Long id, String folderName, ArrayList<ModuleBean> modules) {
         super(id);
         if (folderName == null) {
             throw new IllegalArgumentException("folderName is null");
@@ -18,36 +18,36 @@ public class FolderInfoBean extends Bean {
             throw new IllegalArgumentException("ArrayList modules is null");
         }
 
-        this.modules = new ArrayList<ModuleInfoBean>(modules);
+        this.modules = new ArrayList<ModuleBean>(modules);
         this.folderName = folderName;
     }
 
-    public ArrayList<ModuleInfoBean> getModules() {
-        return new ArrayList<ModuleInfoBean>(modules);
+    public ArrayList<ModuleBean> getModules() {
+        return new ArrayList<ModuleBean>(modules);
     }
 
     public String getFolderName() {
         return folderName;
     }
 
-    public ModuleInfoBean getModule(int index) {
-        return new ModuleInfoBean(modules.get(index));
+    public ModuleBean getModule(int index) {
+        return new ModuleBean(modules.get(index));
     }
 
-    public void setModules(ArrayList<ModuleInfoBean> modules) {
+    public void setModules(ArrayList<ModuleBean> modules) {
         if (modules == null) {
             throw new IllegalArgumentException("ArrayList modules is null");
         }
 
-        this.modules = new ArrayList<ModuleInfoBean>(modules);
+        this.modules = new ArrayList<ModuleBean>(modules);
     }
 
-    public void setModule(ModuleInfoBean module, int index) {
+    public void setModule(ModuleBean module, int index) {
         if (module == null) {
             throw new IllegalArgumentException("module is null");
         }
 
-        modules.set(index, new ModuleInfoBean(module));
+        modules.set(index, new ModuleBean(module));
     }
 
     public void setFolderName(String folderName) {
@@ -68,11 +68,11 @@ public class FolderInfoBean extends Bean {
             return false;
         }
 
-        FolderInfoBean folder = (FolderInfoBean) obj;
+        FolderBean folder = (FolderBean) obj;
         return id.equals(folder.getId()) &&
                 modules.equals(folder.getModules()) && folderName.equals(folder.getFolderName());
     }
 
-    private ArrayList<ModuleInfoBean> modules;
+    private ArrayList<ModuleBean> modules;
     private String folderName;
 }

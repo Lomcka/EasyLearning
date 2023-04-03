@@ -1,14 +1,12 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.entity.DaoBean;
 
-import java.util.Objects;
-
-public class FolderContentDAO {
-    public FolderContentDAO() {
+public class FolderContentDaoBean {
+    public FolderContentDaoBean() {
         folderId = 0L;
         moduleId = 0L;
     }
 
-    public FolderContentDAO(Long folderId, Long moduleId) {
+    public FolderContentDaoBean(Long folderId, Long moduleId) {
         if (folderId == null) {
             throw new IllegalArgumentException("folderId is null");
         }
@@ -53,7 +51,7 @@ public class FolderContentDAO {
             return false;
         }
 
-        FolderContentDAO folderContent = (FolderContentDAO) obj;
+        FolderContentDaoBean folderContent = (FolderContentDaoBean) obj;
 
         return folderId.equals(folderContent.folderId) && moduleId.equals(folderContent.moduleId);
     }

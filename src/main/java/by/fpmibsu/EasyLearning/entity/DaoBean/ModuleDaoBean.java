@@ -1,12 +1,14 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.entity.DaoBean;
 
-public class ModuleDAO extends Bean {
-    public ModuleDAO() {
+import by.fpmibsu.EasyLearning.entity.Bean;
+
+public class ModuleDaoBean extends Bean {
+    public ModuleDaoBean() {
         moduleName = "";
         ownerId = 0L;
     }
 
-    public ModuleDAO(String moduleName, Long ownerId) {
+    public ModuleDaoBean(String moduleName, Long ownerId) {
         if (moduleName == null) {
             throw new IllegalArgumentException("moduleName is null");
         }
@@ -52,7 +54,7 @@ public class ModuleDAO extends Bean {
             return false;
         }
 
-        ModuleDAO moduleDAO = (ModuleDAO) obj;
+        ModuleDaoBean moduleDAO = (ModuleDaoBean) obj;
         return moduleName.equals(moduleDAO.moduleName) && ownerId.equals(moduleDAO.ownerId);
     }
 

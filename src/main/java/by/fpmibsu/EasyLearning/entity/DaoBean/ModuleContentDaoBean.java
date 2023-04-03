@@ -1,14 +1,16 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.entity.DaoBean;
 
-public class ModuleContentDAO extends Bean {
-    public ModuleContentDAO() {
+import by.fpmibsu.EasyLearning.entity.Bean;
+
+public class ModuleContentDaoBean extends Bean {
+    public ModuleContentDaoBean() {
         moduleId = 0L;
         cardId = 0L;
         word = "";
         translation = "";
     }
 
-    public ModuleContentDAO(Long moduleId, Long cardId, String word, String translation) {
+    public ModuleContentDaoBean(Long moduleId, Long cardId, String word, String translation) {
         if (moduleId == null) {
             throw new IllegalArgumentException("moduleId is null");
         }
@@ -86,7 +88,7 @@ public class ModuleContentDAO extends Bean {
             return false;
         }
 
-        ModuleContentDAO content = (ModuleContentDAO) obj;
+        ModuleContentDaoBean content = (ModuleContentDaoBean) obj;
         return moduleId.equals(content.moduleId) && cardId.equals(content.cardId)
                 && word.equals(content.word) && translation.equals(content.translation);
     }

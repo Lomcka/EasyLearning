@@ -1,11 +1,13 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.entity.DaoBean;
 
-public class PasswordDAO extends Bean {
-    public PasswordDAO() {
+import by.fpmibsu.EasyLearning.entity.Bean;
+
+public class PasswordDaoBean extends Bean {
+    public PasswordDaoBean() {
         password = "";
     }
 
-    public PasswordDAO(String password) {
+    public PasswordDaoBean(String password) {
         super();
         if (password == null) {
             throw new IllegalArgumentException("password is null");
@@ -36,7 +38,7 @@ public class PasswordDAO extends Bean {
             return false;
         }
 
-        PasswordDAO passwordBean = (PasswordDAO) obj;
+        PasswordDaoBean passwordBean = (PasswordDaoBean) obj;
         return password.equals(passwordBean.password);
     }
 

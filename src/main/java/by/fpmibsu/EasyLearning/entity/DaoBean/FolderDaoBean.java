@@ -1,12 +1,14 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.entity.DaoBean;
 
-public class FolderDAO extends Bean {
-    public FolderDAO() {
+import by.fpmibsu.EasyLearning.entity.Bean;
+
+public class FolderDaoBean extends Bean {
+    public FolderDaoBean() {
         folderName = "";
         ownerId = 0L;
     }
 
-    public FolderDAO(Long id, String folderName, Long ownerId) {
+    public FolderDaoBean(Long id, String folderName, Long ownerId) {
         super(id);
         if (folderName == null) {
             throw new IllegalArgumentException("folderName is null");
@@ -53,7 +55,7 @@ public class FolderDAO extends Bean {
             return false;
         }
 
-        FolderDAO folder = (FolderDAO) obj;
+        FolderDaoBean folder = (FolderDaoBean) obj;
         return id.equals(folder.id) && folderName.equals(folder.folderName) && ownerId.equals(folder.ownerId);
     }
 
