@@ -78,6 +78,16 @@ public class UserInfoBean extends Bean {
                 password.equals(userInfo.password) && keyWord.equals(userInfo.keyWord);
     }
 
+    @Override
+    public String toString() {
+        return "UserInfoBean{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", keyWord='" + keyWord + '\'' +
+                '}';
+    }
+
     private String login;
     private String password;
     private String keyWord;

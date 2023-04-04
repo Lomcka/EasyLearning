@@ -61,6 +61,15 @@ public class SignInfoBean extends Bean {
                 login.equals(signInfo.getLogin()) && password.equals(signInfo.getPassword());
     }
 
+    @Override
+    public String toString() {
+        return "SignInfoBean{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     private String login;
     private String password;
 }

@@ -58,6 +58,14 @@ public class ModuleReaderDaoBean extends Bean {
         return moduleId.equals(moduleReader.moduleId) && readerId.equals(moduleReader.readerId);
     }
 
+    @Override
+    public String toString() {
+        return "ModuleReaderDaoBean{" +
+                "moduleId=" + moduleId +
+                ", readerId=" + readerId +
+                '}';
+    }
+
     private Long moduleId;
     private Long readerId;
 }

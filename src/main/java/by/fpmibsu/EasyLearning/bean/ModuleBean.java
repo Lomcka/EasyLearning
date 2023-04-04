@@ -84,6 +84,15 @@ public class ModuleBean extends Bean {
                 cards.equals(module.getCards()) && moduleName.equals(module.getModuleName());
     }
 
+    @Override
+    public String toString() {
+        return "ModuleBean{" +
+                "id=" + id +
+                ", moduleName='" + moduleName + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
+
     private ArrayList<CardBean> cards;
     private String moduleName;
 }

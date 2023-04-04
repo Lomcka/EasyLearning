@@ -59,6 +59,15 @@ public class ModuleDaoBean extends Bean {
         return id.equals(moduleDAO.id) && moduleName.equals(moduleDAO.moduleName) && ownerId.equals(moduleDAO.ownerId);
     }
 
+    @Override
+    public String toString() {
+        return "ModuleDaoBean{" +
+                "id=" + id +
+                ", moduleName='" + moduleName + '\'' +
+                ", ownerId=" + ownerId +
+                '}';
+    }
+
     private String moduleName;
     private Long ownerId;
 }

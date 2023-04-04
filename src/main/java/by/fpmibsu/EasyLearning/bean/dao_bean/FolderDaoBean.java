@@ -59,6 +59,15 @@ public class FolderDaoBean extends Bean {
         return id.equals(folder.id) && folderName.equals(folder.folderName) && ownerId.equals(folder.ownerId);
     }
 
+    @Override
+    public String toString() {
+        return "FolderDaoBean{" +
+                "id=" + id +
+                ", folderName='" + folderName + '\'' +
+                ", ownerId=" + ownerId +
+                '}';
+    }
+
     private String folderName;
     private Long ownerId;
 }

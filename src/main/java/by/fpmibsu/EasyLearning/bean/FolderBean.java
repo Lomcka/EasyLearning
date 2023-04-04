@@ -73,6 +73,15 @@ public class FolderBean extends Bean {
                 modules.equals(folder.getModules()) && folderName.equals(folder.getFolderName());
     }
 
+    @Override
+    public String toString() {
+        return "FolderBean{" +
+                "id=" + id +
+                ", folderName='" + folderName + '\'' +
+                ", modules=" + modules +
+                '}';
+    }
+
     private ArrayList<ModuleBean> modules;
     private String folderName;
 }
