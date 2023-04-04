@@ -59,6 +59,14 @@ public class PasswordDaoBean extends Bean {
         return userId.equals(passwordBean.userId) && password.equals(passwordBean.password);
     }
 
+    @Override
+    public String toString() {
+        return "PasswordDaoBean{" +
+                "userId=" + userId +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     private Long userId;
     private String password;
 }

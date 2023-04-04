@@ -55,11 +55,6 @@ public class CardBean extends Bean {
     }
 
     @Override
-    public String toString() {
-        return id.toString() + " " + word + " " + translation;
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (this == other) {
             return true;
@@ -72,6 +67,15 @@ public class CardBean extends Bean {
         CardBean otherCard = (CardBean) other;
 
         return id.equals(otherCard.getId()) && word.equals(otherCard.word) && translation.equals(otherCard.translation);
+    }
+
+    @Override
+    public String toString() {
+        return "CardBean{" +
+                "word='" + word + '\'' +
+                ", translation='" + translation + '\'' +
+                ", id=" + id +
+                '}';
     }
 
     private String word;

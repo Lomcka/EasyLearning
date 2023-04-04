@@ -58,6 +58,14 @@ public class FolderContentDaoBean extends Bean {
         return folderId.equals(folderContent.folderId) && moduleId.equals(folderContent.moduleId);
     }
 
+    @Override
+    public String toString() {
+        return "FolderContentDaoBean{" +
+                "folderId=" + folderId +
+                ", moduleId=" + moduleId +
+                '}';
+    }
+
     private Long folderId;
     private Long moduleId;
 }

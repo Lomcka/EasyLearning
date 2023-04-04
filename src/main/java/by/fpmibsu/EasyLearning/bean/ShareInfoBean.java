@@ -59,6 +59,15 @@ public class ShareInfoBean extends Bean {
                 login.equals(shareInfo.getLogin()) && keyWord.equals(shareInfo.getKeyWord());
     }
 
+    @Override
+    public String toString() {
+        return "ShareInfoBean{" +
+                "login='" + login + '\'' +
+                ", keyWord='" + keyWord + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
     private String login;
     private String keyWord;
 }

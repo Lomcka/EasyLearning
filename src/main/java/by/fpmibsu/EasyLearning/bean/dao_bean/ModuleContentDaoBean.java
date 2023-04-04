@@ -93,6 +93,16 @@ public class ModuleContentDaoBean extends Bean {
                 && word.equals(content.word) && translation.equals(content.translation);
     }
 
+    @Override
+    public String toString() {
+        return "ModuleContentDaoBean{" +
+                "moduleId=" + moduleId +
+                ", cardId=" + cardId +
+                ", word='" + word + '\'' +
+                ", translation='" + translation + '\'' +
+                '}';
+    }
+
     private Long moduleId;
     private Long cardId;
     private String word;

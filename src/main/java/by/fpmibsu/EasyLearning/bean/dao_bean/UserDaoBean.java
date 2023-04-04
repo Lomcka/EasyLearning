@@ -53,6 +53,15 @@ public class UserDaoBean extends Bean {
                 login.equals(user.getLogin()) && keyWord.equals(user.getKeyWord());
     }
 
+    @Override
+    public String toString() {
+        return "UserDaoBean{" +
+                "login='" + login + '\'' +
+                ", keyWord='" + keyWord + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
     private String login;
     private String keyWord;
 }
