@@ -1,11 +1,10 @@
 package by.fpmibsu.EasyLearning.bean.dao_bean;
 
-import java.util.Objects;
-
 import by.fpmibsu.EasyLearning.bean.Bean;
 
 public class PasswordDaoBean extends Bean {
     public PasswordDaoBean() {
+        userId = 0L;
         password = "";
     }
 
