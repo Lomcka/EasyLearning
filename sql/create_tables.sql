@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE passwords (
 	user_id bigint NOT NULL,
-	password varchar(256) NOT NULL,
+	user_password varchar(256) NOT NULL,
 	CONSTRAINT FK_passwords_users FOREIGN KEY(user_id) REFERENCES users(id)
 	ON DELETE CASCADE,
 	CONSTRAINT UNIQUE_passwords_user_id UNIQUE(user_id)
