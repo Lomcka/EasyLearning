@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.entity;
+package by.fpmibsu.EasyLearning.bean;
 
 public class ShareInfoBean extends Bean {
     public ShareInfoBean() {
@@ -28,10 +28,18 @@ public class ShareInfoBean extends Bean {
     }
 
     public void setLogin(String login) {
+        if (login == null) {
+            throw new IllegalArgumentException("login is null");
+        }
+
         this.login = login;
     }
 
     public void setKeyWord(String keyWord) {
+        if (keyWord == null) {
+            throw new IllegalArgumentException("keyWord is null");
+        }
+
         this.keyWord = keyWord;
     }
 
