@@ -1,6 +1,8 @@
 package by.fpmibsu.EasyLearning.bean.dao_bean;
 
-public class FolderContentDaoBean {
+import by.fpmibsu.EasyLearning.bean.Bean;
+
+public class FolderContentDaoBean extends Bean {
     public FolderContentDaoBean() {
         folderId = 0L;
         moduleId = 0L;

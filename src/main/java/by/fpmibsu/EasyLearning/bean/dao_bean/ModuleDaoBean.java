@@ -8,7 +8,8 @@ public class ModuleDaoBean extends Bean {
         ownerId = 0L;
     }
 
-    public ModuleDaoBean(String moduleName, Long ownerId) {
+    public ModuleDaoBean(Long id, String moduleName, Long ownerId) {
+        super(id);
         if (moduleName == null) {
             throw new IllegalArgumentException("moduleName is null");
         }
@@ -55,7 +56,7 @@ public class ModuleDaoBean extends Bean {
         }
 
         ModuleDaoBean moduleDAO = (ModuleDaoBean) obj;
-        return moduleName.equals(moduleDAO.moduleName) && ownerId.equals(moduleDAO.ownerId);
+        return id.equals(moduleDAO.id) && moduleName.equals(moduleDAO.moduleName) && ownerId.equals(moduleDAO.ownerId);
     }
 
     private String moduleName;
