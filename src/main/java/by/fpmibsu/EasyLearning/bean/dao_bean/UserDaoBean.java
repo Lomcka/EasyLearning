@@ -56,9 +56,9 @@ public class UserDaoBean extends Bean {
     @Override
     public String toString() {
         return "UserDaoBean{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", keyWord='" + keyWord + '\'' +
-                ", id=" + id +
                 '}';
     }
 

@@ -72,9 +72,9 @@ public class CardBean extends Bean {
     @Override
     public String toString() {
         return "CardBean{" +
-                "word='" + word + '\'' +
+                "id=" + id +
+                ", word='" + word + '\'' +
                 ", translation='" + translation + '\'' +
-                ", id=" + id +
                 '}';
     }
 

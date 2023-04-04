@@ -87,9 +87,9 @@ public class ModuleBean extends Bean {
     @Override
     public String toString() {
         return "ModuleBean{" +
-                "cards=" + cards +
+                "id=" + id +
                 ", moduleName='" + moduleName + '\'' +
-                ", id=" + id +
+                ", cards=" + cards +
                 '}';
     }
 

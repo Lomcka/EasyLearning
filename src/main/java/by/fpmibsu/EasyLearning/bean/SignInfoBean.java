@@ -64,9 +64,9 @@ public class SignInfoBean extends Bean {
     @Override
     public String toString() {
         return "SignInfoBean{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", id=" + id +
                 '}';
     }
 

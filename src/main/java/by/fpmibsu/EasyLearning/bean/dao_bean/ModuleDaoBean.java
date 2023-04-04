@@ -62,9 +62,9 @@ public class ModuleDaoBean extends Bean {
     @Override
     public String toString() {
         return "ModuleDaoBean{" +
-                "moduleName='" + moduleName + '\'' +
+                "id=" + id +
+                ", moduleName='" + moduleName + '\'' +
                 ", ownerId=" + ownerId +
-                ", id=" + id +
                 '}';
     }
 

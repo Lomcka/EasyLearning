@@ -62,9 +62,9 @@ public class FolderDaoBean extends Bean {
     @Override
     public String toString() {
         return "FolderDaoBean{" +
-                "folderName='" + folderName + '\'' +
+                "id=" + id +
+                ", folderName='" + folderName + '\'' +
                 ", ownerId=" + ownerId +
-                ", id=" + id +
                 '}';
     }
 

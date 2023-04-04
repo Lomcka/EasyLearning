@@ -81,10 +81,10 @@ public class UserInfoBean extends Bean {
     @Override
     public String toString() {
         return "UserInfoBean{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", keyWord='" + keyWord + '\'' +
-                ", id=" + id +
                 '}';
     }
 

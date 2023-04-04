@@ -62,9 +62,9 @@ public class ShareInfoBean extends Bean {
     @Override
     public String toString() {
         return "ShareInfoBean{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", keyWord='" + keyWord + '\'' +
-                ", id=" + id +
                 '}';
     }
 

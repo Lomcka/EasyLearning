@@ -76,9 +76,9 @@ public class FolderBean extends Bean {
     @Override
     public String toString() {
         return "FolderBean{" +
-                "modules=" + modules +
+                "id=" + id +
                 ", folderName='" + folderName + '\'' +
-                ", id=" + id +
+                ", modules=" + modules +
                 '}';
     }
 
