@@ -44,7 +44,7 @@ CREATE TABLE modules_readers (
 
 CREATE TABLE modules_contents (
 	module_id bigint NOT NULL,
-	card_id bigint NOT NULL,
+	card_id bigserial,
 	word varchar(256) NOT NULL,
 	translation varchar(256) NOT NULL,
 	CONSTRAINT PK_modules_contents PRIMARY KEY(module_id, card_id),
@@ -58,4 +58,3 @@ CREATE TABLE folders_contents (
 	CONSTRAINT FK_folders_contents_modules FOREIGN KEY(module_id) REFERENCES modules(id),
 	CONSTRAINT UNIQUE_folders_contents_folder_id_module_id UNIQUE(folder_id, module_id)
 );
-
