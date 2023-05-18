@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.FolderDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.FoldersDao;
 
 import java.sql.Connection;
@@ -24,6 +24,10 @@ public class FoldersDaoImpl extends AbstractDao<Long, FolderDaoBean> implements 
             "SELECT * FROM folders WHERE name = ?";
     private static final String SQL_FIND_FOLDERS_BY_OWNER_ID =
             "SELECT * FROM folders WHERE owner_id = ?";
+
+    public FoldersDaoImpl() {
+        super();
+    }
 
     public FoldersDaoImpl(Connection connection) {
         super(connection);

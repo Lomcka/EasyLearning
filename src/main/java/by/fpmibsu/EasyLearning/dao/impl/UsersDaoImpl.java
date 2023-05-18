@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.UserDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.UsersDao;
 
 import java.sql.*;
@@ -19,6 +19,10 @@ public class UsersDaoImpl extends AbstractDao<Long, UserDaoBean> implements User
             "SELECT * FROM users";
     private static final String SQL_UPDATE_USER =
             "UPDATE users SET login = ?, key_word = ? WHERE id = ?";
+
+    public UsersDaoImpl() {
+        super();
+    }
 
     public UsersDaoImpl(Connection connection) {
         super(connection);
