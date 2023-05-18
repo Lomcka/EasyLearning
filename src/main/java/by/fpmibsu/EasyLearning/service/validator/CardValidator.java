@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.service;
+package by.fpmibsu.EasyLearning.service.validator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +26,17 @@ public class CardValidator implements Validator<CardBean> {
             card.setWord(parameter);
         } else {
             throw new IncorrectFormDataException("word", parameter);
+        }
+
+        parameter = request.getParameter("moduleId");
+        if (parameter != null) {
+            try {
+                card.setModuleId(Long.parseLong(parameter));
+            } catch (NumberFormatException e) {
+                throw new IncorrectFormDataException("moduleId", parameter);
+            }
+        } else {
+            throw new IncorrectFormDataException("moduleId", null);
         }
 
         return card;

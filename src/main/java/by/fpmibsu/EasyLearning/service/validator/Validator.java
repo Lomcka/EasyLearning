@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.service;
+package by.fpmibsu.EasyLearning.service.validator;
 
 import javax.servlet.http.HttpServletRequest;
 

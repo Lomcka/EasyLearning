@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.service;
+package by.fpmibsu.EasyLearning.service.validator;
 
 import java.util.ArrayList;
 
@@ -34,8 +34,9 @@ public class ModuleValidator implements Validator<ModuleBean> {
         String[] cards = request.getParameterValues("cards");
         ArrayList<CardBean> list = new ArrayList<>();
         for (var string : cards) {
-            if (string.equals("word") || string.equals("translation") ||
-                string.equals("id") || string.equals("=")) {
+            if (string.equals("{") || string.equals("}") || string.equals("word") ||
+                string.equals("translation") || string.equals("id") ||
+                string.equals("=") || string.equals(",")) {
                 continue;
             }
 
@@ -53,13 +54,13 @@ public class ModuleValidator implements Validator<ModuleBean> {
                     throw new IncorrectFormDataException("id", string);
                 }
             } else if (list.get(list.size() - 1).getWord().isEmpty()) {
-                if (string != null && !string.isEmpty()) {
+                if (!string.isEmpty()) {
                     list.get(list.size() - 1).setWord(string);
                 } else {
                     throw new IncorrectFormDataException("word", string);
                 }
             } else {
-                if (string != null && !string.isEmpty()) {
+                if (!string.isEmpty()) {
                     list.get(list.size() - 1).setTranslation(string);
                 } else {
                     throw new IncorrectFormDataException("translation", string);
