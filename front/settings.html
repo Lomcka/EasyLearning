@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            display: block;
+            width: 150px;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        #login-status,
+        #password-status,
+        #security-word-status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Настройки</h1>
+
+<div id="login-section">
+    <h2>Логин</h2>
+    <p>Текущий логин: <span id="current-login"></span></p>
+    <label for="new-login"><input type="text" id="new-login" placeholder="Новый логин"></label>
+    <button onclick="changeLogin()">Применить</button>
+    <p id="login-status"></p>
+</div>
+
+<div id="password-section">
+    <h2>Пароль</h2>
+    <p>Текущий пароль:</p>
+    <label for="current-password"><input type="password" id="current-password" placeholder="Текущий пароль"></label>
+    <p>Новый пароль:</p>
+    <label for="new-password"><input type="password" id="new-password" placeholder="Новый пароль"></label>
+    <p>Подтвердите пароль:</p>
+    <label for="confirm-password"><input type="password" id="confirm-password" placeholder="Подтвердите пароль"></label>
+    <button onclick="changePassword()">Применить</button>
+    <p id="password-status"></p>
+</div>
+
+<div id="security-section">
+    <h2>Кодовое слово</h2>
+    <p>Текущее кодовое слово: <span id="current-security-word"></span></p>
+    <label for="new-security-word"><input type="text" id="new-security-word" placeholder="Новое кодовое слово"></label>
+    <button onclick="changeSecurityWord()">Применить</button>
+    <p id="security-word-status"></p>
+</div>
+
+<button onclick="goBack()">Назад</button>
+
+<script>
+        function getData() {
+            fetch('http://localhost:6000/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current-login').textContent = data.login;
+                    document.getElementById('current-security-word').textContent = data.securityWord;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function changeLogin() {
+            const newLogin = document.getElementById('new-login').value;
+
+            if (newLogin) {
+                const data = { login: newLogin };
+
+                fetch('http://localhost:6000/change-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            document.getElementById('current-login').textContent = newLogin;
+                            document.getElementById('login-status').textContent = 'Успешно изменено';
+                        } else {
+                            document.getElementById('login-status').textContent = 'Этот логин уже занят';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword === confirmPassword) {
+                const data = {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                };
+
+                fetch('http://localhost:6000/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            document.getElementById('password-status').textContent = 'Пароль успешно установлен';
+                        } else {
+                            document.getElementById('password-status').textContent = 'Неверный пароль';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                document.getElementById('password-status').textContent = 'Пароли не совпадают';
+            }
+        }
+
+        function changeSecurityWord() {
+            const newSecurityWord = document.getElementById('new-security-word').value;
+
+            if (newSecurityWord) {
+                const data = { securityWord: newSecurityWord };
+
+                fetch('http://localhost:6000/change-security-word', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            document.getElementById('current-security-word').textContent = newSecurityWord;
+                            document.getElementById('security-word-status').textContent = 'Успешно изменено';
+                        } else {
+                            document.getElementById('security-word-status').textContent = 'Попробуйте другое';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'main.html';
+        }
+
+        getData();
+    </script>
+</body>
+</html>

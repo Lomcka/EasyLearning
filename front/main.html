@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="mod_fold_style.css">
+    <title>Главная</title>
+</head>
+<body>
+
+<div class="nav">
+    <h2>Ваши папки и модули
+        <a href="settings.html"><img src="src/gear_icon.png" alt="Настройки" width="40" height="40"
+                                     style="float: right;"></a>
+    </h2>
+</div>
+
+<div class="content">
+    <div class="modules">
+        <h2>Модули</h2>
+        <div id="modules-container"></div>
+    </div>
+
+    <div class="folders">
+        <h2>Папки</h2>
+        <div id="folders-container"></div>
+    </div>
+</div>
+
+<script>
+    function createModuleButtons(modules) {
+        const modulesContainer = document.getElementById('modules-container');
+
+        modules.forEach(module => {
+            const button = document.createElement('button');
+            button.textContent = module.name;
+            button.classList.add('button-link');
+
+            button.addEventListener('click', () => {
+                const urlParams = new URLSearchParams();
+                urlParams.append('moduleData', JSON.stringify(module.content));
+                window.location.href = `modules.html?${urlParams.toString()}`;
+            });
+
+            modulesContainer.appendChild(button);
+        });
+    }
+
+    function createFolderButtons(folders) {
+        const foldersContainer = document.getElementById('folders-container');
+
+        folders.forEach(folder => {
+            const button = document.createElement('button');
+            button.textContent = folder.name;
+            button.classList.add('button-link');
+
+            button.addEventListener('click', () => {
+                const urlParams = new URLSearchParams();
+                urlParams.append('folderData', JSON.stringify(folder.content));
+                window.location.href = `folders.html?${urlParams.toString()}`;
+            });
+
+            foldersContainer.appendChild(button);
+        });
+    }
+
+    // for testing
+function loadModulesAndFolders() {
+        const jsonFromServer = [
+            {
+                "name": "Модуль 1",
+                "link": "module1.html"
+            },
+            {
+                "name": "Модуль 2",
+                "link": "module2.html"
+            },
+            {
+                "name": "Модуль 3",
+                "link": "module3.html"
+            }
+        ];
+
+        const foldersFromServer = [
+            {
+                "name": "Папка 1",
+                "link": "folder1.html"
+            },
+            {
+                "name": "Папка 2",
+                "link": "folder2.html"
+            },
+            {
+                "name": "Папка 3",
+                "link": "folder3.html"
+            }
+        ];
+
+        createModuleButtons(jsonFromServer);
+        createFolderButtons(foldersFromServer);
+    }
+<!---->
+<!--    function loadModulesAndFolders() {-->
+<!--  fetch('http://localhost:5000/data')-->
+<!--    .then(response => response.json())-->
+<!--    .then(data => {-->
+<!--      const jsonFromServer = data.modules;-->
+<!--      const foldersFromServer = data.folders;-->
+<!--      createModuleButtons(jsonFromServer);-->
+<!--      createFolderButtons(foldersFromServer);-->
+<!--    })-->
+<!--    .catch(error => {-->
+<!--      console.error('Error:', error);-->
+<!--    });-->
+<!--}-->
+
+loadModulesAndFolders();
+
+
+
+</script>
+<div class="buttons-container">
+    <button>Добавить модуль</button>
+    <button>Создать папку</button>
+    <button>Объединить модули</button>
+    <button>Объединить папки</button>
+</div>
+</body>
+</html>

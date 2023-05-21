@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="mod_fold_style.css">
+    <title>Папки</title>
+    <style>
+        /* Стили для папок */
+        .folder-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .folder-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .module-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .module-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .add-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #555;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="folder-header">
+    <h2 id="folder-title"></h2>
+</div>
+
+<div id="folders-container"></div>
+
+<button class="back-button" onclick="goBack()">Назад</button>
+<button class="add-button">+</button>
+
+<script>
+    function createModuleButtons(modules) {
+        const modulesContainer = document.getElementById('folders-container');
+
+        modules.forEach(module => {
+            const button = document.createElement('button');
+            button.textContent = module.name;
+            button.classList.add('module-button');
+            button.addEventListener('click', () => {
+                fetch(`http://localhost:5000/module/${module.id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const moduleData = JSON.stringify(data);
+                        window.location.href = `modules.html?moduleData=${encodeURIComponent(moduleData)}`;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            modulesContainer.appendChild(button);
+        });
+    }
+
+    function getFolderData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const folderData = urlParams.get('folderData');
+
+        if (folderData) {
+            const folder = JSON.parse(folderData);
+            document.getElementById('folder-title').textContent = folder.name;
+            createModuleButtons(folder.modules);
+        }
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    getFolderData();
+</script>
+</body>
+</html>
