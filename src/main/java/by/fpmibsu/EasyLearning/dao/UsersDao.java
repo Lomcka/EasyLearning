@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface UsersDao extends Dao<Long, UserDaoBean> {
     Optional<UserDaoBean> findByLogin(String login) throws DaoException;
+    void updateLogin(Long id, String newLogin) throws DaoException;
+    void updateKeyword(Long id, String newKeyword) throws DaoException;
 }
