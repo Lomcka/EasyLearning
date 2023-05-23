@@ -77,9 +77,29 @@
 <div id="folders-container"></div>
 
 <button class="back-button" onclick="goBack()">Назад</button>
-<button class="add-button">+</button>
+<button class="add-button" onclick="showModal('add-card-form')">+</button>
+
+<!-- Add Card Form (Hidden by Default) -->
+<div id="add-card-form" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal('add-card-form')">&times;</span>
+        <h3>Добавить модуль</h3>
+        <form id="card-form">
+            <label>
+                Название:
+                <input type="text" id="word-input" required>
+            </label>
+            <button type="submit" onclick="addModule(event)">Ок</button>
+        </form>
+    </div>
+</div>
 
 <script>
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'block';
+    }
+
     function createModuleButtons(modules) {
         const modulesContainer = document.getElementById('folders-container');
 
@@ -116,6 +136,37 @@
 
     function goBack() {
         window.history.back();
+    }
+
+    function addCard(event) {
+        event.preventDefault();
+
+        const wordInput = document.getElementById('word-input');
+
+        const cardData = {
+            name: wordInput.value
+        };
+
+        wordInput.value = '';
+        translationInput.value = '';
+
+        fetch('http://localhost:7000/addCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cardData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            console.log(data);
+            closeModal('add-card-form');
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
     }
 
     getFolderData();
