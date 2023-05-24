@@ -14,14 +14,14 @@ public class ModuleValidator implements Validator<ModuleBean> {
         ModuleBean module = new ModuleBean();
 
         String parameter = request.getParameter("id");
-        if (parameter != null) {
-            try {
-                module.setId(Long.parseLong(parameter));
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("id", parameter);
-            }
-        } else {
-            throw new IncorrectFormDataException("id", null);
+        if (parameter == null) {
+            parameter = "0";
+        }
+
+        try {
+            module.setId(Long.parseLong(parameter));
+        } catch (NumberFormatException e) {
+            throw new IncorrectFormDataException("id", parameter);
         }
 
         parameter = request.getParameter("moduleName");

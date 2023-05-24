@@ -11,13 +11,13 @@ public class ModuleNameValidator implements Validator<ModuleNameBean> {
         ModuleNameBean moduleName = new ModuleNameBean();
 
         String parameter = request.getParameter("id");
-        if (parameter != null) {
-            try {
-                moduleName.setId(Long.parseLong(parameter));
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("id", parameter);
-            }
-        } else {
+        if (parameter == null) {
+            parameter = "0";
+        }
+
+        try {
+            moduleName.setId(Long.parseLong(parameter));
+        } catch (NumberFormatException e) {
             throw new IncorrectFormDataException("id", parameter);
         }
 

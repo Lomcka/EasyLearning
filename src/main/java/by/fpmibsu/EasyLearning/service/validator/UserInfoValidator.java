@@ -10,15 +10,16 @@ public class UserInfoValidator implements Validator<UserInfoBean> {
     @Override
     public UserInfoBean validate(HttpServletRequest request) throws IncorrectFormDataException {
         UserInfoBean user = new UserInfoBean();
+
         String parameter = request.getParameter("id");
-        if (parameter != null) {
-            try {
-                user.setId(Long.parseLong(parameter));
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("id", parameter);
-            }
-        } else {
-            throw new IncorrectFormDataException("id", null);
+        if (parameter == null) {
+            parameter = "0";
+        }
+
+        try {
+            user.setId(Long.parseLong(parameter));
+        } catch (NumberFormatException e) {
+            throw new IncorrectFormDataException("id", parameter);
         }
 
         parameter = request.getParameter("login");

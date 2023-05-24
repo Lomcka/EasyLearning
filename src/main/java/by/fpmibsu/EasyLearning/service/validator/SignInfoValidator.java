@@ -11,14 +11,14 @@ public class SignInfoValidator implements Validator<SignInfoBean> {
         SignInfoBean signInfo = new SignInfoBean();
 
         String parameter = request.getParameter("id");
-        if (parameter != null) {
-            try {
-                signInfo.setId(Long.parseLong(parameter));
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("id", parameter);
-            }
-        } else {
-            throw new IncorrectFormDataException("id", null);
+        if (parameter == null) {
+            parameter = "0";
+        }
+
+        try {
+            signInfo.setId(Long.parseLong(parameter));
+        } catch (NumberFormatException e) {
+            throw new IncorrectFormDataException("id", parameter);
         }
 
         parameter = request.getParameter("login");

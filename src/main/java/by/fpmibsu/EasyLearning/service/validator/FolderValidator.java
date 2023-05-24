@@ -14,13 +14,13 @@ public class FolderValidator implements Validator<FolderBean> {
         FolderBean folder = new FolderBean();
 
         String parameter = request.getParameter("id");
-        if (parameter != null) {
-            try {
-                folder.setId(Long.parseLong(parameter));
-            } catch (NumberFormatException e) {
-                throw new IncorrectFormDataException("id", parameter);
-            }
-        } else {
+        if (parameter == null) {
+            parameter = "0";
+        }
+
+        try {
+            folder.setId(Long.parseLong(parameter));
+        } catch (NumberFormatException e) {
             throw new IncorrectFormDataException("id", parameter);
         }
 

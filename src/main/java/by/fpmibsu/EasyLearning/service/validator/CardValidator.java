@@ -11,7 +11,7 @@ public class CardValidator implements Validator<CardBean> {
         CardBean card = new CardBean();
 
         String parameter = request.getParameter("id");
-        if (parameter != null) {
+        if (parameter == null) {
             parameter = "0";
         }
 
