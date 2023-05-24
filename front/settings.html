@@ -17,6 +17,20 @@
             margin-bottom: 10px;
         }
 
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
         input[type="text"],
         input[type="password"] {
             display: block;
@@ -79,11 +93,11 @@
     <p id="security-word-status"></p>
 </div>
 
-<button onclick="goBack()">Назад</button>
+<button class="back-button" onclick="goBack()">Назад</button>
 
 <script>
         function getData() {
-            fetch('http://localhost:6000/data')
+            fetch('http://localhost:8070/data')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('current-login').textContent = data.login;
@@ -100,7 +114,7 @@
             if (newLogin) {
                 const data = { login: newLogin };
 
-                fetch('http://localhost:6000/change-login', {
+                fetch('http://localhost:8070/change-login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -133,7 +147,7 @@
                     newPassword: newPassword
                 };
 
-                fetch('http://localhost:6000/change-password', {
+                fetch('http://localhost:8070/change-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -162,7 +176,7 @@
             if (newSecurityWord) {
                 const data = { securityWord: newSecurityWord };
 
-                fetch('http://localhost:6000/change-security-word', {
+                fetch('http://localhost:8070/change-security-word', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

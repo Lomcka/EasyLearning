@@ -245,8 +245,8 @@
         wordInput.value = '';
         translationInput.value = '';
 
-        // Send cardData to localhost:7000 using fetch
-        fetch('http://localhost:7000/addCard', {
+        // Send cardData to localhost:8070 using fetch
+        fetch('http://localhost:8070/addCard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -279,8 +279,8 @@
         usernameInput.value = '';
         passwordInput.value = '';
 
-        // Send shareData to localhost:7000 using fetch
-        fetch('http://localhost:7000/shareModule', {
+        // Send shareData to localhost:8070 using fetch
+        fetch('http://localhost:8070/shareModule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -303,8 +303,8 @@
         window.history.back();
     }
 
-    // Fetch moduleData from localhost:7000 using fetch
-    fetch('http://localhost:7000/getModuleData')
+    // Fetch moduleData from localhost:8070 using fetch
+    fetch('http://localhost:8070/getModuleData')
         .then(response => response.json())
         .then(data => {
             // Handle the response from the server

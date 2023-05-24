@@ -26,97 +26,190 @@
     </div>
 </div>
 
-<script>
-    function createModuleButtons(modules) {
-        const modulesContainer = document.getElementById('modules-container');
+<!-- Кнопка создания модуля -->
 
-        modules.forEach(module => {
-            const button = document.createElement('button');
-            button.textContent = module.name;
-            button.classList.add('button-link');
-
-            button.addEventListener('click', () => {
-                const urlParams = new URLSearchParams();
-                urlParams.append('moduleData', JSON.stringify(module.content));
-                window.location.href = `modules.html?${urlParams.toString()}`;
-            });
-
-            modulesContainer.appendChild(button);
-        });
-    }
-
-    function createFolderButtons(folders) {
-        const foldersContainer = document.getElementById('folders-container');
-
-        folders.forEach(folder => {
-            const button = document.createElement('button');
-            button.textContent = folder.name;
-            button.classList.add('button-link');
-
-            button.addEventListener('click', () => {
-                const urlParams = new URLSearchParams();
-                urlParams.append('folderData', JSON.stringify(folder.content));
-                window.location.href = `folders.html?${urlParams.toString()}`;
-            });
-
-            foldersContainer.appendChild(button);
-        });
-    }
-
-    // for testing
-function loadModulesAndFolders() {
-        const jsonFromServer = [
-            {
-                "name": "Модуль 1",
-            },
-            {
-                "name": "Модуль 2",
-            },
-            {
-                "name": "Модуль 3",
-            }
-        ];
-
-        const foldersFromServer = [
-            {
-                "name": "Папка 1",
-            },
-            {
-                "name": "Папка 2",
-            },
-            {
-                "name": "Папка 3",
-            }
-        ];
-
-        createModuleButtons(jsonFromServer);
-        createFolderButtons(foldersFromServer);
-    }
-<!---->
-<!--    function loadModulesAndFolders() {-->
-<!--  fetch('http://localhost:5000/data')-->
-<!--    .then(response => response.json())-->
-<!--    .then(data => {-->
-<!--      const jsonFromServer = data.modules;-->
-<!--      const foldersFromServer = data.folders;-->
-<!--      createModuleButtons(jsonFromServer);-->
-<!--      createFolderButtons(foldersFromServer);-->
-<!--    })-->
-<!--    .catch(error => {-->
-<!--      console.error('Error:', error);-->
-<!--    });-->
-<!--}-->
-
-loadModulesAndFolders();
-
-
-
-</script>
 <div class="buttons-container">
-    <button>Добавить модуль</button>
-    <button>Создать папку</button>
-    <button>Объединить модули</button>
-    <button>Объединить папки</button>
+<button id="create-module-button">Добавить модуль</button>
+
+<!-- Кнопка создания папки -->
+<button id="create-folder-button">Создать папку</button>
+
+<!-- Кнопка объединения модулей -->
+<button id="merge-modules-button">Объединить модули</button>
+
+<!-- Кнопка объединения папок -->
+<button id="merge-folders-button">Объединить папки</button>
 </div>
+
+<script>
+const modulesContainer = document.getElementById('modules-container');
+const foldersContainer = document.getElementById('folders-container');
+
+// Загрузка модулей и папок с сервера
+function loadModulesAndFolders() {
+    fetch('http://localhost:8070/data')
+        .then(response => response.json())
+        .then(data => {
+            createModuleButtons(data.modules);
+            createFolderButtons(data.folders);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Создание кнопок для модулей
+function createModuleButtons(modules) {
+    modulesContainer.innerHTML = '';
+
+    modules.forEach(module => {
+        const button = document.createElement('button');
+        button.textContent = module.name;
+        button.classList.add('button-link');
+
+        button.addEventListener('click', () => {
+            const urlParams = new URLSearchParams();
+            urlParams.append('moduleData', JSON.stringify(module.content));
+            window.location.href = `modules.html?${urlParams.toString()}`;
+        });
+
+        modulesContainer.appendChild(button);
+    });
+}
+
+// Создание кнопок для папок
+function createFolderButtons(folders) {
+    foldersContainer.innerHTML = '';
+
+    folders.forEach(folder => {
+        const button = document.createElement('button');
+        button.textContent = folder.name;
+        button.classList.add('button-link');
+
+        button.addEventListener('click', () => {
+            const urlParams = new URLSearchParams();
+            urlParams.append('folderData', JSON.stringify(folder.content));
+            window.location.href = `folders.html?${urlParams.toString()}`;
+        });
+
+        foldersContainer.appendChild(button);
+    });
+}
+
+// Добавление нового модуля
+function addNewModule(moduleName) {
+    fetch('http://localhost:8070/add_module', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: moduleName })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const newModule = { name: moduleName, content: [] };
+                createModuleButtons([newModule]);
+            } else {
+                alert('Модуль с таким именем уже существует!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Объединение модулей
+function mergeModules(moduleNames, newModuleName) {
+    fetch('http://localhost:8070/merge_modules', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ modules: moduleNames, newName: newModuleName })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                createModuleButtons(data.modules);
+            } else {
+                alert('Модуль с таким именем уже существует!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Объединение папок
+function mergeFolders(folderNames, newFolderName) {
+    fetch('http://localhost:8070/merge_folders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ folders: folderNames, newName: newFolderName })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                createFolderButtons(data.folders);
+            } else {
+                alert('Папка с таким именем уже существует!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Обработчик клика на кнопку создания модуля
+const createModuleButton = document.getElementById('create-module-button');
+createModuleButton.addEventListener('click', () => {
+    const moduleName = prompt('Введите имя нового модуля:');
+    if (moduleName) {
+        addNewModule(moduleName);
+    }
+});
+
+// Обработчик клика на кнопку объединения модулей
+const mergeModulesButton = document.getElementById('merge-modules-button');
+mergeModulesButton.addEventListener('click', () => {
+    const moduleNamesString = prompt('Введите имена модулей через запятую:');
+    if (moduleNamesString) {
+        const moduleNames = moduleNamesString.split(',').map(name => name.trim());
+        const newModuleName = prompt('Введите имя нового модуля:');
+        if (newModuleName) {
+            mergeModules(moduleNames, newModuleName);
+        }
+    }
+});
+
+// Обработчик клика на кнопку создания папки
+const createFolderButton = document.getElementById('create-folder-button');
+createFolderButton.addEventListener('click', () => {
+    const folderName = prompt('Введите имя новой папки:');
+    if (folderName) {
+        addNewFolder(folderName);
+    }
+});
+
+// Обработчик клика на кнопку объединения папок
+const mergeFoldersButton = document.getElementById('merge-folders-button');
+mergeFoldersButton.addEventListener('click', () => {
+    const folderNamesString = prompt('Введите имена папок через запятую:');
+    if (folderNamesString) {
+        const folderNames = folderNamesString.split(',').map(name => name.trim());
+        const newFolderName = prompt('Введите имя новой папки:');
+        if (newFolderName) {
+            mergeFolders(folderNames, newFolderName);
+        }
+    }
+});
+
+// Загрузка модулей и папок при загрузке страницы
+loadModulesAndFolders();
+</script>
+
 </body>
 </html>
