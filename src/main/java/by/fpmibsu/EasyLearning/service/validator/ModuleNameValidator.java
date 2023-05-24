@@ -21,7 +21,7 @@ public class ModuleNameValidator implements Validator<ModuleNameBean> {
             throw new IncorrectFormDataException("id", parameter);
         }
 
-        parameter = request.getParameter("modules");
+        parameter = request.getParameter("moduleName");
         if (parameter != null && !parameter.isEmpty()) {
             moduleName.setModuleName(parameter);
         } else {

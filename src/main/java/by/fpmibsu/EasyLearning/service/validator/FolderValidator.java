@@ -31,38 +31,6 @@ public class FolderValidator implements Validator<FolderBean> {
             throw new IncorrectFormDataException("folderName", parameter);
         }
 
-        String[] moduleNames = request.getParameterValues("moduleNames");
-        ArrayList<ModuleNameBean> modules = new ArrayList<>();
-
-        for (var string : moduleNames) {
-            if (string.equals("{") || string.equals("}") || string.equals("word") ||
-                    string.equals("translation") || string.equals("id") ||
-                    string.equals("=") || string.equals(",")) {
-                continue;
-            }
-
-            if (modules.isEmpty()) {
-                modules.add(new ModuleNameBean());
-            }
-            if (!modules.get(modules.size() - 1).getModuleName().isEmpty()) {
-                modules.add(new ModuleNameBean());
-            }
-
-            if (modules.get(modules.size() - 1).getId() == 0) {
-                try {
-                    modules.get(modules.size() - 1).setId(Long.parseLong(string));
-                } catch (NumberFormatException e) {
-                    throw new IncorrectFormDataException("id", string);
-                }
-            } else if (modules.get(modules.size() - 1).getModuleName().isEmpty()) {
-                if (!string.isEmpty()) {
-                    modules.get(modules.size() - 1).setModuleName(string);
-                } else {
-                    throw new IncorrectFormDataException("moduleName", parameter);
-                }
-            }
-        }
-
         return folder;
     }
 }

@@ -31,43 +31,6 @@ public class ModuleValidator implements Validator<ModuleBean> {
             throw new IncorrectFormDataException("moduleName", parameter);
         }
 
-        String[] cards = request.getParameterValues("cards");
-        ArrayList<CardBean> list = new ArrayList<>();
-        for (var string : cards) {
-            if (string.equals("{") || string.equals("}") || string.equals("word") ||
-                string.equals("translation") || string.equals("id") ||
-                string.equals("=") || string.equals(",")) {
-                continue;
-            }
-
-            if (list.isEmpty()) {
-                list.add(new CardBean());
-            }
-            if (list.get(list.size() - 1).getTranslation().isEmpty()) {
-                list.add(new CardBean());
-            }
-
-            if (list.get(list.size() - 1).getId() == 0) {
-                try {
-                    list.get(list.size() - 1).setId(Long.parseLong(string));
-                } catch (NumberFormatException e) {
-                    throw new IncorrectFormDataException("id", string);
-                }
-            } else if (list.get(list.size() - 1).getWord().isEmpty()) {
-                if (!string.isEmpty()) {
-                    list.get(list.size() - 1).setWord(string);
-                } else {
-                    throw new IncorrectFormDataException("word", string);
-                }
-            } else {
-                if (!string.isEmpty()) {
-                    list.get(list.size() - 1).setTranslation(string);
-                } else {
-                    throw new IncorrectFormDataException("translation", string);
-                }
-            }
-        }
-
         return module;
     }
 }
