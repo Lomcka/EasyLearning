@@ -60,6 +60,28 @@
         #security-word-status {
             font-weight: bold;
         }
+
+        .password-mismatch-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
+        .label-60 {
+  display: inline-block;
+  width: 40%;
+}
+
+.input-60 {
+  width: 100%;
+  box-sizing: border-box; /* чтобы полное значение ширины включало padding и border */
+  padding: 5px; /* задаем отступы */
+  margin-bottom: 10px; /* задаем отступы */
+}
+
+
+
     </style>
 </head>
 <body>
@@ -68,34 +90,51 @@
 <div id="login-section">
     <h2>Логин</h2>
     <p>Текущий логин: <span id="current-login"></span></p>
-    <label for="new-login"><input type="text" id="new-login" placeholder="Новый логин"></label>
+    <label class="label-60" for="new-login">
+        <input class="input-60" type="text" id="new-login" placeholder="Новый логин">
     <button onclick="changeLogin()">Применить</button>
+    </label>
     <p id="login-status"></p>
 </div>
 
 <div id="password-section">
     <h2>Пароль</h2>
     <p>Текущий пароль:</p>
-    <label for="current-password"><input type="password" id="current-password" placeholder="Текущий пароль"></label>
+    <label class="label-60" for="current-password">
+        <input class="input-60" type="password" id="current-password" placeholder="Текущий пароль">
+    </label>
     <p>Новый пароль:</p>
-    <label for="new-password"><input type="password" id="new-password" placeholder="Новый пароль"></label>
+    <label class="label-60" for="new-password">
+        <input class="input-60" type="password" id="new-password" placeholder="Новый пароль">
+    </label>
     <p>Подтвердите пароль:</p>
-    <label for="confirm-password"><input type="password" id="confirm-password" placeholder="Подтвердите пароль"></label>
+    <label class="label-60" for="confirm-password">
+        <input class="input-60" type="password" id="confirm-password"
+                                         required onpaste="return false;"
+                                         oninput="checkPasswordMatch()" placeholder="Подтвердите пароль">
+    <span class="password-mismatch-message" style="display: none;">Пароли не совпадают</span>
     <button onclick="changePassword()">Применить</button>
+    </label>
     <p id="password-status"></p>
 </div>
 
 <div id="security-section">
     <h2>Кодовое слово</h2>
     <p>Текущее кодовое слово: <span id="current-security-word"></span></p>
-    <label for="new-security-word"><input type="text" id="new-security-word" placeholder="Новое кодовое слово"></label>
+    <label class="label-60" for="new-security-word">
+        <input  class="input-60" type="text" id="new-security-word" placeholder="Новое кодовое слово">
     <button onclick="changeSecurityWord()">Применить</button>
+    </label>
     <p id="security-word-status"></p>
 </div>
 
 <button class="back-button" onclick="goBack()">Назад</button>
 
 <script>
+const confirmPassword = document.getElementById('confirm-password');
+    const newPassword = document.getElementById('new-password');
+    const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
+
         function getData() {
             fetch('http://localhost:8070/data')
                 .then(response => response.json())
@@ -136,39 +175,51 @@
             }
         }
 
-        function changePassword() {
-            const currentPassword = document.getElementById('current-password').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-
-            if (newPassword === confirmPassword) {
-                const data = {
-                    currentPassword: currentPassword,
-                    newPassword: newPassword
-                };
-
-                fetch('http://localhost:8070/change-password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            document.getElementById('password-status').textContent = 'Пароль успешно установлен';
-                        } else {
-                            document.getElementById('password-status').textContent = 'Неверный пароль';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            } else {
-                document.getElementById('password-status').textContent = 'Пароли не совпадают';
-            }
+        function checkPasswordMatch() {
+        if (confirmPassword.value !== newPassword.value) {
+            confirmPassword.classList.add('password-mismatch');
+            passwordMismatchMessage.style.display = 'block';
+        } else {
+            confirmPassword.classList.remove('password-mismatch');
+            passwordMismatchMessage.style.display = 'none';
         }
+    }
+
+        function changePassword() {
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (newPassword === confirmPassword) {
+        const data = {
+            currentPassword: currentPassword,
+            newPassword: newPassword
+        };
+
+        fetch('http://localhost:8070/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    document.getElementById('password-status').textContent = 'Пароль успешно установлен';
+                } else {
+                    document.getElementById('password-status').textContent = 'Неверный пароль';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    } else {
+        document.getElementById('password-status').textContent = 'Пароли не совпадают';
+        document.getElementById('confirm-password').style.borderColor = 'red';
+    }
+}
+
 
         function changeSecurityWord() {
             const newSecurityWord = document.getElementById('new-security-word').value;
@@ -199,7 +250,7 @@
         }
 
         function goBack() {
-            window.location.href = 'main.html';
+            window.history.back();
         }
 
         getData();

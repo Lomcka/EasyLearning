@@ -167,16 +167,36 @@ const modulesContainer = document.getElementById('modules-container');
 const foldersContainer = document.getElementById('folders-container');
 
 // Загрузка модулей и папок с сервера
+<!--function loadModulesAndFolders() {-->
+<!--    fetch('http://localhost:8070/data')-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            createModuleButtons(data.modules);-->
+<!--            createFolderButtons(data.folders);-->
+<!--        })-->
+<!--        .catch(error => {-->
+<!--            console.error('Error:', error);-->
+<!--        });-->
+<!--}-->
+
 function loadModulesAndFolders() {
-    fetch('http://localhost:8070/data')
-        .then(response => response.json())
-        .then(data => {
-            createModuleButtons(data.modules);
-            createFolderButtons(data.folders);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    const res = {
+        'modules': [
+            {
+                'name': 'MODULE'
+            },
+            {
+                'name': 'MOOOD'
+            }
+        ],
+        'folders': [
+            {
+                'name': 'FOLDERS'
+            }
+        ]
+    };
+    createModuleButtons(res.modules);
+    createFolderButtons(res.folders);
 }
 
 // Создание кнопок для модулей
