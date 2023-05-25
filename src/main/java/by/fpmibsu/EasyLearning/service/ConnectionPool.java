@@ -17,7 +17,7 @@ public class ConnectionPool {
         source = new PGConnectionPoolDataSource();
         Properties props = new Properties();
         try {
-            props.load(new FileReader("database.properties"));
+            props.load(new FileReader("src/test/database.properties"));
         } catch (IOException e) {
             throw new RuntimeException(new ServiceException(e));
         }
