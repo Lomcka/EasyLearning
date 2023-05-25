@@ -1,38 +1,26 @@
 package by.fpmibsu.EasyLearning.service.validator;
 
-import javax.servlet.http.HttpServletRequest;
-
 import by.fpmibsu.EasyLearning.bean.SignInfoBean;
 import by.fpmibsu.EasyLearning.exception.IncorrectFormDataException;
+import org.json.simple.JSONObject;
 
 public class SignInfoValidator implements Validator<SignInfoBean> {
     @Override
-    public SignInfoBean validate(HttpServletRequest request) throws IncorrectFormDataException {
+    public SignInfoBean validate(JSONObject json) throws IncorrectFormDataException {
         SignInfoBean signInfo = new SignInfoBean();
 
-        String parameter = request.getParameter("id");
-        if (parameter == null) {
-            parameter = "0";
-        }
-
-        try {
-            signInfo.setId(Long.parseLong(parameter));
-        } catch (NumberFormatException e) {
-            throw new IncorrectFormDataException("id", parameter);
-        }
-
-        parameter = request.getParameter("login");
-        if (parameter != null && !parameter.isEmpty()) {
-            signInfo.setLogin(parameter);
+        String login = (String) json.get("username");
+        if (login != null && !login.isEmpty()) {
+            signInfo.setLogin(login);
         } else {
-            throw new IncorrectFormDataException("login", parameter);
+            throw new IncorrectFormDataException("login", login);
         }
 
-        parameter = request.getParameter("password");
-        if (parameter != null && !parameter.isEmpty()) {
-            signInfo.setPassword(parameter);
+        String password = (String) json.get("password");
+        if (password != null && !password.isEmpty()) {
+            signInfo.setPassword(password);
         } else {
-            throw new IncorrectFormDataException("password", parameter);
+            throw new IncorrectFormDataException("password", password);
         }
 
         return signInfo;

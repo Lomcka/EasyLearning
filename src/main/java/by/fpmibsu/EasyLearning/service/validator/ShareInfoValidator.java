@@ -4,35 +4,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.fpmibsu.EasyLearning.bean.ShareInfoBean;
 import by.fpmibsu.EasyLearning.exception.IncorrectFormDataException;
+import org.json.simple.JSONObject;
 
 public class ShareInfoValidator implements Validator<ShareInfoBean>{
     @Override
-    public ShareInfoBean validate(HttpServletRequest request) throws IncorrectFormDataException {
+    public ShareInfoBean validate(JSONObject json) throws IncorrectFormDataException {
         ShareInfoBean info = new ShareInfoBean();
 
-        String parameter = request.getParameter("id");
-        if (parameter == null) {
-            parameter = "0";
-        }
-
-        try {
-            info.setId(Long.parseLong(parameter));
-        } catch (NumberFormatException e) {
-            throw new IncorrectFormDataException("id", parameter);
-        }
-
-        parameter = request.getParameter("login");
-        if (parameter != null && !parameter.isEmpty()) {
-            info.setLogin(parameter);
+        String login = (String) json.get("username-input");
+        if (login != null && !login.isEmpty()) {
+            info.setLogin(login);
         } else {
-            throw new IncorrectFormDataException("login", parameter);
+            throw new IncorrectFormDataException("login", login);
         }
 
-        parameter = request.getParameter("keyWord");
-        if (parameter != null && !parameter.isEmpty()) {
-            info.setKeyWord(parameter);
+        String keyWord = (String) json.get("password-input");
+        if (keyWord != null && !keyWord.isEmpty()) {
+            info.setKeyWord(keyWord);
         } else {
-            throw new IncorrectFormDataException("keyWord", parameter);
+            throw new IncorrectFormDataException("keyWord", keyWord);
         }
 
         return info;

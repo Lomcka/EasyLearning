@@ -4,28 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.fpmibsu.EasyLearning.bean.ModuleNameBean;
 import by.fpmibsu.EasyLearning.exception.IncorrectFormDataException;
+import org.json.simple.JSONObject;
 
 public class ModuleNameValidator implements Validator<ModuleNameBean> {
     @Override
-    public ModuleNameBean validate(HttpServletRequest request) throws IncorrectFormDataException {
+    public ModuleNameBean validate(JSONObject json) throws IncorrectFormDataException {
         ModuleNameBean moduleName = new ModuleNameBean();
 
-        String parameter = request.getParameter("id");
-        if (parameter == null) {
-            parameter = "0";
-        }
-
-        try {
-            moduleName.setId(Long.parseLong(parameter));
-        } catch (NumberFormatException e) {
-            throw new IncorrectFormDataException("id", parameter);
-        }
-
-        parameter = request.getParameter("moduleName");
-        if (parameter != null && !parameter.isEmpty()) {
-            moduleName.setModuleName(parameter);
+        String name = (String) json.get("module-name");
+        if (name != null && !name.isEmpty()) {
+            moduleName.setModuleName(name);
         } else {
-            throw new IncorrectFormDataException("moduleName", parameter);
+            throw new IncorrectFormDataException("moduleName", name);
         }
 
         return moduleName;

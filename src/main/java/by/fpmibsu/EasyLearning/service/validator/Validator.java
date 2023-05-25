@@ -4,7 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import by.fpmibsu.EasyLearning.bean.Bean;
 import by.fpmibsu.EasyLearning.exception.IncorrectFormDataException;
+import org.json.simple.JSONObject;
 
 public interface Validator<T extends Bean> {
-    T validate(HttpServletRequest request) throws IncorrectFormDataException;
+    T validate(JSONObject json) throws IncorrectFormDataException;
 }
