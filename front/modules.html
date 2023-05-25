@@ -246,7 +246,9 @@
         translationInput.value = '';
 
         // Send cardData to localhost:8070 using fetch
-        fetch('http://localhost:8070/addCard', {
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'add-Card'
+        }), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -280,7 +282,9 @@
         passwordInput.value = '';
 
         // Send shareData to localhost:8070 using fetch
-        fetch('http://localhost:8070/shareModule', {
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'share-module'
+        }), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -304,7 +308,9 @@
     }
 
     // Fetch moduleData from localhost:8070 using fetch
-    fetch('http://localhost:8070/getModuleData')
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-module-data'
+        }))
         .then(response => response.json())
         .then(data => {
             // Handle the response from the server

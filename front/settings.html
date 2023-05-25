@@ -136,7 +136,9 @@ const confirmPassword = document.getElementById('confirm-password');
     const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
 
         function getData() {
-            fetch('http://localhost:8070/data')
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-data-for-settings'
+        }))
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('current-login').textContent = data.login;
@@ -153,7 +155,9 @@ const confirmPassword = document.getElementById('confirm-password');
             if (newLogin) {
                 const data = { login: newLogin };
 
-                fetch('http://localhost:8070/change-login', {
+                fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'change-login'
+        }), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -196,7 +200,9 @@ const confirmPassword = document.getElementById('confirm-password');
             newPassword: newPassword
         };
 
-        fetch('http://localhost:8070/change-password', {
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'change-password'
+        }), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -227,7 +233,9 @@ const confirmPassword = document.getElementById('confirm-password');
             if (newSecurityWord) {
                 const data = { securityWord: newSecurityWord };
 
-                fetch('http://localhost:8070/change-security-word', {
+                fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'change-security-word'
+        }), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -7,7 +7,9 @@ let originalOrder = [];
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
-  fetch('cards.json')
+  fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+              'queryType': 'get-cards-to-repeat'
+          }), {
     .then(response => response.json())
     .then(data => {
       // Сохраняем исходный порядок карточек в переменную originalOrder

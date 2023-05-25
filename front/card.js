@@ -21,8 +21,11 @@ const continueBtn = document.getElementById('continue-btn');
 const resetBtn = document.getElementById('reset-btn');
 
 continueBtn.addEventListener('click', () => {
-fetch('/card-data', {
-method: 'POST',
+fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'return-cards-to-repeat'
+        }), {
+        method: 'POST',
+        }
 body: JSON.stringify(data)
 })
 .then(() => {
@@ -36,7 +39,9 @@ ok: [...data.ok, ...data.repeat],
 repeat: []
 };
 
-fetch('/card-data', {
+fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'return-cards-to-repeat'
+        }), {
 method: 'POST',
 body: JSON.stringify(newData)
 })

@@ -121,7 +121,9 @@ function closeModal(modalId) {
     <div class="modal-content">
         <button class="close-button" onclick="closeModal('add-module-modal')">&times;</button>
         <h2>Добавление нового модуля</h2>
-        <input type="text" id="module-name-input" placeholder="Введите имя нового модуля">
+        <label for="module-name-input">
+            <input type="text" id="module-name-input" placeholder="Введите имя нового модуля">
+        </label>
         <button id="add-module-confirm-button">Добавить</button>
     </div>
 </div>
@@ -132,9 +134,13 @@ function closeModal(modalId) {
         <button class="close-button" onclick="closeModal('merge-modules-modal')">&times;</button>
         <h2>Объединение модулей</h2>
         <p>Введите имена модулей через запятую:</p>
-        <input type="text" id="module-names-input" placeholder="Имена модулей">
+        <label for="module-names-input">
+            <input type="text" id="module-names-input" placeholder="Имена модулей">
+        </label>
         <p>Введите имя нового модуля:</p>
-        <input type="text" id="new-module-name-input" placeholder="Имя нового модуля">
+        <label for="new-module-name-input">
+            <input type="text" id="new-module-name-input" placeholder="Имя нового модуля">
+        </label>
         <button id="merge-modules-confirm-button">Объединить</button>
     </div>
 </div>
@@ -144,7 +150,9 @@ function closeModal(modalId) {
     <div class="modal-content">
         <button class="close-button" onclick="closeModal('add-folder-modal')">&times;</button>
         <h2>Добавление новой папки</h2>
-        <input type="text" id="folder-name-input" placeholder="Введите имя новой папки">
+        <label for="folder-name-input">
+            <input type="text" id="folder-name-input" placeholder="Введите имя новой папки">
+        </label>
         <button id="add-folder-confirm-button">Добавить</button>
     </div>
 </div>
@@ -155,9 +163,13 @@ function closeModal(modalId) {
         <button class="close-button" onclick="closeModal('merge-folders-modal')">&times;</button>
         <h2>Объединение папок</h2>
         <p>Введите имена папок через запятую:</p>
-        <input type="text" id="folder-names-input" placeholder="Имена папок">
+        <label for="folder-names-input">
+            <input type="text" id="folder-names-input" placeholder="Имена папок">
+        </label>
         <p>Введите имя новой папки:</p>
-        <input type="text" id="new-folder-name-input" placeholder="Имя новой папки">
+        <label for="new-folder-name-input">
+            <input type="text" id="new-folder-name-input" placeholder="Имя новой папки">
+        </label>
         <button id="merge-folders-confirm-button">Объединить</button>
     </div>
 </div>
@@ -168,7 +180,9 @@ const foldersContainer = document.getElementById('folders-container');
 
 // Загрузка модулей и папок с сервера
 function loadModulesAndFolders() {
-    fetch('http://localhost:8070/data')
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-modules-and-folders'
+        })
         .then(response => response.json())
         .then(data => {
             createModuleButtons(data.modules);
@@ -249,7 +263,9 @@ createModuleButton.addEventListener('click', () => {
 addModuleConfirmButton.addEventListener('click', () => {
     const moduleNameInput = document.getElementById('module-name-input');
 
-    fetch(`http://localhost:8070/module/${moduleNameInput.value}`, {method: 'POST'})
+    fetch('http://localhost:8070/EasyLearning/module/${moduleNameInput.value}?' + new URLSearchParams({
+            'queryType': 'add-new-module'
+        })`, {method: 'POST'})
         .then(response => response.json())
         .then(data => {
         closeModal('add-module-modal');
@@ -279,7 +295,9 @@ mergeModulesConfirmButton.addEventListener('click', () => {
     const moduleNames = moduleNamesInput.value.split(',');
     const modules = moduleNames.map(name => ({name}));
 
-    fetch(`http://localhost:8070/module/${newModuleNameInput.value}/merge`, {
+    fetch('http://localhost:8070/EasyLearning/module/${newModuleNameInput.value}/merge?' + new URLSearchParams({
+            'queryType': 'merge-modules'
+        })`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -312,7 +330,9 @@ createFolderButton.addEventListener('click', () => {
 addFolderConfirmButton.addEventListener('click', () => {
     const folderNameInput = document.getElementById('folder-name-input');
 
-    fetch(`http://localhost:8070/folder/${folderNameInput.value}`, {method: 'POST'})
+    fetch('http://localhost:8070/EasyLearning//folder/${folderNameInput.value}?' + new URLSearchParams({
+            'queryType': 'add-new-module'
+        })`, {method: 'POST'})
         .then(response => response.json())
         .then(data => {
             closeModal('add-folder-modal');
@@ -342,7 +362,9 @@ mergeFoldersConfirmButton.addEventListener('click', () => {
     const folderNames = folderNamesInput.value.split(',');
     const folders = folderNames.map(name => ({name}));
 
-    fetch(`http://localhost:8070/folder/${newFolderNameInput.value}/merge`, {
+    fetch('http://localhost:8070/EasyLearning//folder/${newFolderNameInput.value}/merge?' + new URLSearchParams({
+            'queryType': 'merge-folders'
+        })`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -151,7 +151,8 @@
             button.textContent = module.name;
             button.classList.add('module-button');
             button.addEventListener('click', () => {
-                fetch(`http://localhost:8070/module/${module.id}`)
+                fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-modules'})
                     .then(response => response.json())
                     .then(data => {
                         const moduleData = JSON.stringify(data);
@@ -171,7 +172,8 @@ function addModule(event) {
     const nameInput = document.getElementById('word-input');
     const moduleName = nameInput.value;
 
-    fetch('http://localhost:8070/module', {
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'add-folder-in-filders'}), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -201,7 +203,8 @@ function goBack() {
 }
 
 function fetchModules() {
-    fetch('http://localhost:8070/modules')
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-folders'})
         .then(response => response.json())
         .then(data => {
             const modules = data.modules;
