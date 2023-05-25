@@ -167,49 +167,40 @@ const modulesContainer = document.getElementById('modules-container');
 const foldersContainer = document.getElementById('folders-container');
 
 // Загрузка модулей и папок с сервера
-<!--function loadModulesAndFolders() {-->
-<!--    fetch('http://localhost:8070/data')-->
-<!--        .then(response => response.json())-->
-<!--        .then(data => {-->
-<!--            createModuleButtons(data.modules);-->
-<!--            createFolderButtons(data.folders);-->
-<!--        })-->
-<!--        .catch(error => {-->
-<!--            console.error('Error:', error);-->
-<!--        });-->
-<!--}-->
-
 function loadModulesAndFolders() {
-    const res = {
-        'modules': [
-            {
-                'name': 'MODULE'
-            },
-            {
-                'name': 'MOOOD'
-            }
-        ],
-        'folders': [
-            {
-                'name': 'FOLDERS'
-            }
-        ]
-    };
-    createModuleButtons(res.modules);
-    createFolderButtons(res.folders);
+    fetch('http://localhost:8070/data')
+        .then(response => response.json())
+        .then(data => {
+            createModuleButtons(data.modules);
+            createFolderButtons(data.folders);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
+
+<!--function loadModulesAndFolders() {-->
+<!--    const res = {-->
+<!--        'modules': [-->
+<!--            {-->
+<!--                'name': 'MODULE'-->
+<!--            },-->
+<!--            {-->
+<!--                'name': 'MOOOD'-->
+<!--            }-->
+<!--        ],-->
+<!--        'folders': [-->
+<!--            {-->
+<!--                'name': 'FOLDERS'-->
+<!--            }-->
+<!--        ]-->
+<!--    };-->
+<!--    createModuleButtons(res.modules);-->
+<!--    createFolderButtons(res.folders);-->
+<!--}-->
 
 // Создание кнопок для модулей
 function createModuleButtons(modules) {
-    modulesContainer.innerHTML = '';
-
-    modules.forEach(module => {
-        const button = document.createElement('button');
-        button.textContent = module.name;
-        button.classList.add('button-link');
-
-        button.addEventListener('click', () => {
-            const urlParams = new function createModuleButtons(modules) {
     modulesContainer.innerHTML = '';
 
     modules.forEach(module => {
@@ -324,7 +315,7 @@ addFolderConfirmButton.addEventListener('click', () => {
     fetch(`http://localhost:8070/folder/${folderNameInput.value}`, {method: 'POST'})
         .then(response => response.json())
         .then(data => {
-        closeModal('add-folder-modal');
+            closeModal('add-folder-modal');
             loadModulesAndFolders();
         })
         .catch(error => {
@@ -354,31 +345,13 @@ mergeFoldersConfirmButton.addEventListener('click', () => {
     fetch(`http://localhost:8070/folder/${newFolderNameInput.value}/merge`, {
         method: 'POST',
         headers: {
-            'Content-Type': mergeFoldersModal = document.getElementById('merge-folders-modal');
- mergeFoldersConfirmButton = document.getElementById('merge-folders-confirm-button');
- mergeFoldersButton = document.getElementById('merge-folders-button');
-
-mergeFoldersButton.addEventListener('click', () => {
-    mergeFoldersModal.style.display = "block";
-});
-
-mergeFoldersConfirmButton.addEventListener('click', () => {
-    const folderNamesInput = document.getElementById('folder-names-input');
-    const newFolderNameInput = document.getElementById('new-folder-name-input');
-
-    const folderNames = folderNamesInput.value.split(',');
-    const folders = folderNames.map(name => ({name}));
-
-    fetch(`http://localhost:8070/folder/${newFolderNameInput.value}/merge`, {
-        method: 'POST',
-        headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(folders)
     })
         .then(response => response.json())
         .then(data => {
-        closeModal('merge-folders-modal');
+            closeModal('merge-folders-modal');
             loadModulesAndFolders();
         })
         .catch(error => {
@@ -390,19 +363,20 @@ mergeFoldersConfirmButton.addEventListener('click', () => {
     newFolderNameInput.value = '';
 });
 
-// Закрытие модальных окон при клике вне области модального окна
-window.onclick = function(event) {
-    if (event.target == addModuleModal) {
-        addModuleModal.style.display = "none";
-    } else if (event.target == mergeModulesModal) {
-        mergeModulesModal.style.display = "none";
-    } else if (event.target == addFolderModal) {
-        addFolderModal.style.display = "none";
-    } else if (event.target == mergeFoldersModal) {
-        mergeFoldersModal.style.display = "none";
-    }
+// Закрытие модальных окон
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'none';
 }
 
+document.querySelectorAll('.modal-close').forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.modal');
+        modal.style.display = 'none';
+    });
+});
+
+// Загрузка модулей и папок при загрузке страницы
 loadModulesAndFolders();
 </script>
 
