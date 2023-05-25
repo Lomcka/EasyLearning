@@ -182,7 +182,7 @@ const foldersContainer = document.getElementById('folders-container');
 function loadModulesAndFolders() {
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
             'queryType': 'get-modules-and-folders'
-        })
+        }))
         .then(response => response.json())
         .then(data => {
             createModuleButtons(data.modules);
@@ -192,26 +192,6 @@ function loadModulesAndFolders() {
             console.error('Error:', error);
         });
 }
-
-<!--function loadModulesAndFolders() {-->
-<!--    const res = {-->
-<!--        'modules': [-->
-<!--            {-->
-<!--                'name': 'MODULE'-->
-<!--            },-->
-<!--            {-->
-<!--                'name': 'MOOOD'-->
-<!--            }-->
-<!--        ],-->
-<!--        'folders': [-->
-<!--            {-->
-<!--                'name': 'FOLDERS'-->
-<!--            }-->
-<!--        ]-->
-<!--    };-->
-<!--    createModuleButtons(res.modules);-->
-<!--    createFolderButtons(res.folders);-->
-<!--}-->
 
 // Создание кнопок для модулей
 function createModuleButtons(modules) {
@@ -265,7 +245,7 @@ addModuleConfirmButton.addEventListener('click', () => {
 
     fetch('http://localhost:8070/EasyLearning/module/${moduleNameInput.value}?' + new URLSearchParams({
             'queryType': 'add-new-module'
-        })`, {method: 'POST'})
+        }), {method: 'POST'})
         .then(response => response.json())
         .then(data => {
         closeModal('add-module-modal');
@@ -297,7 +277,7 @@ mergeModulesConfirmButton.addEventListener('click', () => {
 
     fetch('http://localhost:8070/EasyLearning/module/${newModuleNameInput.value}/merge?' + new URLSearchParams({
             'queryType': 'merge-modules'
-        })`, {
+        }), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

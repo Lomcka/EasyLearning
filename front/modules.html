@@ -308,9 +308,11 @@
     }
 
     // Fetch moduleData from localhost:8070 using fetch
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'get-module-data'
-        }))
+    const moduleName = window.location.search.split('=')[1];
+fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+    'queryType': 'get-module-data',
+    'moduleName': moduleName // добавляем параметр с названием модуля
+}))
         .then(response => response.json())
         .then(data => {
             // Handle the response from the server
