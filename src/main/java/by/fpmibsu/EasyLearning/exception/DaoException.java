@@ -1,4 +1,4 @@
-package by.fpmibsu.EasyLearning.dao;
+package by.fpmibsu.EasyLearning.exception;
 
 public class DaoException extends Exception {
     public DaoException() {}

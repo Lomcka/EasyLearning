@@ -1,6 +1,7 @@
 package by.fpmibsu.EasyLearning.dao;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.ModuleDaoBean;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 
 import java.util.ArrayList;
 import java.util.Optional;

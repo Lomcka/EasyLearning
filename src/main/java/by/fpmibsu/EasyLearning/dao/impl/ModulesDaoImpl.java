@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.ModuleDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.ModulesDao;
 
 import java.sql.Connection;
@@ -22,6 +22,10 @@ public class ModulesDaoImpl extends AbstractDao<Long, ModuleDaoBean> implements 
             "SELECT * FROM modules WHERE name = ?";
     private static final String SQL_FIND_MODULES_BY_OWNER_ID =
             "SELECT * FROM modules WHERE owner_id = ?";
+
+    public ModulesDaoImpl() {
+        super();
+    }
 
     public ModulesDaoImpl(Connection connection) {
         super(connection);

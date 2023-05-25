@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.UserDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.UsersDao;
 
 import java.sql.*;
@@ -17,8 +17,14 @@ public class UsersDaoImpl extends AbstractDao<Long, UserDaoBean> implements User
             "SELECT * FROM users WHERE login = ?";
     private static final String SQL_FIND_ALL_USERS =
             "SELECT * FROM users";
-    private static final String SQL_UPDATE_USER =
-            "UPDATE users SET login = ?, key_word = ? WHERE id = ?";
+    private static final String SQL_UPDATE_LOGIN =
+            "UPDATE users SET login = ? WHERE id = ?";
+    private static final String SQL_UPDATE_KEY_WORD =
+            "UPDATE users SET key_word = ? WHERE id = ?";
+
+    public UsersDaoImpl() {
+        super();
+    }
 
     public UsersDaoImpl(Connection connection) {
         super(connection);
@@ -61,10 +67,25 @@ public class UsersDaoImpl extends AbstractDao<Long, UserDaoBean> implements User
 
     @Override
     public void update(Long id, UserDaoBean newBean) throws DaoException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
-            statement.setString(1, newBean.getLogin());
-            statement.setString(2, newBean.getKeyWord());
-            statement.setLong(3, id);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void updateLogin(Long id, String newLogin) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_LOGIN)) {
+            statement.setString(1, newLogin);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void updateKeyword(Long id, String newKeyword) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_KEY_WORD)) {
+            statement.setString(1, newKeyword);
+            statement.setLong(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
