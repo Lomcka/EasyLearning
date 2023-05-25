@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.ModuleReaderDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.ModulesReadersDao;
 
 import java.sql.*;
@@ -17,6 +17,10 @@ public class ModulesReadersDaoImpl extends AbstractDao<Long, ModuleReaderDaoBean
             "SELECT * FROM modules_readers WHERE module_id = ?";
     private static final String SQL_FIND_BY_READER_ID =
             "SELECT * FROM modules_readers WHERE reader_id = ?";
+
+    public ModulesReadersDaoImpl() {
+        super();
+    }
 
     public ModulesReadersDaoImpl(Connection connection) {
         super(connection);

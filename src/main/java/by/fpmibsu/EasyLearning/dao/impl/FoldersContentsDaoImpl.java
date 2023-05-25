@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.FolderContentDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.FoldersContentsDao;
 
 import java.sql.Connection;
@@ -20,6 +20,10 @@ public class FoldersContentsDaoImpl extends AbstractDao<Long, FolderContentDaoBe
             "DELETE FROM folders_contents WHERE folder_id = ?";
     private static final String SQL_DELETE_FOLDER_CONTENT =
             "DELETE FROM folders_contents WHERE folder_id = ? AND module_id = ?";
+
+    public FoldersContentsDaoImpl() {
+        super();
+    }
 
     public FoldersContentsDaoImpl(Connection connection) {
         super(connection);

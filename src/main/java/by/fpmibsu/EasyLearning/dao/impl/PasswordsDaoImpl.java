@@ -1,7 +1,7 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.PasswordDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.PasswordsDao;
 
 import java.sql.*;
@@ -15,6 +15,10 @@ public class PasswordsDaoImpl extends AbstractDao<Long, PasswordDaoBean> impleme
             "UPDATE passwords SET user_password = ? WHERE user_id = ?";
     private static final String SQL_FIND_BY_USER_ID =
             "SELECT * FROM passwords WHERE user_id = ?";
+
+    public PasswordsDaoImpl() {
+        super();
+    }
 
     public PasswordsDaoImpl(Connection connection) {
         super(connection);
