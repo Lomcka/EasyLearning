@@ -140,6 +140,17 @@
     const newPassword = document.getElementById('new-password');
     const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
 
+    function checkPasswordMatch() {
+        const currentPassword = document.getElementById('new-password').value;
+        if (confirmPassword.value !== '' && confirmPassword.value !== currentPassword) {
+            confirmPassword.style.borderColor = 'red';
+            passwordMismatchMessage.style.display = 'block';
+        } else {
+            confirmPassword.style.borderColor = '';
+            passwordMismatchMessage.style.display = 'none';
+        }
+    }
+
     function getData() {
         fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
             'queryType': 'get-data-for-settings'
@@ -173,10 +184,10 @@
                 .then(result => {
                     if (result.success) {
                         document.getElementById('current-login').textContent = newLogin;
-                        document.getElementById('login-status').textContent = 'Успешно изменено';
+                        alert('Логин успешно изменен');
                         document.getElementById('settings-form').reset();
                     } else {
-                        document.getElementById('login-status').textContent = 'Этот логин уже занят';
+                        alert('Этот логин уже занят');
                     }
                 })
                 .catch(error => {
@@ -208,17 +219,17 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {
-                        document.getElementById('password-status').textContent = 'Пароль успешно установлен';
-                        document.getElementById('settings-form').reset();
+                        alert('Пароль успешно изменен');
+                        document.getElementById('settings-form-3').reset();
                     } else {
-                        document.getElementById('password-status').textContent = 'Неверный пароль';
+                        alert('Неверный пароль');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
         } else {
-            document.getElementById('password-status').textContent = 'Пароли не совпадают';
+            alert('Пароли не совпадают');
             document.getElementById('confirm-password').style.borderColor = 'red';
         }
     }
@@ -242,10 +253,10 @@
                 .then(result => {
                     if (result.success) {
                         document.getElementById('current-security-word').textContent = newSecurityWord;
-                        document.getElementById('security-word-status').textContent = 'Успешно изменено';
+                        alert('Кодовое слово успешно изменено');
                         document.getElementById('settings-form-2').reset();
                     } else {
-                        document.getElementById('security-word-status').textContent = 'Попробуйте другое';
+                        alert('Попробуйте другое');
                     }
                 })
                 .catch(error => {
