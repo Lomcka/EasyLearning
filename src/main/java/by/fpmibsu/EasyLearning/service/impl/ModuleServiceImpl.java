@@ -15,13 +15,18 @@ import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.exception.ServiceException;
 import by.fpmibsu.EasyLearning.service.ModuleService;
 import by.fpmibsu.EasyLearning.service.Transaction;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ModuleServiceImpl implements ModuleService {
+    private static Logger logger = Logger.getLogger(ModuleServiceImpl.class);
+
     @Override
     public void create(String name, Long ownerId) throws ServiceException {
+        logger.info("Create module method was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesDao);
@@ -29,6 +34,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             modulesDao.create(new ModuleDaoBean(0L, name, ownerId));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -37,6 +43,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public Optional<ModuleBean> findById(Long id) throws ServiceException {
+        logger.info("Find module by id method was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         ModulesContentsDao modulesContentsDao = new ModulesContentsDaoImpl();
         Transaction transaction = new Transaction();
@@ -45,6 +53,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             var module = modulesDao.findById(id);
             if (module.isEmpty()) {
+                logger.warn("Module is empty");
                 return Optional.empty();
             }
 
@@ -53,6 +62,7 @@ public class ModuleServiceImpl implements ModuleService {
             var cards = getCards(contents);
             return Optional.of(new ModuleBean(id, module.get().getModuleName(), cards));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             transaction.rollback();
             throw new ServiceException(e);
         } finally {
@@ -62,6 +72,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public Optional<ModuleBean> findByName(String name) throws ServiceException {
+        logger.info("Find module by name method was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         ModulesContentsDao modulesContentsDao = new ModulesContentsDaoImpl();
         Transaction transaction = new Transaction();
@@ -70,6 +82,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             var module = modulesDao.findByName(name);
             if (module.isEmpty()) {
+                logger.warn("Module is empty");
                 return Optional.empty();
             }
 
@@ -78,6 +91,7 @@ public class ModuleServiceImpl implements ModuleService {
             var cards = getCards(contents);
             return Optional.of(new ModuleBean(module.get().getId(), name, cards));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             transaction.rollback();
             throw new ServiceException(e);
         } finally {
@@ -86,6 +100,8 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     private ArrayList<CardBean> getCards(ArrayList<ModuleContentDaoBean> contents) {
+        logger.info("Get cards from module method was called in service");
+
         ArrayList<CardBean> cards = new ArrayList<>(contents.size());
         contents.forEach(content -> cards.add(new CardBean(
                 content.getCardId(),content.getModuleId(), content.getWord(), content.getTranslation())));
@@ -94,6 +110,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public ArrayList<String> findByOwnerId(Long ownerId) throws ServiceException {
+        logger.info("Find module by owner id was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesDao);
@@ -104,6 +122,7 @@ public class ModuleServiceImpl implements ModuleService {
             moduleDaoBeans.forEach(moduleDaoBean -> modules.add(moduleDaoBean.getModuleName()));
             return modules;
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -112,6 +131,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public ArrayList<String> findByReaderId(Long readerId) throws ServiceException {
+        logger.info("Find reader's module names method was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         ModulesReadersDao modulesReadersDao = new ModulesReadersDaoImpl();
         Transaction transaction = new Transaction();
@@ -127,6 +148,8 @@ public class ModuleServiceImpl implements ModuleService {
             transaction.commit();
             return modules;
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
+
             transaction.rollback();
             throw new ServiceException(e);
         } finally {
@@ -136,6 +159,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void updateModuleName(Long moduleId, String newName) throws ServiceException {
+        logger.info("Update module name method was called in service");
+
         ModulesDao modulesDao = new ModulesDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesDao);
@@ -143,6 +168,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             modulesDao.updateModuleName(moduleId, newName);
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -151,6 +177,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void addReader(Long moduleId, Long readerId) throws ServiceException {
+        logger.info("Add reader method was called in service");
+
         ModulesReadersDao modulesReadersDao = new ModulesReadersDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesReadersDao);
@@ -158,6 +186,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             modulesReadersDao.create(new ModuleReaderDaoBean(moduleId, readerId));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -166,6 +195,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void updateCard(Long moduleId, Long cardId, CardBean newCard) throws ServiceException {
+        logger.info("Update card method was called in service");
+
         ModulesContentsDao modulesContentsDao = new ModulesContentsDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesContentsDao);
@@ -174,6 +205,7 @@ public class ModuleServiceImpl implements ModuleService {
             modulesContentsDao.update(
                     moduleId, cardId, new ModuleContentDaoBean(0L, 0L, newCard.getWord(), newCard.getTranslation()));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -182,6 +214,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void deleteCard(Long moduleId, Long cardId) throws ServiceException {
+        logger.info("Delete card method was called in service");
+
         ModulesContentsDao modulesContentsDao = new ModulesContentsDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesContentsDao);
@@ -189,6 +223,7 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             modulesContentsDao.delete(moduleId, cardId);
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
@@ -197,6 +232,8 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public void addCard(Long moduleId, CardBean card) throws ServiceException {
+        logger.info("Add card method was called in service");
+
         ModulesContentsDao modulesContentsDao = new ModulesContentsDaoImpl();
         Transaction transaction = new Transaction();
         transaction.init(modulesContentsDao);
@@ -205,6 +242,7 @@ public class ModuleServiceImpl implements ModuleService {
             modulesContentsDao.create(new ModuleContentDaoBean(
                     moduleId, 0L, card.getWord(), card.getTranslation()));
         } catch (DaoException e) {
+            logger.error("Something went wrong in service: " + DaoException.class);
             throw new ServiceException(e);
         } finally {
             transaction.end();
