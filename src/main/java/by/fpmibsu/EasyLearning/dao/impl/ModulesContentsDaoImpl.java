@@ -1,7 +1,8 @@
 package by.fpmibsu.EasyLearning.dao.impl;
 
 import by.fpmibsu.EasyLearning.bean.dao_bean.ModuleContentDaoBean;
-import by.fpmibsu.EasyLearning.dao.DaoException;
+import by.fpmibsu.EasyLearning.dao.ModulesDao;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 import by.fpmibsu.EasyLearning.dao.ModulesContentsDao;
 
 import java.sql.Connection;
@@ -20,6 +21,10 @@ public class ModulesContentsDaoImpl extends AbstractDao<Long, ModuleContentDaoBe
             "UPDATE modules_contents SET word = ?, translation = ? WHERE module_id = ? AND card_id = ?";
     private static final String SQL_DELETE_MODULE_CONTENT =
             "DELETE FROM modules_contents WHERE module_id = ? AND card_id = ?";
+
+    public ModulesContentsDaoImpl() {
+        super();
+    }
 
     public ModulesContentsDaoImpl(Connection connection) {
         super(connection);

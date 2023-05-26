@@ -3,6 +3,7 @@ package by.fpmibsu.EasyLearning.controller;
 import by.fpmibsu.EasyLearning.bean.dao_bean.*;
 import by.fpmibsu.EasyLearning.dao.*;
 import by.fpmibsu.EasyLearning.dao.impl.*;
+import by.fpmibsu.EasyLearning.exception.DaoException;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class Runner {
     public static void main(String[] args) {
