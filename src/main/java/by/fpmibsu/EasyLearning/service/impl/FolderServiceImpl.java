@@ -46,6 +46,7 @@ public class FolderServiceImpl implements FolderService {
         try {
             var folder = foldersDao.findById(id);
             if (folder.isEmpty()) {
+
                 return Optional.empty();
             }
 
