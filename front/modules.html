@@ -150,6 +150,7 @@
 
 <button class="back-button" onclick="goBack()">Назад</button>
 
+Полина Костюкович, [26.05.23 23:04]
 <!-- Add Card Form (Hidden by Default) -->
 <div id="add-card-form" class="modal">
     <div class="modal-content">
@@ -187,12 +188,6 @@
                     <input type="password" id="password-input" required>
                 </label>
             </div>
-            <div>
-                <label>
-                    Название модуля:
-                    <input type="text" id="module-name" required>
-                </label>
-            </div>
             <button type="submit" onclick="shareModule(event)">Ок</button>
         </form>
     </div>
@@ -200,46 +195,23 @@
 
 <script>
     function renderModules(content) {
-        content = [
-            {
-                "word": "a",
-                "translation": "b"
-            },
-            {
-                "word": "fgjk",
-                "translation": "chvmb"
-            },
-            {
-                "word": "lol",
-                "translation": "kek"
-            }
-        ]
-            const moduleContainer = document.getElementById("modules-container");
-            moduleContainer.innerHTML = "";
+        const moduleContainer = document.getElementById("modules-container");
+        moduleContainer.innerHTML = "";
 
-            content.forEach((card) => {
-                const cardDiv = document.createElement("div");
-                cardDiv.classList.add("module-card");
+        const cardDiv = document.createElement("div");
+        cardDiv.classList.add("module-card");
+        content.forEach((card) => {
 
-                const wordHeader = document.createElement("h3");
-                wordHeader.textContent = card.word;
-                cardDiv.appendChild(wordHeader);
+            const wordHeader = document.createElement("li");
+            wordHeader.textContent = `${card.word} - ${card.translation}`;
+            cardDiv.appendChild(wordHeader);
 
-                const wordContent = document.createElement("ul");
-                card.translation.forEach((translation) => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = translation;
-                    wordContent.appendChild(listItem);
-                });
-
-                cardDiv.appendChild(wordContent);
-
-                moduleContainer.appendChild(cardDiv);
-            });
-        }
+            moduleContainer.appendChild(cardDiv);
+        });
+    }
 
 
-        function showCards() {
+    function showCards() {
         window.location.href = 'cards.html';
     }
 
@@ -284,13 +256,12 @@
                 // Handle the response from the server
                 console.log(data);
                 closeModal('add-card-form');
+                loadCards();
             })
             .catch(error => {
                 // Handle any errors
                 console.error('Error:', error);
             });
-
-        loadCards();
     }
 
     function shareModule(event) {
@@ -298,18 +269,17 @@
 
         const usernameInput = document.getElementById('username-input');
         const passwordInput = document.getElementById('password-input');
-        const moduleName = document.getElementById('module-name');
 
         const shareData = {
             username: usernameInput.value,
             password: passwordInput.value,
-            module: moduleName.value
+            moduleName: window.location.search.split("=")[1]
         };
 
         usernameInput.value = '';
         passwordInput.value = '';
 
-        // Send shareData to localhost:8070 using fetch
+// Send shareData to localhost:8070 using fetch
         fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
             'queryType': 'share-module'
         }), {
