@@ -176,16 +176,22 @@
         <h3>Поделиться модулем</h3>
         <form id="share-form">
             <div>
-            <label>
-                Имя пользователя:
-                <input type="text" id="username-input" required>
-            </label>
+                <label>
+                    Имя пользователя:
+                    <input type="text" id="username-input" required>
+                </label>
             </div>
             <div>
                 <label>
-                Кодовое слово пользователя:
-                <input type="password" id="password-input" required>
-            </label>
+                    Кодовое слово пользователя:
+                    <input type="password" id="password-input" required>
+                </label>
+            </div>
+            <div>
+                <label>
+                    Название модуля:
+                    <input type="text" id="module-name" required>
+                </label>
             </div>
             <button type="submit" onclick="shareModule(event)">Ок</button>
         </form>
@@ -193,28 +199,20 @@
 </div>
 
 <script>
-    function renderModules(modules) {
-        const modulesContainer = document.getElementById('modules-container');
+    function renderModules(content) {
+        const wordDiv = document.createElement('div');
+        wordDiv.classList.add('module-card');
 
-        modules.forEach(module => {
-            const moduleDiv = document.createElement('div');
-            moduleDiv.classList.add('module-card');
-
-            const moduleName = document.createElement('h3');
-            moduleName.textContent = module.name;
-
-            const moduleContent = document.createElement('ul');
-            module.content.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${item.word} - ${item.translation}`;
-                moduleContent.appendChild(listItem);
-            });
-
-            moduleDiv.appendChild(moduleName);
-            moduleDiv.appendChild(moduleContent);
-
-            modulesContainer.appendChild(moduleDiv);
+        const wordContent = document.createElement('ul');
+        content.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.word} - ${item.translation}`;
+            wordContent.appendChild(listItem);
         });
+
+        wordDiv.appendChild(wordContent);
+
+        document.getElementById('modules-container').appendChild(wordDiv);
     }
 
     function showCards() {
@@ -234,10 +232,12 @@
     function addCard(event) {
         event.preventDefault();
 
+        const moduleName = window.location.search.split('=')[1];
         const wordInput = document.getElementById('word-input');
         const translationInput = document.getElementById('translation-input');
 
         const cardData = {
+            moduleName: moduleName,
             word: wordInput.value,
             translation: translationInput.value
         };
@@ -255,16 +255,18 @@
             },
             body: JSON.stringify(cardData)
         })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response from the server
-            console.log(data);
-            closeModal('add-card-form');
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+                closeModal('add-card-form');
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
+
+        loadCards();
     }
 
     function shareModule(event) {
@@ -272,10 +274,12 @@
 
         const usernameInput = document.getElementById('username-input');
         const passwordInput = document.getElementById('password-input');
+        const moduleName = document.getElementById('module-name');
 
         const shareData = {
             username: usernameInput.value,
-            password: passwordInput.value
+            password: passwordInput.value,
+            module: moduleName.value
         };
 
         usernameInput.value = '';
@@ -291,16 +295,16 @@
             },
             body: JSON.stringify(shareData)
         })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response from the server
-            console.log(data);
-            closeModal('share-module-form');
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+                closeModal('share-module-form');
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
     }
 
     function goBack() {
@@ -308,22 +312,27 @@
     }
 
     // Fetch moduleData from localhost:8070 using fetch
-    const moduleName = window.location.search.split('=')[1];
-fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-    'queryType': 'get-module-data',
-    'moduleName': moduleName // добавляем параметр с названием модуля
-}))
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response from the server
-            console.log(data);
-            document.getElementById('module-title').textContent = data.name;
-            renderModules(data.content);
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
-        });
+
+    function loadCards() {
+        const moduleName = window.location.search.split('=')[1];
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-module-data',
+            'moduleName': moduleName
+        }))
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+                document.getElementById('module-title').textContent = data.name;
+                renderModules(data.content);
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
+    }
+
+    loadCards();
 </script>
 </body>
 </html>

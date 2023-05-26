@@ -69,17 +69,16 @@
 
 
         .label-60 {
-          display: inline-block;
-          width: 40%;
+            display: inline-block;
+            width: 40%;
         }
 
         .input-60 {
-          width: 100%;
-          box-sizing: border-box; /* чтобы полное значение ширины включало padding и border */
-          padding: 5px; /* задаем отступы */
-          margin-bottom: 10px; /* задаем отступы */
+            width: 100%;
+            box-sizing: border-box; /* чтобы полное значение ширины включало padding и border */
+            padding: 5px; /* задаем отступы */
+            margin-bottom: 10px; /* задаем отступы */
         }
-
 
 
     </style>
@@ -127,7 +126,7 @@
     <p>Текущее кодовое слово: <span id="current-security-word"></span></p>
     <label class="label-60" for="new-security-word">
         <form id="settings-form-2">
-            <input  class="input-60" type="text" id="new-security-word" placeholder="Новое кодовое слово">
+            <input class="input-60" type="text" id="new-security-word" placeholder="Новое кодовое слово">
             <button onclick="changeSecurityWord()">Применить</button>
         </form>
     </label>
@@ -137,14 +136,14 @@
 <button class="back-button" onclick="goBack()">Назад</button>
 
 <script>
-const confirmPassword = document.getElementById('confirm-password');
-const newPassword = document.getElementById('new-password');
-const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
+    const confirmPassword = document.getElementById('confirm-password');
+    const newPassword = document.getElementById('new-password');
+    const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
 
     function getData() {
         fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'get-data-for-settings'
-    }))
+            'queryType': 'get-data-for-settings'
+        }))
             .then(response => response.json())
             .then(data => {
                 document.getElementById('current-login').textContent = data.login;
@@ -156,104 +155,104 @@ const passwordMismatchMessage = document.querySelector('.password-mismatch-messa
     }
 
     function changeLogin() {
-const newLogin = document.getElementById('new-login').value;
+        const newLogin = document.getElementById('new-login').value;
 
-if (newLogin) {
-    const data = { login: newLogin };
+        if (newLogin) {
+            const data = {login: newLogin};
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'change-login'
-    }), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                document.getElementById('current-login').textContent = newLogin;
-                document.getElementById('login-status').textContent = 'Успешно изменено';
-                document.getElementById('settings-form').reset();
-            } else {
-                document.getElementById('login-status').textContent = 'Этот логин уже занят';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-}
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-login'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        document.getElementById('current-login').textContent = newLogin;
+                        document.getElementById('login-status').textContent = 'Успешно изменено';
+                        document.getElementById('settings-form').reset();
+                    } else {
+                        document.getElementById('login-status').textContent = 'Этот логин уже занят';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
 
-function changePassword() {
-const currentPassword = document.getElementById('current-password').value;
-const newPassword = document.getElementById('new-password').value;
-const confirmPassword = document.getElementById('confirm-password').value;
+    function changePassword() {
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
 
-if (newPassword === confirmPassword) {
-    const data = {
-        currentPassword: currentPassword,
-        newPassword: newPassword
-    };
+        if (newPassword === confirmPassword) {
+            const data = {
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            };
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'change-password'
-    }), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                document.getElementById('password-status').textContent = 'Пароль успешно установлен';
-                document.getElementById('settings-form').reset();
-            } else {
-                document.getElementById('password-status').textContent = 'Неверный пароль';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-} else {
-    document.getElementById('password-status').textContent = 'Пароли не совпадают';
-    document.getElementById('confirm-password').style.borderColor = 'red';
-}
-}
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-password'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        document.getElementById('password-status').textContent = 'Пароль успешно установлен';
+                        document.getElementById('settings-form').reset();
+                    } else {
+                        document.getElementById('password-status').textContent = 'Неверный пароль';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            document.getElementById('password-status').textContent = 'Пароли не совпадают';
+            document.getElementById('confirm-password').style.borderColor = 'red';
+        }
+    }
 
-function changeSecurityWord() {
-const newSecurityWord = document.getElementById('new-security-word').value;
+    function changeSecurityWord() {
+        const newSecurityWord = document.getElementById('new-security-word').value;
 
-if (newSecurityWord) {
-    const data = { securityWord: newSecurityWord };
+        if (newSecurityWord) {
+            const data = {securityWord: newSecurityWord};
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'change-security-word'
-    }), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                document.getElementById('current-security-word').textContent = newSecurityWord;
-                document.getElementById('security-word-status').textContent = 'Успешно изменено';
-                document.getElementById('settings-form-2').reset();
-            } else {
-                document.getElementById('security-word-status').textContent = 'Попробуйте другое';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-}
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-security-word'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        document.getElementById('current-security-word').textContent = newSecurityWord;
+                        document.getElementById('security-word-status').textContent = 'Успешно изменено';
+                        document.getElementById('settings-form-2').reset();
+                    } else {
+                        document.getElementById('security-word-status').textContent = 'Попробуйте другое';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
 
     function goBack() {
         window.history.back();

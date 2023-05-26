@@ -152,7 +152,8 @@
             button.classList.add('module-button');
             button.addEventListener('click', () => {
                 fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'get-modules'})
+                    'queryType': 'get-modules'
+                })
                     .then(response => response.json())
                     .then(data => {
                         const moduleData = JSON.stringify(data);
@@ -160,72 +161,74 @@
                     })
                     .catch(error => {
                         console.error('Error. :', error);
-});
-});
+                    }))
+            });
 
-        modulesContainer.appendChild(button);
-    });
-}
-
-function addModule(event) {
-    event.preventDefault();
-    const nameInput = document.getElementById('word-input');
-    const moduleName = nameInput.value;
-
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'add-module-to-folder'}), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: moduleName
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            closeModal('add-card-form');
-            nameInput.value = '';
-            fetchModules();
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            modulesContainer.appendChild(button);
         });
-}
+    }
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.style.display = 'none';
-}
+    function addModule(event) {
+        event.preventDefault();
+        const nameInput = document.getElementById('word-input');
+        const moduleName = nameInput.value;
 
-function goBack() {
-    window.history.back();
-}
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'add-module-to-folder'
+        }), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: moduleName
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                closeModal('add-card-form');
+                nameInput.value = '';
+                fetchModules();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-function fetchModules(folderName) {
-  fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-      'queryType': 'get-modules',
-      'folderName': folderName
-    }))
-    .then(response => response.json())
-    .then(data => {
-      const modules = data.modules;
-      createModuleButtons(modules);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-}
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'none';
+    }
 
-function init() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const folderTitle = urlParams.get('folderName');
-  const titleElement = document.getElementById('folder-title');
-  titleElement.textContent = folderTitle || 'Модули';
+    function goBack() {
+        window.history.back();
+    }
 
-  fetchModules(folderTitle);
-}
-init();
+    function fetchModules(folderName) {
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-modules',
+            'folderName': folderName
+        }))
+            .then(response => response.json())
+            .then(data => {
+                const modules = data.modules;
+                createModuleButtons(modules);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function init() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const folderTitle = urlParams.get('folderName');
+        const titleElement = document.getElementById('folder-title');
+        titleElement.textContent = folderTitle || 'Модули';
+
+        fetchModules(folderTitle);
+    }
+
+    init();
 </script>
 </body>
 </html>
