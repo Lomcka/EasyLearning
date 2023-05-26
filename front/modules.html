@@ -200,22 +200,46 @@
 
 <script>
     function renderModules(content) {
-        const wordDiv = document.createElement('div');
-        wordDiv.classList.add('module-card');
+        content = [
+            {
+                "word": "a",
+                "translation": "b"
+            },
+            {
+                "word": "fgjk",
+                "translation": "chvmb"
+            },
+            {
+                "word": "lol",
+                "translation": "kek"
+            }
+        ]
+            const moduleContainer = document.getElementById("modules-container");
+            moduleContainer.innerHTML = "";
 
-        const wordContent = document.createElement('ul');
-        content.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.word} - ${item.translation}`;
-            wordContent.appendChild(listItem);
-        });
+            content.forEach((card) => {
+                const cardDiv = document.createElement("div");
+                cardDiv.classList.add("module-card");
 
-        wordDiv.appendChild(wordContent);
+                const wordHeader = document.createElement("h3");
+                wordHeader.textContent = card.word;
+                cardDiv.appendChild(wordHeader);
 
-        document.getElementById('modules-container').appendChild(wordDiv);
-    }
+                const wordContent = document.createElement("ul");
+                card.translation.forEach((translation) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = translation;
+                    wordContent.appendChild(listItem);
+                });
 
-    function showCards() {
+                cardDiv.appendChild(wordContent);
+
+                moduleContainer.appendChild(cardDiv);
+            });
+        }
+
+
+        function showCards() {
         window.location.href = 'cards.html';
     }
 
@@ -314,21 +338,24 @@
     // Fetch moduleData from localhost:8070 using fetch
 
     function loadCards() {
-        const moduleName = window.location.search.split('=')[1];
-        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'get-module-data',
-            'moduleName': moduleName
-        }))
-            .then(response => response.json())
-            .then(data => {
+        const moduleName = window.location.search.split("=")[1];
+        fetch(
+            "http://localhost:8070/EasyLearning?" +
+            new URLSearchParams({
+                queryType: "get-module-data",
+                moduleName: moduleName,
+            })
+        )
+            .then((response) => response.json())
+            .then((data) => {
                 // Handle the response from the server
                 console.log(data);
-                document.getElementById('module-title').textContent = data.name;
+                document.getElementById("module-title").textContent = data.name;
                 renderModules(data.content);
             })
-            .catch(error => {
+            .catch((error) => {
                 // Handle any errors
-                console.error('Error:', error);
+                console.error("Error:", error);
             });
     }
 
