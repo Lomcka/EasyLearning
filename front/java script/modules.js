@@ -107,12 +107,16 @@ function shareModule(event) {
     })
         .then(response => response.json())
         .then(data => {
-            // Handle the response from the server
-            console.log(data);
+            if (data.status === 'success') {
+                alert('Успешно поделились');
+            } else if (data.status === 'not success') {
+                alert('Поделиться не получилось. Проверьте логин и кодовое слово');
+            } else if (data.status === 'exists') {
+                alert('У этого пользователя уже есть модуль с таким именем');
+            }
             closeModal('share-module-form');
         })
         .catch(error => {
-            // Handle any errors
             console.error('Error:', error);
         });
 }
