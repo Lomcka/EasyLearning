@@ -19,20 +19,8 @@ function closeModal(modalId) {
     modal.style.display = 'none';
 }
 
-// function showCard(index) {
-//     const card = cards[index];
-//     currentCard.classList.add('card');
-//     currentCard.innerHTML = `
-// <div class="word">${showWordFirst ? card.word : card.translation}</div>
-// <div class="translation">${showWordFirst ? card.translation : card.word}</div>
-// `;
-//   cardContainer.innerHTML = '';
-//   cardContainer.appendChild(currentCard);
-// }
-
 function toggleTranslation() {
     const currentCard = cardContainer.querySelector('.card');
-    // console.log("34: "+currentCard.textContent);
     currentCard.textContent = '';
     currentCard.textContent += cur_translation;
     currentCard.classList.toggle('show-translation');
@@ -49,9 +37,9 @@ function toggleShowWordFirst() {
 function waitForKeyPress() {
     return new Promise((resolve) => {
         document.addEventListener('keydown', (event) => {
-            if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-                resolve(event);
-            }
+            // if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
+            resolve(event);
+            // }
         }, {once: true});
     });
 }
@@ -88,13 +76,10 @@ function handleRightAnswer() {
     currentCard.classList.add('right-answer');
     setTimeout(() => {
         currentIndex++;
-        // console.log(currentIndex);
-        // console.log(cards.length);
         if (currentIndex >= cards.length) {
             Relocate();
         } else {
             currentCard.classList.remove('right-answer');
-            // showCard(order[currentIndex]);
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
@@ -102,6 +87,8 @@ function handleRightAnswer() {
 }
 
 function handleWrongAnswer() {
+    console.log(okCards);
+    console.log(repeatCards);
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('wrong-answer');
     setTimeout(() => {
@@ -110,7 +97,6 @@ function handleWrongAnswer() {
             Relocate();
         } else {
             currentCard.classList.remove('wrong-answer');
-            // showCard(order[currentIndex]);
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
@@ -118,12 +104,10 @@ function handleWrongAnswer() {
 }
 
 function Repeat() {
-    // toggleRandomOrder();
     closeModal('settings');
 }
 
 document.addEventListener('keydown', event => {
-    // console.log("keydown");
     if (event.code === 'Space') {
         toggleTranslation();
         let temp = cur_translation;
@@ -139,23 +123,27 @@ document.addEventListener('keydown', event => {
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
-    // console.log("I\'m loading cards");
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        queryType: 'resend-ok-repeat'
+        queryType: 'resend-ok-repeat2'
     }))
         .then(response => response.json())
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
-            let originalOrder = data.map((_, index) => index);
-            order = originalOrder;
-            renderCards(data, originalOrder);
+            cards = data.repeat;
+            let i = 0;
+            while (i < cards.length) {
+                order.push(i);
+                ++i;
+            }
+            console.log(cards);
+            console.log(order);
+            renderCards(order);
         })
         .catch(error => console.error(error));
-    // showCard(0);
 }
 
 // Функция для отображения карточек на странице
-async function renderCards(cards, order) {
+async function renderCards(order) {
     cardContainer.innerHTML = '';
     for (const i of order) {
         const card = document.createElement('div');

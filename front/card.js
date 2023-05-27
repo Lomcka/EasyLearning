@@ -1,27 +1,34 @@
-const urlParams = new URLSearchParams(window.location.search);
-const jsonData = urlParams.get('data');
+let okCards = [];
+let repeatCards = [];
 
-const data = JSON.parse(jsonData);
-let okCards = data.ok;
-let repeatCards = data.repeat;
-
-const okPower = okCards.length;
-const repeatPower = repeatCards.length;
-const totalPower = okPower + repeatPower;
-
-const chartData = [
-    {
-        values: [okPower, totalPower - okPower],
-        labels: ['OK', 'Repeat'],
-        type: 'pie'
-    }
-];
-
-Plotly.newPlot('chart', chartData);
 
 const continueBtn = document.getElementById('continue-btn');
 const resetBtn = document.getElementById('reset-btn');
 
+
+function loadArrays() {
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+        queryType: 'resend-ok-repeat2'
+    }))
+        .then(response => response.json())
+        .then(data => {
+            okCards = data.ok;
+            repeatCards = data.repeat;
+            console.log(okCards);
+            console.log(repeatCards);
+
+            const chartData = [
+                {
+                    values: [okCards.length, repeatCards.length],
+                    labels: ['OK', 'Repeat'],
+                    type: 'pie'
+                }
+            ];
+
+            Plotly.newPlot('chart', chartData);
+        })
+        .catch(error => console.error(error));
+}
 
 continueBtn.addEventListener('click', () => {
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
@@ -40,22 +47,23 @@ continueBtn.addEventListener('click', () => {
         .then(data => {
             // Handle the response from the server
             console.log(data);
-            closeModal('add-card-form');
-            loadCards();
+            window.location.href = `cards.html`;
         })
         .catch(error => {
             // Handle any errors
             console.error('Error:', error);
         });
-    window.location.href = `cards.html`;
 
 });
 
 
 resetBtn.addEventListener('click', () => {
+    okCards.forEach(data => {
+        repeatCards.push(data);
+    });
     const newData = {
-        ok: [...data.ok, ...data.repeat],
-        repeat: []
+        ok: [],
+        repeat: repeatCards
     };
 
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
@@ -65,21 +73,18 @@ resetBtn.addEventListener('click', () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            'ok': newData,
-            'repeat': []
-        })
+        body: JSON.stringify(newData)
     })
         .then(response => response.json())
         .then(data => {
             // Handle the response from the server
             console.log(data);
-            closeModal('add-card-form');
-            loadCards();
+            window.location.href = `cards.html`;
         })
         .catch(error => {
             // Handle any errors
             console.error('Error:', error);
         });
-    window.location.href = `cards.html`;
 });
+
+loadArrays();
