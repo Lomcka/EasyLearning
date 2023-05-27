@@ -56,7 +56,7 @@ function closeModal(modalId) {
 }
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 function fetchModules(folderName) {

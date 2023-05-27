@@ -108,11 +108,11 @@ function shareModule(event) {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                alert('Успешно поделились');
+                alert(`Успешно поделились`);
             } else if (data.status === 'not success') {
-                alert('Поделиться не получилось. Проверьте логин и кодовое слово');
+                alert(`Поделиться не получилось. Проверьте логин и кодовое слово`);
             } else if (data.status === 'exists') {
-                alert('У этого пользователя уже есть модуль с таким именем');
+                alert(`У этого пользователя уже есть модуль с таким именем`);
             }
             closeModal('share-module-form');
         })
@@ -122,7 +122,7 @@ function shareModule(event) {
 }
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 // Fetch moduleData from localhost:8070 using fetch

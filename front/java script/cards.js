@@ -10,7 +10,7 @@ let cur_word = '';
 order = []
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 function showModal(modalId) {

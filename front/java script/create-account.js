@@ -54,5 +54,5 @@ createAccountForm.addEventListener('submit', function (event) {
 });
 
 function goBack() {
-    window.history.back(); // Возвращаемся на предыдущую страницу
+    window.location.href='main.html';
 }

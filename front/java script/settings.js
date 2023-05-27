@@ -45,10 +45,10 @@ function changeLogin() {
             .then(result => {
                 if (result.success) {
                     document.getElementById('current-login').textContent = newLogin;
-                    alert('Логин успешно изменен');
+                    alert(`Логин успешно изменен`);
                     document.getElementById('settings-form').reset();
                 } else {
-                    alert('Этот логин уже занят');
+                    alert(`Этот логин уже занят`);
                 }
             })
             .catch(error => {
@@ -80,17 +80,17 @@ function changePassword() {
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    alert('Пароль успешно изменен');
+                    alert(`Пароль успешно изменен`);
                     document.getElementById('settings-form-3').reset();
                 } else {
-                    alert('Неверный пароль');
+                    alert(`Неверный пароль`);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     } else {
-        alert('Пароли не совпадают');
+        alert(`Пароли не совпадают`);
         document.getElementById('confirm-password').style.borderColor = 'red';
     }
 }
@@ -114,10 +114,10 @@ function changeSecurityWord() {
             .then(result => {
                 if (result.success) {
                     document.getElementById('current-security-word').textContent = newSecurityWord;
-                    alert('Кодовое слово успешно изменено');
+                    alert(`Кодовое слово успешно изменено`);
                     document.getElementById('settings-form-2').reset();
                 } else {
-                    alert('Попробуйте другое');
+                    alert(`Попробуйте другое`);
                 }
             })
             .catch(error => {
@@ -127,7 +127,7 @@ function changeSecurityWord() {
 }
 
 function goBack() {
-    window.history.back();
+    window.location.href = 'main.html';
 }
 
 getData();

@@ -6,7 +6,7 @@ const continueBtn = document.getElementById('continue-btn');
 const resetBtn = document.getElementById('reset-btn');
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 function loadArrays() {
