@@ -53,6 +53,7 @@ public class CardBean extends Bean {
         if (moduleId == null) {
             throw new IllegalArgumentException("moduleId is null");
         }
+
         this.moduleId = moduleId;
     }
 
