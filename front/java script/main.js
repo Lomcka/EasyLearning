@@ -88,6 +88,17 @@ addModuleConfirmButton.addEventListener('click', () => {
     moduleNameInput.value = '';
 });
 
+function logOut(){
+    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+        'queryType': 'log-out'
+    }), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
 // Открытие модального окна для объединения модулей
 const mergeModulesModal = document.getElementById('merge-modules-modal');
 const mergeModulesConfirmButton = document.getElementById('merge-modules-confirm-button');
