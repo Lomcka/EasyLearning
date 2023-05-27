@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>My Flashcards</title>
+    <title>Заучивание</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .card-container {
@@ -236,7 +236,7 @@
             color: #333333;
         }
 
-        .repeat-button {
+        .modal-footer .repeat-button {
             display: block;
             width: 150px;
             margin: 0 auto;
@@ -251,9 +251,9 @@
 </head>
 <body>
 <button class="add-button" onclick="showModal('settings')">...</button>
-<!--<div class="card-container">-->
-<!--     Здесь будет отображаться текущая карточка -->
-<!--</div>-->
+<div class="card-container">
+    <!--     Здесь будет отображаться текущая карточка -->
+</div>
 <div id="settings" class="modal">
     <div class="modal-header">
         <span class="close-button" onclick="closeModal('settings')">&times;</span>
@@ -270,7 +270,7 @@
 
     </div>
     <div class="modal-footer">
-        <button class="repeat-button">Заново</button>
+        <button class="repeat-button" onclick="Repeat(event)">Заново</button>
     </div>
 </div>
 <script src="cards.js"></script>

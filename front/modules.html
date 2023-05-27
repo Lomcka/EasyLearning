@@ -150,7 +150,6 @@
 
 <button class="back-button" onclick="goBack()">Назад</button>
 
-Полина Костюкович, [26.05.23 23:04]
 <!-- Add Card Form (Hidden by Default) -->
 <div id="add-card-form" class="modal">
     <div class="modal-content">
@@ -212,7 +211,7 @@
 
 
     function showCards() {
-        window.location.href = 'cards.html';
+        window.location.href = `cards.html?moduleName=${encodeURIComponent(window.location.search.split('=')[1])}`;
     }
 
     function showModal(modalId) {
