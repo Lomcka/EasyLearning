@@ -177,23 +177,6 @@ function loadCards() {
 // Функция для отображения карточек на странице
 async function renderCards(cards, order) {
     // console.log("I\'m rendering cards");
-    cards = [
-        {
-            "word": "a",
-            "translation": "b",
-            "status": "ok"
-        },
-        {
-            "word": "fgjk",
-            "translation": "chvmb",
-            "status": "ok"
-        },
-        {
-            "word": "lol",
-            "translation": "kek",
-            "status": "ok"
-        }
-    ]
     // console.log(order);
     // console.log(cards);
     cardContainer.innerHTML = '';
