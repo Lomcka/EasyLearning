@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            display: block;
+            width: 150px;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        #login-status,
+        #password-status,
+        #security-word-status {
+            font-weight: bold;
+        }
+
+        .password-mismatch-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
+        .label-60 {
+            display: inline-block;
+            width: 40%;
+        }
+
+        .input-60 {
+            width: 100%;
+            box-sizing: border-box; /* чтобы полное значение ширины включало padding и border */
+            padding: 5px; /* задаем отступы */
+            margin-bottom: 10px; /* задаем отступы */
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Настройки</h1>
+
+<div id="login-section">
+    <h2>Логин</h2>
+    <p>Текущий логин: <span id="current-login"></span></p>
+    <label class="label-60" for="new-login">
+        <form id="settings-form">
+            <input class="input-60" type="text" id="new-login" placeholder="Новый логин">
+            <button onclick="changeLogin()">Применить</button>
+        </form>
+    </label>
+    <p id="login-status"></p>
+</div>
+
+<div id="password-section">
+    <h2>Пароль</h2>
+    <p>Текущий пароль:</p>
+    <label class="label-60" for="current-password">
+        <input class="input-60" type="password" id="current-password" placeholder="Текущий пароль">
+    </label>
+    <p>Новый пароль:</p>
+    <label class="label-60" for="new-password">
+        <input class="input-60" type="password" id="new-password" placeholder="Новый пароль">
+    </label>
+    <p>Подтвердите пароль:</p>
+    <label class="label-60" for="confirm-password">
+        <form id="settings-form-3">
+            <input class="input-60" type="password" id="confirm-password"
+                   required onpaste="return false;"
+                   oninput="checkPasswordMatch()" placeholder="Подтвердите пароль">
+            <span class="password-mismatch-message" style="display: none;">Пароли не совпадают</span>
+            <button onclick="changePassword()">Применить</button>
+        </form>
+    </label>
+    <p id="password-status"></p>
+</div>
+
+<div id="security-section">
+    <h2>Кодовое слово</h2>
+    <p>Текущее кодовое слово: <span id="current-security-word"></span></p>
+    <label class="label-60" for="new-security-word">
+        <form id="settings-form-2">
+            <input class="input-60" type="text" id="new-security-word" placeholder="Новое кодовое слово">
+            <button onclick="changeSecurityWord()">Применить</button>
+        </form>
+    </label>
+    <p id="security-word-status"></p>
+</div>
+
+<button class="back-button" onclick="goBack()">Назад</button>
+
+<script>
+    const confirmPassword = document.getElementById('confirm-password');
+    const newPassword = document.getElementById('new-password');
+    const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
+
+    function checkPasswordMatch() {
+        const currentPassword = document.getElementById('new-password').value;
+        if (confirmPassword.value !== '' && confirmPassword.value !== currentPassword) {
+            confirmPassword.style.borderColor = 'red';
+            passwordMismatchMessage.style.display = 'block';
+        } else {
+            confirmPassword.style.borderColor = '';
+            passwordMismatchMessage.style.display = 'none';
+        }
+    }
+
+    function getData() {
+        fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+            'queryType': 'get-data-for-settings'
+        }))
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('current-login').textContent = data.login;
+                document.getElementById('current-security-word').textContent = data.securityWord;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function changeLogin() {
+        const newLogin = document.getElementById('new-login').value;
+
+        if (newLogin) {
+            const data = {login: newLogin};
+
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-login'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        document.getElementById('current-login').textContent = newLogin;
+                        alert('Логин успешно изменен');
+                        document.getElementById('settings-form').reset();
+                    } else {
+                        alert('Этот логин уже занят');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    function changePassword() {
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (newPassword === confirmPassword) {
+            const data = {
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            };
+
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-password'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert('Пароль успешно изменен');
+                        document.getElementById('settings-form-3').reset();
+                    } else {
+                        alert('Неверный пароль');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            alert('Пароли не совпадают');
+            document.getElementById('confirm-password').style.borderColor = 'red';
+        }
+    }
+
+    function changeSecurityWord() {
+        const newSecurityWord = document.getElementById('new-security-word').value;
+
+        if (newSecurityWord) {
+            const data = {securityWord: newSecurityWord};
+
+            fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
+                'queryType': 'change-security-word'
+            }), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        document.getElementById('current-security-word').textContent = newSecurityWord;
+                        alert('Кодовое слово успешно изменено');
+                        document.getElementById('settings-form-2').reset();
+                    } else {
+                        alert('Попробуйте другое');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    getData();
+</script>
+</body>
+</html>
