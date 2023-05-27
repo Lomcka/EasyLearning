@@ -11,14 +11,14 @@ public class ShareInfoValidator implements Validator<ShareInfoBean>{
     public ShareInfoBean validate(JSONObject json) throws IncorrectFormDataException {
         ShareInfoBean info = new ShareInfoBean();
 
-        String login = (String) json.get("username-input");
+        String login = (String) json.get("username");
         if (login != null && !login.isEmpty()) {
             info.setLogin(login);
         } else {
             throw new IncorrectFormDataException("login", login);
         }
 
-        String keyWord = (String) json.get("password-input");
+        String keyWord = (String) json.get("password");
         if (keyWord != null && !keyWord.isEmpty()) {
             info.setKeyWord(keyWord);
         } else {
