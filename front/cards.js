@@ -125,7 +125,7 @@ function openModal() {
 }
 
 function Repeat(event) {
-    toggleRandomOrder();
+    // toggleRandomOrder();
     closeModal('settings');
 }
 
@@ -146,29 +146,26 @@ document.addEventListener('keydown', event => {
 function toggleOrder() {
     const orderText = document.getElementById("order-text");
     if (orderText.innerHTML === "Прямой порядок") {
+        randomOrder = true;
         orderText.innerHTML = "Перемешанные";
-        // Добавляем функционал для опции "Перемешанные"
-        toggleRandomOrder();
     } else {
+        randomOrder = false;
         orderText.innerHTML = "Прямой порядок";
-        // Добавляем функционал для опции "Прямой порядок"
-        toggleShowWordFirst();
     }
+    loadCards();
 }
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
     // console.log("I\'m loading cards");
-    const moduleName = window.location.search.split('=')[1];
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        queryType: 'get-cards-to-repeat',
-        moduleName: moduleName
+        queryType: 'resend-ok-repeat'
     }))
         .then(response => response.json())
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
             let originalOrder = data.map((_, index) => index);
-            // renderCards(data, originalOrder);
+            renderCards(data, originalOrder);
         })
         .catch(error => console.error(error));
     // showCard(0);
@@ -176,12 +173,8 @@ function loadCards() {
 
 // Функция для отображения карточек на странице
 async function renderCards(cards, order) {
-    // console.log("I\'m rendering cards");
-    // console.log(order);
-    // console.log(cards);
     cardContainer.innerHTML = '';
     for (const i of order) {
-        console.log(i);
         const card = document.createElement('div');
         const word = document.createElement('div');
         const translation = document.createElement('div');
@@ -189,25 +182,19 @@ async function renderCards(cards, order) {
         card.classList.add('card');
         word.classList.add('front');
         translation.classList.add('back');
-        // if (cards[i].status === 'ok') {
-        // card.classList.add('ok');
+
         if (cards[i].status === 'repeat') {
             card.classList.add('repeat');
         }
 
-        word.textContent = cards[i].word;
-        translation.textContent = cards[i].translation;
-        console.log(word.textContent);
-        console.log(translation.textContent);
-        cur_translation = translation.textContent;
-        cur_word = word.textContent;
+        word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
+        translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
 
-        card.appendChild(word);
-        // card.appendChild(back);
+        card.appendChild(showWordFirst ? word : translation);
+        card.appendChild(showWordFirst ? translation : word);
 
-        // Добавляем обработчик клика на карточку
-        card.addEventListener('click', (card, translation) => {
-            translation.classList.toggle('show');
+        card.addEventListener('click', () => {
+            card.classList.toggle('show-translation');
         });
 
         cardContainer.appendChild(card);
