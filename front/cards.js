@@ -9,6 +9,10 @@ let cur_translation = '';
 let cur_word = '';
 order = []
 
+function goBack() {
+    window.history.back();
+}
+
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.style.display = 'block';

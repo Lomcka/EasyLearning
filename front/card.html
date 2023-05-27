@@ -23,6 +23,20 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.3/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity@1.0.4"></script>
@@ -39,7 +53,7 @@
         <button id="reset-btn" onclick="window.location.href='cards.html'">Начать заново</button>
     </div>
 </form>
-
+<button class="back-button" onclick="goBack()">Назад</button>
 <script src="card.js"></script>
 </body>
 </html>

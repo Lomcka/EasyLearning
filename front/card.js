@@ -5,6 +5,9 @@ let repeatCards = [];
 const continueBtn = document.getElementById('continue-btn');
 const resetBtn = document.getElementById('reset-btn');
 
+function goBack() {
+    window.history.back();
+}
 
 function loadArrays() {
     fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({

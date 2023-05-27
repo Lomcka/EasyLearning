@@ -87,7 +87,19 @@
             height: 250px;
             z-index: 9999;
         }
-
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -279,6 +291,7 @@
         <button class="repeat-button" onclick="Repeat(event)">Заново</button>
     </div>
 </div>
+<button class="back-button" onclick="goBack()">Назад</button>
 <script src="cards.js"></script>
 </body>
 </html>
