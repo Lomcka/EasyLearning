@@ -2,51 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Easy Learning</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-container h2 {
-            text-align: center;
-        }
-
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .login-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .login-container .create-account-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <header>
     <h1>Easy Learning</h1>
@@ -69,46 +26,6 @@
     <div id="error-message" class="error-message" style="display: none;"></div>
 </div>
 
-<script>
-    const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
-
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = new FormData(loginForm);
-        const data = {};
-
-        for (const [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'check-account'
-        }), true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-
-                    if (response.success) {
-                        window.location.href = 'main.html';
-                    } else {
-                        errorMessage.style.display = 'block';
-                        errorMessage.textContent = 'Неверный логин или пароль';
-                    }
-                } else {
-                    errorMessage.style.display = 'block';
-                    errorMessage.textContent = 'Ошибка сервера';
-                }
-            }
-        };
-
-        xhr.send(JSON.stringify(data));
-    });
-</script>
+<script src="java%20script/index.js"></script>
 </body>
 </html>
