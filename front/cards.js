@@ -1,5 +1,4 @@
 const cardContainer = document.querySelector('.card-container');
-const modal = document.querySelector('.modal');
 let currentIndex = 0;
 let cards = [];
 let randomOrder = true;
@@ -8,8 +7,7 @@ let okCards = [];
 let repeatCards = [];
 let cur_translation = '';
 let cur_word = '';
-
-const currentCard = document.createElement('div');
+order = []
 
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -119,12 +117,7 @@ function handleWrongAnswer() {
     repeatCards.push(cards[order[currentIndex]]);
 }
 
-
-function openModal() {
-    modal.style.display = 'flex';
-}
-
-function Repeat(event) {
+function Repeat() {
     // toggleRandomOrder();
     closeModal('settings');
 }
@@ -143,17 +136,6 @@ document.addEventListener('keydown', event => {
     }
 });
 
-function toggleOrder() {
-    const orderText = document.getElementById("order-text");
-    if (orderText.innerHTML === "Прямой порядок") {
-        randomOrder = true;
-        orderText.innerHTML = "Перемешанные";
-    } else {
-        randomOrder = false;
-        orderText.innerHTML = "Прямой порядок";
-    }
-    loadCards();
-}
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
@@ -165,6 +147,7 @@ function loadCards() {
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
             let originalOrder = data.map((_, index) => index);
+            order = originalOrder;
             renderCards(data, originalOrder);
         })
         .catch(error => console.error(error));
@@ -190,10 +173,11 @@ async function renderCards(cards, order) {
         word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
         translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
 
-        card.appendChild(showWordFirst ? word : translation);
-        card.appendChild(showWordFirst ? translation : word);
+        cur_translation = translation.textContent;
+        cur_word = word.textContent;
 
-        card.addEventListener('click', () => {
+        card.appendChild(showWordFirst ? word : translation);
+        card.addEventListener('click', (card) => {
             card.classList.toggle('show-translation');
         });
 
