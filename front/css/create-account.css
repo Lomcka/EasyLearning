@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.back-button:hover {
+    background-color: #555;
+}
+
+.back-button:focus {
+    outline: none;
+}
+
+.create-account-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create-account-container h2 {
+    text-align: center;
+}
+
+.create-account-container form {
+    margin-top: 20px;
+}
+
+.create-account-container label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.create-account-container input[type="text"],
+.create-account-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.create-account-container input[name="confirm-password"].password-mismatch {
+    border-color: red;
+}
+
+.create-account-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.create-new-account-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Стили для поля "Повторите пароль" */
+.create-account-container input[name="confirm-password"] {
+    position: relative;
+}
+
+.create-account-container input[name="confirm-password"]::after {
+    content: "✖";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: red;
+}
+
+.create-account-container input[name="confirm-password"].password-match::after {
+    content: "✔";
+    color: green;
+}
+
+.create-account-container .password-mismatch-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
