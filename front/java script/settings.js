@@ -13,7 +13,7 @@ function checkPasswordMatch() {
 }
 
 function getData() {
-    fetch('http://localhost:8070/EasyLearning/get-data-for-settings')
+    fetch('http://localhost:8070/EasyLearning/getAll/get-data-for-settings')
         .then(response => response.json())
         .then(data => {
             document.getElementById('current-login').textContent = data.login;
@@ -30,7 +30,7 @@ function changeLogin() {
     if (newLogin) {
         const data = {login: newLogin};
 
-        fetch('http://localhost:8070/EasyLearning/change-login', {
+        fetch('http://localhost:8070/EasyLearning/user/change-login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ function changePassword() {
             newPassword: newPassword
         };
 
-        fetch('http://localhost:8070/EasyLearning/change-password', {
+        fetch('http://localhost:8070/EasyLearning/user/change-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ function changeSecurityWord() {
     if (newSecurityWord) {
         const data = {securityWord: newSecurityWord};
 
-        fetch('http://localhost:8070/EasyLearning/change-security-word', {
+        fetch('http://localhost:8070/EasyLearning/user/change-security-word', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

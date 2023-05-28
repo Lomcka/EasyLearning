@@ -42,14 +42,14 @@ function waitForKeyPress() {
     return new Promise((resolve) => {
         document.addEventListener('keydown', (event) => {
             if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-                resolve(event);
+                resolve();
             }
         }, {once: true});
     });
 }
 
 function Relocate() {
-    fetch('http://localhost:8070/EasyLearning/resend-ok-repeat', {
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -125,7 +125,7 @@ document.addEventListener('keydown', event => {
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
-    fetch('http://localhost:8070/EasyLearning/resend-ok-repeat2')
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat2')
         .then(response => response.json())
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
@@ -140,12 +140,26 @@ function loadCards() {
             renderCards(order);
         })
         .catch(error => console.error(error));
+    /*cards = [
+        {
+            'word': 'aba',
+            'translation': 'cadaba'
+        },
+        {
+            'word': 'mam',
+            'translation': 'мама'
+        },
+        {
+            'word': 'lol',
+            'translation': 'кек'
+        }
+    ]
     let i = 0;
     while (i < cards.length) {
         order.push(i);
         ++i;
     }
-    renderCards(order);
+    renderCards(order);*/
 }
 
 // Функция для отображения карточек на странице
