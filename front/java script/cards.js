@@ -109,6 +109,40 @@ function Repeat() {
     closeModal('settings');
 }
 
+function showCard() {
+    const card = document.createElement('div');
+    const word = document.createElement('div');
+    const translation = document.createElement('div');
+
+    card.classList.add('card');
+    word.classList.add('front');
+    translation.classList.add('back');
+
+    let i = order[currentIndex];
+    if (cards[i].status === 'repeat') {
+        card.classList.add('repeat');
+    }
+
+    word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
+    translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
+
+    cur_translation = translation.textContent;
+    cur_word = word.textContent;
+
+    card.appendChild(showWordFirst ? word : translation);
+    card.addEventListener('click', (card) => {
+        card.classList.toggle('show-translation');
+    });
+
+    cardContainer.appendChild(card);
+
+    function await(keydown) {
+
+    }
+
+    await('keydown');
+}
+
 document.addEventListener('keydown', event => {
     if (event.code === 'Space') {
         toggleTranslation();
@@ -117,8 +151,10 @@ document.addEventListener('keydown', event => {
         cur_word = temp;
     } else if (event.code === 'ArrowRight') {
         handleRightAnswer();
+        showCard();
     } else if (event.code === 'ArrowLeft') {
         handleWrongAnswer();
+        showCard();
     }
 });
 
@@ -135,63 +171,10 @@ function loadCards() {
                 order.push(i);
                 ++i;
             }
-            console.log(cards);
-            console.log(order);
-            renderCards(order);
+            currentIndex = 0;
+            showCard();
         })
         .catch(error => console.error(error));
-    /*cards = [
-        {
-            'word': 'aba',
-            'translation': 'cadaba'
-        },
-        {
-            'word': 'mam',
-            'translation': 'мама'
-        },
-        {
-            'word': 'lol',
-            'translation': 'кек'
-        }
-    ]
-    let i = 0;
-    while (i < cards.length) {
-        order.push(i);
-        ++i;
-    }
-    renderCards(order);*/
-}
-
-// Функция для отображения карточек на странице
-async function renderCards(order) {
-    cardContainer.innerHTML = '';
-    for (const i of order) {
-        const card = document.createElement('div');
-        const word = document.createElement('div');
-        const translation = document.createElement('div');
-
-        card.classList.add('card');
-        word.classList.add('front');
-        translation.classList.add('back');
-
-        if (cards[i].status === 'repeat') {
-            card.classList.add('repeat');
-        }
-
-        word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
-        translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
-
-        cur_translation = translation.textContent;
-        cur_word = word.textContent;
-
-        card.appendChild(showWordFirst ? word : translation);
-        card.addEventListener('click', (card) => {
-            card.classList.toggle('show-translation');
-        });
-
-        cardContainer.appendChild(card);
-        await waitForKeyPress();
-    }
 }
 
 
