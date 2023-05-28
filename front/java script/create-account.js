@@ -32,9 +32,7 @@ createAccountForm.addEventListener('submit', function (event) {
     passwordMismatchMessage.style.display = 'none';
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'create-account'
-    }), true);
+    xhr.open('POST', 'http://localhost:8070/EasyLearning/create-account', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onreadystatechange = function () {

@@ -17,8 +17,7 @@ function renderModules(content) {
 
 function showCards() {
     const moduleName = window.location.search.split('=')[1];
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        queryType: 'get-cards-to-repeat',
+    fetch('http://localhost:8070/EasyLearning/get-cards-to-repeat' + new URLSearchParams({
         moduleName: moduleName
     }))
         .then(response => response.json())
@@ -58,9 +57,7 @@ function addCard(event) {
     translationInput.value = '';
 
     // Send cardData to localhost:8070 using fetch
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'add-Card'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/add-Card', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -96,9 +93,7 @@ function shareModule(event) {
     passwordInput.value = '';
 
 // Send shareData to localhost:8070 using fetch
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'share-module'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/share-module', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -130,9 +125,8 @@ function goBack() {
 function loadCards() {
     const moduleName = window.location.search.split("=")[1];
     fetch(
-        "http://localhost:8070/EasyLearning?" +
+        "http://localhost:8070/EasyLearning/get-module-data" +
         new URLSearchParams({
-            queryType: "get-module-data",
             moduleName: moduleName,
         })
     )
