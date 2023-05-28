@@ -26,7 +26,6 @@ public class AddAction implements Action {
         ModuleService moduleService = new ModuleServiceImpl();
         moduleService.create(moduleName, userId);
 
-        System.out.println("Module added successfully");
         return new JSONObject();
     }
 
@@ -38,7 +37,6 @@ public class AddAction implements Action {
         FolderService folderService = new FolderServiceImpl();
         folderService.create(folderName, userId);
 
-        System.out.println("Folder added successfully");
         return new JSONObject();
     }
 }

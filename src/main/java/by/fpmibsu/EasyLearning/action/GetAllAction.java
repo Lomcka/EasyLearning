@@ -25,7 +25,6 @@ public class GetAllAction implements Action {
         JSONObject result = new JSONObject();
         result.put("modules", modulesJson);
         result.put("folders", foldersJson);
-        System.out.println("data sent");
         return result;
     }
 

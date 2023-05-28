@@ -3,6 +3,7 @@ package by.fpmibsu.EasyLearning.controller;
 import by.fpmibsu.EasyLearning.action.*;
 import by.fpmibsu.EasyLearning.exception.IncorrectFormDataException;
 import by.fpmibsu.EasyLearning.exception.ServiceException;
+import org.apache.log4j.BasicConfigurator;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,11 +17,11 @@ import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
 public class DispatcherServlet extends HttpServlet {
-
     @Override
     public void init() {
-//        DataConfigure.configure();
+        BasicConfigurator.configure();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         process(request, response);
@@ -32,6 +33,8 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String requestData = request.getReader().lines().collect(Collectors.joining());
         String queryType = request.getParameter("queryType");
 
