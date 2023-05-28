@@ -33,6 +33,8 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String requestData = request.getReader().lines().collect(Collectors.joining());
         String queryType = request.getParameter("queryType");
 
