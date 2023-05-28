@@ -61,7 +61,7 @@ public class DispatcherServlet extends HttpServlet {
 
         if (queryType.equals("check-account") || queryType.equals("create-account") ||
             queryType.equals("change-login") || queryType.equals("change-security-word") ||
-                queryType.equals("get-data-for-settings")) {
+                queryType.equals("get-data-for-settings") || queryType.equals("log-out")) {
             String uri = request.getRequestURI() + "/user?" + jsonToParams(json);
             response.sendRedirect(uri);
             return;

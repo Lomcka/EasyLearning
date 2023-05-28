@@ -27,6 +27,11 @@ public class UserServlet extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String queryType = request.getParameter("queryType");
+        if (queryType.equals("log-out")) {
+            request.getSession().invalidate();
+            return;
+        }
+
         JSONObject json = new JSONObject();
 
         var params = request.getParameterNames();
