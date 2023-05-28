@@ -17,7 +17,7 @@ function renderModules(content) {
 
 function showCards() {
     const moduleName = window.location.search.split('=')[1];
-    fetch('http://localhost:8070/EasyLearning/getAll/get-cards-to-repeat' + new URLSearchParams({
+    fetch('http://localhost:8070/EasyLearning/module/get-cards-to-repeat?' + new URLSearchParams({
         moduleName: moduleName
     }))
         .then(response => response.json())
@@ -125,7 +125,7 @@ function goBack() {
 function loadCards() {
     const moduleName = window.location.search.split("=")[1];
     fetch(
-        "http://localhost:8070/EasyLearning/module/get-module-data" +
+        "http://localhost:8070/EasyLearning/module/get-module-data?" +
         new URLSearchParams({
             moduleName: moduleName,
         })
