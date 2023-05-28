@@ -17,17 +17,28 @@ public class ShareAction implements Action {
         var readerInfo = validator.validate(json);
         String moduleName = (String) json.get("moduleName");
 
+        var result = new JSONObject();
         var module = moduleService.findByName(moduleName);
         if (module.isEmpty()) {
-            return new JSONObject();
+            result.put("status", "not success");
+            return result;
         }
 
         ShareInfoService shareInfoService = new ShareInfoServiceImpl();
         var shareInfo = shareInfoService.findByLogin(readerInfo.getLogin());
         if (shareInfo.isEmpty() || !shareInfo.get().getKeyWord().equals(readerInfo.getKeyWord())) {
-            return new JSONObject();
+            result.put("status", "not success");
+            return result;
         }
+
+        var modules = moduleService.findByReaderId(shareInfo.get().getId());
+        if (modules.contains(moduleName)) {
+            result.put("status", "exists");
+            return result;
+        }
+
         moduleService.addReader(module.get().getId(), shareInfo.get().getId());
-        return new JSONObject();
+        result.put("status", "success");
+        return result;
     }
 }
