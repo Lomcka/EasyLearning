@@ -28,14 +28,27 @@ log4j - для логирования
 # Диаграммы
 
 Usecase - диаграмма проекта:
-![](/front/img/readme_images/usecase.png)
+![](/docs/img/usecase.png)
 
 Диаграмма зависимостей классов выглядит следующим образом:
-![](/front/img/readme_images/classes_diagram.png)
+![](/docs/img/classes_diagram.png)
 
 
 ER - диаграмма проекта:
-![](/front/img/readme_images/er_diagram.jpg)
+![](/docs/img/er_diagram.jpg)
+
+# Пользовательские сценарии
+
+Ниже приведены 3 пользовательских сценария ввиде диаграммы последовательности
+
+1. Добавить карочку
+![](/docs/img/add_card_scenario.png)
+
+2. Зарегистрироваться
+![](/docs/img/registration_scenario.png)
+
+3. Поделиться модулем
+![](/docs/img/share_module_scenario.png)
 
 # Развертывание приложения
 
