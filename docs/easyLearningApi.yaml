@@ -1,0 +1,341 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: EasyLearning API
+
+host: localhost:8070
+basePath: /EasyLearning
+
+schemes:
+  - http
+
+paths:
+  /resend/resend-ok-repeat:
+    post:
+      summary: Resend ok and repeat cards
+      consumes:
+        - application/json
+      parameters:
+        - name: newData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              ok:
+                type: array
+              repeat:
+                type: array
+      responses:
+        200:
+          description: Successfully resent cards
+
+  /resend/resend-ok-repeat2:
+    get:
+      summary: Get "ok" and "repeat" cards
+      responses:
+        200:
+          description: Successfully retrieved cards
+
+  /user/create-account:
+    post:
+      summary: Create a user account
+      consumes:
+        - application/json
+      parameters:
+        - name: userData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Successfully created user account
+
+  /user/check-account:
+    post:
+      summary: Check user account
+      consumes:
+        - application/json
+      parameters:
+        - name: userData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: User account is valid
+
+  /user/log-out:
+    post:
+      summary: Log out user
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: Successfully logged out
+
+  /folder/add-module-to-folder:
+    post:
+      summary: Add a module to a folder
+      consumes:
+        - application/json
+      parameters:
+        - name: folderData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+              folderName:
+                type: string
+      responses:
+        200:
+          description: Successfully added module to folder
+
+  /folder/get-modules:
+    get:
+      summary: Get modules from folder
+      parameters:
+        - name: folderName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved modules from folder
+
+  /folder/{newFolderName}/merge/merge-folders:
+    post:
+      summary: Merge folders into a new folder
+      consumes:
+        - application/json
+      parameters:
+        - name: newFolderName
+          in: path
+          required: true
+          type: string
+        - name: folderNames
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        200:
+          description: Successfully merged folders into new folder
+
+  /getAll/get-modules-and-folders:
+    get:
+      summary: Get all modules and folders
+      responses:
+        200:
+          description: Successfully retrieved all modules and folders
+
+  /add/add-new-module:
+    post:
+      summary: Add a new module
+      consumes:
+        - application/json
+      parameters:
+        - name: moduleName
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+      responses:
+        200:
+          description: Successfully added new module
+
+  /module/{moduleName}/merge/merge-modules:
+    post:
+      summary: Merge modules into a new module
+      consumes:
+        - application/json
+      parameters:
+        - name: moduleName
+          in: path
+          required: true
+          type: string
+        - name: modules
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                moduleName:
+                  type: string
+      responses:
+        200:
+          description: Successfully merged modules into new module
+
+  /add/add-new-folder:
+    post:
+      summary: Add a new folder
+      consumes:
+        - application/json
+      parameters:
+        - name: folderData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              folderName:
+                type: string
+      responses:
+        200:
+          description: Successfully added new folder
+
+  /module/get-cards-to-repeat:
+    get:
+      summary: Get cards to repeat for a module
+      parameters:
+        - name: moduleName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved cards to repeat
+
+  /add/add-Card:
+    post:
+      summary: Add a new card to a module
+      consumes:
+        - application/json
+      parameters:
+        - name: cardData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+              word:
+                type: string
+              translation:
+                type: string
+      responses:
+        200:
+          description: Successfully added new card to module
+
+  /share/share-module:
+    post:
+      summary: Share a module with another user
+      consumes:
+        - application/json
+      parameters:
+        - name: shareData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              moduleName:
+                type: string
+      responses:
+        200:
+          description: Successfully shared module
+
+  /module/get-module-data:
+    get:
+      summary: Get data for a module
+      parameters:
+        - name: moduleName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved module data
+
+  /getAll/get-data-for-settings:
+    get:
+      summary: Get current user settings
+      responses:
+        200:
+          description: Successfully retrieved user settings
+
+  /user/change-login:
+    post:
+      summary: Change user login
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              login:
+                type: string
+      responses:
+        200:
+          description: Successfully changed user login
+
+  /user/change-password:
+    post:
+      summary: Change user password
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              currentPassword:
+                type: string
+              newPassword:
+                type: string
+      responses:
+        200:
+          description: Successfully changed user password
+
+  /user/change-security-word:
+    post:
+      summary: Change user security word
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              securityWord:
+                type: string
+      responses:
+        200:
+          description: Successfully changed user security word
