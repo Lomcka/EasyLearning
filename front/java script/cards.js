@@ -70,6 +70,8 @@ function Relocate() {
             // Handle any errors
             console.error('Error:', error);
         });
+    console.log(okCards);
+    console.log(repeatCards);
     window.location.href = `card.html`;
 }
 
@@ -77,7 +79,6 @@ function handleRightAnswer() {
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('right-answer');
     setTimeout(() => {
-        currentIndex++;
         if (currentIndex >= cards.length) {
             Relocate();
         } else {
@@ -85,6 +86,7 @@ function handleRightAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
+    currentIndex++;
     okCards.push(cards[order[currentIndex]]);
 }
 
@@ -94,7 +96,6 @@ function handleWrongAnswer() {
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('wrong-answer');
     setTimeout(() => {
-        currentIndex++;
         if (currentIndex >= cards.length) {
             Relocate();
         } else {
@@ -102,6 +103,7 @@ function handleWrongAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
+    currentIndex++;
     repeatCards.push(cards[order[currentIndex]]);
 }
 
@@ -110,6 +112,7 @@ function Repeat() {
 }
 
 function showCard() {
+    console.log('I\'m showing ' + currentIndex);
     const card = document.createElement('div');
     const word = document.createElement('div');
     const translation = document.createElement('div');
@@ -136,11 +139,6 @@ function showCard() {
 
     cardContainer.appendChild(card);
 
-    function await(keydown) {
-
-    }
-
-    await('keydown');
 }
 
 document.addEventListener('keydown', event => {
