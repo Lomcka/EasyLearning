@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/EasyLearning/*")
@@ -35,8 +34,6 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        System.out.println(request.getPathInfo());
-//        Arrays.stream(request.getPathInfo().split("/")).forEach(str -> System.out.println(str + " "));
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String queryType = getQueryType(request);
@@ -79,7 +76,6 @@ public class DispatcherServlet extends HttpServlet {
             System.out.println("exception");
             throw new RuntimeException("no query");
         }
-//        System.out.println("Query: " + query[0]);
         return switch (query[1]) {
             case "user" -> new UserAction();
             case "share" -> new ShareAction();

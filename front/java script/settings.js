@@ -13,7 +13,7 @@ function checkPasswordMatch() {
 }
 
 function getData() {
-    fetch('http://localhost:8070/EasyLearning/getAll/get-data-for-settings')
+    fetch('http://localhost:8070/EasyLearning/user/get-data-for-settings')
         .then(response => response.json())
         .then(data => {
             document.getElementById('current-login').textContent = data.login;
