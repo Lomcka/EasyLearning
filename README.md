@@ -29,14 +29,14 @@ log4j - для логирования
 
 
 Usecase - диаграмма проекта:
-![](/home/dmitriy/Pictures/aaa.png)
+![](/front/img/usecase.png)
 
 Диаграмма зависимостей классов выглядит следующим образом:
-![](/home/dmitriy/Pictures/diagram.png)
+![](/front/img/classes_diagram.png)
 
 
 ER - диаграмма проекта:
-![](/home/dmitriy/Pictures/ABOBA.jpg)
+![](/front/img/er_diagram.jpg)
 
 Как развертывать приложение:
 1. Склонируйте проект и откройте его в своей IDE
