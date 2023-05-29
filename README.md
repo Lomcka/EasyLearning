@@ -42,7 +42,9 @@ ER - диаграмма проекта:
 1. Склонируйте проект и откройте его в своей IDE
 2. Установите на свой компьютер posgre SQL:
     
-3. a. Если вы используете Ubuntu ссылка на гайд: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru
+3. 
+
+    a. Если вы используете Ubuntu ссылка на гайд: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru
     
     b. Если же вы на Windows: https://winitpro.ru/index.php/2019/10/25/ustanovka-nastrojka-postgresql-v-windows/
 4. Запустите скрипты нашего проекта, которые лежат в папке sql
