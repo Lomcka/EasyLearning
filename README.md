@@ -16,7 +16,17 @@ EasyLearning – это веб-приложение, которое предос
 В нашем приложении есть три уровня:
 1. Уровень представления (Presentation layer)
 2. Уровень обслуживания клиента (Service layer)
-3. Уровень хранения данных (Data Access layer)
+3. Уровень хранения данных и доступа к ним (Data Access layer)
+
+Для разработки проекта использовались следующие технологии:
+Java, HTML, CSS, JavaScript, python, postrgreSQL
+
+Так же использовались некоторые сторонние библиотеки:
+
+TestNG - для тестирования
+
+log4j - для логирования
+
 
 UML диаграмма проекта:
 ![](/home/dmitriy/Pictures/aaa.png)
@@ -29,5 +39,21 @@ ER - диаграмма проекта:
 ![](/home/dmitriy/Pictures/ABOBA.jpg)
 
 Как развертывать приложение:
+1. Склонируйте проект и откройте его в своей IDE
+2. Установите на свой компьютер posgre SQL:
+    
+3. a. Если вы используете Ubuntu ссылка на гайд: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru
+    
+    b. Если же вы на Windows: https://winitpro.ru/index.php/2019/10/25/ustanovka-nastrojka-postgresql-v-windows/
+4. Запустите скрипты нашего проекта, которые лежат в папке sql
+5. Установите apache tomcat
+    
+    a. Для Windows users: https://metanit.com/java/javaee/2.1.php
+
+    b. Для Ubuntu users: https://www.digitalocean.com/community/tutorials/install-tomcat-9-ubuntu-1804-ru
+
+6. Запустите проект
+
+
 
 
