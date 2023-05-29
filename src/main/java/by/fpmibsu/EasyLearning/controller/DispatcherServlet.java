@@ -36,6 +36,7 @@ public class DispatcherServlet extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
         String queryType = getQueryType(request);
 
         if (queryType.equals("log-out")) {
