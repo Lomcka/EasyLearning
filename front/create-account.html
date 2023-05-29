@@ -2,111 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/create-account.css">
     <title>Easy Learning - Создание аккаунта</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-
-        .back-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        .back-button:hover {
-            background-color: #555;
-        }
-
-        .back-button:focus {
-            outline: none;
-        }
-
-        .create-account-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .create-account-container h2 {
-            text-align: center;
-        }
-
-        .create-account-container form {
-            margin-top: 20px;
-        }
-
-        .create-account-container label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .create-account-container input[type="text"],
-        .create-account-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .create-account-container input[name="confirm-password"].password-mismatch {
-            border-color: red;
-        }
-
-        .create-account-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .create-new-account-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* Стили для поля "Повторите пароль" */
-        .create-account-container input[name="confirm-password"] {
-            position: relative;
-        }
-
-        .create-account-container input[name="confirm-password"]::after {
-            content: "✖";
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            color: red;
-        }
-
-        .create-account-container input[name="confirm-password"].password-match::after {
-            content: "✔";
-            color: green;
-        }
-
-        .create-account-container .password-mismatch-message {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-
-    </style>
 </head>
 <body>
 <div class="create-account-container">
@@ -131,72 +28,13 @@
     </form>
     <div class="back-link">
         <a href="index.html">
-            <button class="back-button">Назад</button>
+            <button class="back-button">На главную</button>
         </a>
     </div>
 </div>
 
-<script>
-    const confirmPasswordInput = document.querySelector('input[name="confirm-password"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    const passwordMismatchMessage = document.querySelector('.password-mismatch-message');
 
-    function checkPasswordMatch() {
-        if (confirmPasswordInput.value !== passwordInput.value) {
-            confirmPasswordInput.classList.add('password-mismatch');
-            passwordMismatchMessage.style.display = 'block';
-        } else {
-            confirmPasswordInput.classList.remove('password-mismatch');
-            passwordMismatchMessage.style.display = 'none';
-        }
-    }
-
-    const createAccountForm = document.getElementById('create-account-form');
-
-    createAccountForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = new FormData(createAccountForm);
-        const data = {};
-
-        for (const [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-
-        if (data.password !== data['confirm-password']) {
-            passwordMismatchMessage.style.display = 'block';
-            return;
-        }
-
-        passwordMismatchMessage.style.display = 'none';
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8070/EasyLearning?' + new URLSearchParams({
-            'queryType': 'create-account'
-        }), true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-
-                if (response.exists) {
-                    alert(`Аккаунт с логином "${data.username}" уже существует.`);
-                } else {
-                    alert(`Аккаунт с логином "${data.username}" успешно создан.`);
-                    window.location.href = 'main.html';
-                }
-            }
-        };
-
-        xhr.send(JSON.stringify(data));
-    });
-
-    function goBack() {
-        window.history.back(); // Возвращаемся на предыдущую страницу
-    }
-
-</script>
+<script src="java%20script/create-account.js"></script>
 
 </body>
 </html>
