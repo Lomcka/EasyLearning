@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mod_fold_style.css">
+    <title>Модуль</title>
+</head>
+<body>
+<div class="module-header">
+    <h2 id="module-title"></h2>
+</div>
+
+<div class="buttons">
+    <button id="cards-button" onclick="showCards()">Карточки</button>
+    <button id="share-button" onclick="showModal('share-module-form')">Поделиться модулем</button>
+</div>
+
+<div id="modules-container"></div>
+
+<button class="add-button" onclick="showModal('add-card-form')">+</button>
+
+<button class="back-button" onclick="goBack()">Назад</button>
+
+<!-- Add Card Form (Hidden by Default) -->
+<div id="add-card-form" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal('add-card-form')">&times;</span>
+        <h3>Добавить карточку</h3>
+        <form id="card-form">
+            <label>
+                Слово:
+                <input type="text" id="word-input" required>
+            </label>
+            <label>
+                Перевод:
+                <input type="text" id="translation-input" required>
+            </label>
+            <button type="submit" onclick="addCard(event)">Ок</button>
+        </form>
+    </div>
+</div>
+
+<!-- Share Module Form (Hidden by Default) -->
+<div id="share-module-form" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal('share-module-form')">&times;</span>
+        <h3>Поделиться модулем</h3>
+        <form id="share-form">
+            <div>
+                <label>
+                    Имя пользователя:
+                    <input type="text" id="username-input" required>
+                </label>
+            </div>
+            <div>
+                <label>
+                    Кодовое слово пользователя:
+                    <input type="password" id="password-input" required>
+                </label>
+            </div>
+            <button type="submit" onclick="shareModule(event)">Ок</button>
+        </form>
+    </div>
+</div>
+
+<script src="java%20script/modules.js"></script>
+</body>
+</html>

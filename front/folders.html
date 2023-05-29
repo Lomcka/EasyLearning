@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mod_fold_style.css">
+    <title>Папки</title>
+</head>
+<body>
+<div class="folder-header">
+    <h2 id="folder-title"></h2>
+</div>
+
+<div id="folders-container"></div>
+
+<button class="back-button" onclick="goBack()">Назад</button>
+<button class="add-button" onclick="showModal('add-card-form')">+</button>
+
+<!-- Add Card Form (Hidden by Default) -->
+<div id="add-card-form" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal('add-card-form')">&times;</span>
+        <h3>Добавить модуль</h3>
+        <form id="card-form">
+            <label>
+                Название:
+                <input type="text" id="word-input" required>
+            </label>
+            <button type="submit" onclick="addModule(event)">Ок</button>
+        </form>
+    </div>
+</div>
+<script src="java%20script/folders.js"></script>
+</body>
+</html>

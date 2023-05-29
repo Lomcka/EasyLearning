@@ -21,8 +21,12 @@ public class Transaction {
         }
     }
 
-    public void end() {
-        connection = null;
+    public void end() throws ServiceException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public <T extends Bean> void initTransaction(Dao... daos) throws ServiceException {
@@ -45,7 +49,7 @@ public class Transaction {
             if (connection == null) return;
 
             connection.setAutoCommit(true);
-            connection = null;
+            connection.close();
         } catch (SQLException e) {
             throw new ServiceException(e);
         }

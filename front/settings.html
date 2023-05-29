@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/settings.css">
+    <title>Настройки</title>
+</head>
+<body>
+<h1>Настройки</h1>
+
+<div id="login-section">
+    <h2>Логин</h2>
+    <p>Текущий логин: <span id="current-login"></span></p>
+    <label class="label-60" for="new-login">
+        <form id="settings-form">
+            <input class="input-60" type="text" id="new-login" placeholder="Новый логин">
+            <button onclick="changeLogin()">Применить</button>
+        </form>
+    </label>
+    <p id="login-status"></p>
+</div>
+
+<div id="password-section">
+    <h2>Пароль</h2>
+    <p>Текущий пароль:</p>
+    <label class="label-60" for="current-password">
+        <input class="input-60" type="password" id="current-password" placeholder="Текущий пароль">
+    </label>
+    <p>Новый пароль:</p>
+    <label class="label-60" for="new-password">
+        <input class="input-60" type="password" id="new-password" placeholder="Новый пароль">
+    </label>
+    <p>Подтвердите пароль:</p>
+    <label class="label-60" for="confirm-password">
+        <form id="settings-form-3">
+            <input class="input-60" type="password" id="confirm-password"
+                   required onpaste="return false;"
+                   oninput="checkPasswordMatch()" placeholder="Подтвердите пароль">
+            <span class="password-mismatch-message" style="display: none;">Пароли не совпадают</span>
+            <button onclick="changePassword()">Применить</button>
+        </form>
+    </label>
+    <p id="password-status"></p>
+</div>
+
+<div id="security-section">
+    <h2>Кодовое слово</h2>
+    <p>Текущее кодовое слово: <span id="current-security-word"></span></p>
+    <label class="label-60" for="new-security-word">
+        <form id="settings-form-2">
+            <input class="input-60" type="text" id="new-security-word" placeholder="Новое кодовое слово">
+            <button onclick="changeSecurityWord()">Применить</button>
+        </form>
+    </label>
+    <p id="security-word-status"></p>
+</div>
+
+<button class="back-button" onclick="goBack()">Назад</button>
+
+<script src="java%20script/settings.js"></script>
+</body>
+</html>

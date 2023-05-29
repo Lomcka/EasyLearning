@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заучивание</title>
+    <link rel="stylesheet" href="css/cards.css">
+</head>
+<body>
+<button class="add-button" onclick="showModal('settings')">...</button>
+<div class="card-container">
+    <!--     Здесь будет отображаться текущая карточка -->
+</div>
+<div id="settings" class="modal">
+    <div class="modal-header">
+        <span class="close-button" onclick="closeModal('settings')">&times;</span>
+        <div class="title">Настройки</div>
+    </div>
+    <div class="modal-content">
+        <label class="switch">
+            <input type="checkbox" onclick="toggleShowWordFirst()">
+            <span class="slider round"></span>
+            <span class="state-on">прямой порядок</span>
+            <span class="state-off">обратный порядок</span>
+        </label>
+        <label class="switch">
+            <input type="checkbox" onclick="toggleRandomOrder()">
+            <span class="slider round"></span>
+            <span class="state-on">в обычном порядке</span>
+            <span class="state-off">рандомно</span>
+        </label>
+
+
+    </div>
+    <div class="modal-footer">
+        <button class="repeat-button" onclick="Repeat(event)">Заново</button>
+    </div>
+</div>
+<button class="back-button" onclick="goBack()">Назад</button>
+<script src="java%20script/cards.js"></script>
+</body>
+</html>

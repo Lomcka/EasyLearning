@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Результат</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.3/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity@1.0.4"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/card.css">
+</head>
+<body>
+<form method="POST">
+    <div class="chart-container">
+        <div id="chart"></div>
+    </div>
+    <div class="buttons">
+        <button id="continue-btn" onclick="window.location.href='cards.html'">Продолжить повторение</button>
+        <button id="reset-btn" onclick="window.location.href='cards.html'">Начать заново</button>
+    </div>
+</form>
+<button class="back-button" onclick="goBack()">Назад</button>
+<script src="java%20script/card.js"></script>
+</body>
+</html>

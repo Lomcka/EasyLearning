@@ -1,0 +1,330 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    width: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.buttons-container button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    flex-basis: 50%;
+}
+
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.nav {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+}
+
+.nav a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #333;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.modules,
+.folders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.folders {
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.folders .folder {
+    margin-bottom: 10px;
+}
+
+.line {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 10px 10px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button-link:hover {
+    background-color: #555;
+}
+
+
+/* Стили для модуля */
+.module-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.module-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.module-card {
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.module-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.module-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-card li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.module-card li:last-child {
+    border-bottom: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.buttons {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-button {
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #6ef000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #00D0FF;
+}
+
+.buttons .add-button:hover {
+    background-color: #45C049;
+}
+
+/* Стили для модальных окон */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+/* Стили для папок */
+.folder-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.folder-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.module-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.module-button:hover {
+    background-color: #e0e0e0;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #6ef000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #555;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #555;
+}
+
+/* Стили для модальных окон */
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+}
