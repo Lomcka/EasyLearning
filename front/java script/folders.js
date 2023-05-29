@@ -27,9 +27,7 @@ function addModule(event) {
     const moduleName = nameInput.value;
     const folderName = window.location.search.split('=')[1];
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'add-module-to-folder'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/folder/add-module-to-folder', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -56,12 +54,11 @@ function closeModal(modalId) {
 }
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 function fetchModules(folderName) {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'get-modules',
+    fetch('http://localhost:8070/EasyLearning/folder/get-modules?' + new URLSearchParams({
         'folderName': folderName
     }))
         .then(response => response.json())

@@ -12,9 +12,7 @@ loginForm.addEventListener('submit', function (event) {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'check-account'
-    }), true);
+    xhr.open('POST', 'http://localhost:8070/EasyLearning/user/check-account', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onreadystatechange = function () {

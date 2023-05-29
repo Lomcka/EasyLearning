@@ -1,0 +1,649 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: EasyLearning API
+
+host: localhost:8070
+basePath: /EasyLearning
+
+schemes:
+  - http
+
+tags:
+  - name: User
+  - name: GetAll
+  - name: Module
+  - name: Folder
+  - name: Add
+  - name: Share
+  - name: Resend
+
+paths:
+  /resend/resend-ok-repeat:
+    post:
+      summary: Resend ok and repeat cards
+      tags:
+        - Resend
+      consumes:
+        - application/json
+      parameters:
+        - name: newData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              ok:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+              repeat:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+      responses:
+        200:
+          description: Successfully resent cards
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /resend/resend-ok-repeat2:
+    get:
+      summary: Get "ok" and "repeat" cards
+      tags:
+        - Resend
+      responses:
+        200:
+          description: Successfully retrieved cards
+          schema:
+            type: object
+            properties:
+              ok:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+              repeat:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /user/create-account:
+    post:
+      summary: Create a user account
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: userData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              security-code:
+                type: string
+      responses:
+        200:
+          description: Response if such account already exists
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        500:
+          description: Server error
+
+  /user/check-account:
+    post:
+      summary: Check user account
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: userData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Response if account is valid
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        500:
+          description: Server error
+
+  /user/log-out:
+    post:
+      summary: Log out user
+      tags:
+        - User
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: Successfully logged out
+
+  /folder/add-module-to-folder:
+    post:
+      summary: Add a module to a folder
+      tags:
+        - Folder
+      consumes:
+        - application/json
+      parameters:
+        - name: folderData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+              folderName:
+                type: string
+      responses:
+        200:
+          description: Successfully added module to folder
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /folder/get-modules:
+    get:
+      summary: Get modules from folder
+      tags:
+        - Folder
+      parameters:
+        - name: folderName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved modules from folder
+          schema:
+            type: object
+            properties:
+              folderName:
+                type: string
+              modules:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /folder/{newFolderName}/merge/merge-folders:
+    post:
+      summary: Merge folders into a new folder
+      tags:
+        - Folder
+      consumes:
+        - application/json
+      parameters:
+        - name: newFolderName
+          in: path
+          required: true
+          type: string
+        - name: folderNames
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              folderNames:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+      responses:
+        200:
+          description: Successfully merged folders into new folder
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /getAll/get-modules-and-folders:
+    get:
+      summary: Get all modules and folders
+      tags:
+        - GetAll
+      responses:
+        200:
+          description: Successfully retrieved all modules and folders
+          schema:
+            type: object
+            properties:
+              modules:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+              folders:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /add/add-new-module:
+    post:
+      summary: Add a new module
+      tags:
+        - Add
+      consumes:
+        - application/json
+      parameters:
+        - name: moduleName
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+      responses:
+        200:
+          description: Successfully added new module
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /module/{moduleName}/merge/merge-modules:
+    post:
+      summary: Merge modules into a new module
+      tags:
+        - Module
+      consumes:
+        - application/json
+      parameters:
+        - name: moduleName
+          in: path
+          required: true
+          type: string
+        - name: modules
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              modules:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    moduleName:
+                      type: string
+      responses:
+        200:
+          description: Successfully merged modules into new module
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /add/add-new-folder:
+    post:
+      summary: Add a new folder
+      tags:
+        - Add
+      consumes:
+        - application/json
+      parameters:
+        - name: folderData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              folderName:
+                type: string
+      responses:
+        200:
+          description: Successfully added new folder
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /module/get-cards-to-repeat:
+    get:
+      summary: Get cards to repeat for a module
+      tags:
+        - Module
+      parameters:
+        - name: moduleName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved cards to repeat
+          schema:
+            type: object
+            properties:
+              ok:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+              repeat:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /add/add-Card:
+    post:
+      summary: Add a new card to a module
+      tags:
+        - Add
+      consumes:
+        - application/json
+      parameters:
+        - name: cardData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              moduleName:
+                type: string
+              word:
+                type: string
+              translation:
+                type: string
+      responses:
+        200:
+          description: Successfully added new card to module
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /share/share-module:
+    post:
+      summary: Share a module with another user
+      tags:
+        - Share
+      consumes:
+        - application/json
+      parameters:
+        - name: shareData
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              moduleName:
+                type: string
+      responses:
+        200:
+          description: Status of sharing the module
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /module/get-module-data:
+    get:
+      summary: Get data for a module
+      tags:
+        - Module
+      parameters:
+        - name: moduleName
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved module data
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              content:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    word:
+                      type: string
+                    translation:
+                      type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /user/get-data-for-settings:
+    get:
+      summary: Get current user settings
+      tags:
+        - User
+      responses:
+        200:
+          description: Successfully retrieved user settings
+          schema:
+            type: object
+            properties:
+              login:
+                type: string
+              securityWord:
+                type: string
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /user/change-login:
+    post:
+      summary: Change user login
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              login:
+                type: string
+      responses:
+        200:
+          description: Response if user's login was changed successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /user/change-password:
+    post:
+      summary: Change user password
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              currentPassword:
+                type: string
+              newPassword:
+                type: string
+      responses:
+        200:
+          description: Response if user's password was changed successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error
+
+  /user/change-security-word:
+    post:
+      summary: Change user security word
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              securityWord:
+                type: string
+      responses:
+        200:
+          description: Response if user's security word was changed successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+        400:
+          description: Incorrect format of input
+        401:
+          description: Unregistered user
+        500:
+          description: Server error

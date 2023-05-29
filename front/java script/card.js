@@ -6,13 +6,11 @@ const continueBtn = document.getElementById('continue-btn');
 const resetBtn = document.getElementById('reset-btn');
 
 function goBack() {
-    window.history.back();
+    window.location.href='main.html';
 }
 
 function loadArrays() {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        queryType: 'resend-ok-repeat2'
-    }))
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat2')
         .then(response => response.json())
         .then(data => {
             okCards = data.ok;
@@ -34,9 +32,7 @@ function loadArrays() {
 }
 
 continueBtn.addEventListener('click', () => {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'resend-ok-repeat'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat' , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -69,9 +65,7 @@ resetBtn.addEventListener('click', () => {
         repeat: repeatCards
     };
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'resend-ok-repeat'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

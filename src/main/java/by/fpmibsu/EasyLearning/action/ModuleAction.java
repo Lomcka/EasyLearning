@@ -15,9 +15,6 @@ public class ModuleAction implements Action {
         return switch (queryType) {
             case "merge-modules" -> mergeModules(json, userId);
             case "get-module-data", "get-cards-to-repeat" -> getModuleData(json, userId, queryType);
-            case "add-Card" -> addCard(json, userId);
-            case "resend-ok-repeat" -> json;
-            case "resend-ok-repeat2" -> new JSONObject();
             default -> null;
         };
     }
@@ -55,21 +52,6 @@ public class ModuleAction implements Action {
             cards.add(cardJson);
         });
         return cards;
-    }
-
-    private JSONObject addCard(JSONObject json, Long userId) throws IncorrectFormDataException, ServiceException {
-        CardValidator validator = new CardValidator();
-        var newCard = validator.validate(json);
-        String moduleName = (String) json.get("moduleName");
-
-        ModuleService moduleService = new ModuleServiceImpl();
-        var module = moduleService.findByName(moduleName);
-        if (module.isEmpty()) {
-            throw new RuntimeException();
-        }
-
-        moduleService.addCard(module.get().getId(), newCard);
-        return new JSONObject();
     }
 
     private JSONObject mergeModules(JSONObject json, Long userId) {

@@ -10,7 +10,7 @@ let cur_word = '';
 order = []
 
 function goBack() {
-    window.history.back();
+    window.location.href = 'main.html';
 }
 
 function showModal(modalId) {
@@ -41,17 +41,15 @@ function toggleShowWordFirst() {
 function waitForKeyPress() {
     return new Promise((resolve) => {
         document.addEventListener('keydown', (event) => {
-            // if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-            resolve(event);
-            // }
+            if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
+                resolve();
+            }
         }, {once: true});
     });
 }
 
 function Relocate() {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'resend-ok-repeat'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -72,6 +70,8 @@ function Relocate() {
             // Handle any errors
             console.error('Error:', error);
         });
+    console.log(okCards);
+    console.log(repeatCards);
     window.location.href = `card.html`;
 }
 
@@ -79,7 +79,6 @@ function handleRightAnswer() {
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('right-answer');
     setTimeout(() => {
-        currentIndex++;
         if (currentIndex >= cards.length) {
             Relocate();
         } else {
@@ -87,6 +86,7 @@ function handleRightAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
+    currentIndex++;
     okCards.push(cards[order[currentIndex]]);
 }
 
@@ -96,7 +96,6 @@ function handleWrongAnswer() {
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('wrong-answer');
     setTimeout(() => {
-        currentIndex++;
         if (currentIndex >= cards.length) {
             Relocate();
         } else {
@@ -104,11 +103,42 @@ function handleWrongAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
+    currentIndex++;
     repeatCards.push(cards[order[currentIndex]]);
 }
 
 function Repeat() {
     closeModal('settings');
+}
+
+function showCard() {
+    console.log('I\'m showing ' + currentIndex);
+    const card = document.createElement('div');
+    const word = document.createElement('div');
+    const translation = document.createElement('div');
+
+    card.classList.add('card');
+    word.classList.add('front');
+    translation.classList.add('back');
+
+    let i = order[currentIndex];
+    if (cards[i].status === 'repeat') {
+        card.classList.add('repeat');
+    }
+
+    word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
+    translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
+
+    cur_translation = translation.textContent;
+    cur_word = word.textContent;
+
+    card.appendChild(showWordFirst ? word : translation);
+    card.addEventListener('click', (card) => {
+        card.classList.toggle('show-translation');
+    });
+
+    cardContainer.appendChild(card);
+
 }
 
 document.addEventListener('keydown', event => {
@@ -119,17 +149,17 @@ document.addEventListener('keydown', event => {
         cur_word = temp;
     } else if (event.code === 'ArrowRight') {
         handleRightAnswer();
+        showCard();
     } else if (event.code === 'ArrowLeft') {
         handleWrongAnswer();
+        showCard();
     }
 });
 
 
 // Функция для загрузки карточек из JSON-файла
 function loadCards() {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        queryType: 'resend-ok-repeat2'
-    }))
+    fetch('http://localhost:8070/EasyLearning/resend/resend-ok-repeat2')
         .then(response => response.json())
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
@@ -139,43 +169,10 @@ function loadCards() {
                 order.push(i);
                 ++i;
             }
-            console.log(cards);
-            console.log(order);
-            renderCards(order);
+            currentIndex = 0;
+            showCard();
         })
         .catch(error => console.error(error));
-}
-
-// Функция для отображения карточек на странице
-async function renderCards(order) {
-    cardContainer.innerHTML = '';
-    for (const i of order) {
-        const card = document.createElement('div');
-        const word = document.createElement('div');
-        const translation = document.createElement('div');
-
-        card.classList.add('card');
-        word.classList.add('front');
-        translation.classList.add('back');
-
-        if (cards[i].status === 'repeat') {
-            card.classList.add('repeat');
-        }
-
-        word.textContent = showWordFirst ? cards[i].word : cards[i].translation;
-        translation.textContent = showWordFirst ? cards[i].translation : cards[i].word;
-
-        cur_translation = translation.textContent;
-        cur_word = word.textContent;
-
-        card.appendChild(showWordFirst ? word : translation);
-        card.addEventListener('click', (card) => {
-            card.classList.toggle('show-translation');
-        });
-
-        cardContainer.appendChild(card);
-        await waitForKeyPress();
-    }
 }
 
 

@@ -3,9 +3,7 @@ const foldersContainer = document.getElementById('folders-container');
 
 // Загрузка модулей и папок с сервера
 function loadModulesAndFolders() {
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'get-modules-and-folders'
-    }))
+    fetch('http://localhost:8070/EasyLearning/getAll/get-modules-and-folders')
         .then(response => response.json())
         .then(data => {
             createModuleButtons(data.modules);
@@ -66,9 +64,7 @@ createModuleButton.addEventListener('click', () => {
 addModuleConfirmButton.addEventListener('click', () => {
     const moduleNameInput = document.getElementById('module-name-input');
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'add-new-module'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/add/add-new-module', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -88,6 +84,15 @@ addModuleConfirmButton.addEventListener('click', () => {
     moduleNameInput.value = '';
 });
 
+function logOut(){
+    fetch('http://localhost:8070/EasyLearning/user/log-out', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
 // Открытие модального окна для объединения модулей
 const mergeModulesModal = document.getElementById('merge-modules-modal');
 const mergeModulesConfirmButton = document.getElementById('merge-modules-confirm-button');
@@ -104,9 +109,7 @@ mergeModulesConfirmButton.addEventListener('click', () => {
     const moduleNames = moduleNamesInput.value.split(',');
     const modules = moduleNames.map(name => ({name}));
 
-    fetch('http://localhost:8070/EasyLearning/module/${newModuleNameInput.value}/merge?' + new URLSearchParams({
-        'queryType': 'merge-modules'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/module/${newModuleNameInput.value}/merge/merge-modules', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -139,9 +142,7 @@ createFolderButton.addEventListener('click', () => {
 addFolderConfirmButton.addEventListener('click', () => {
     const folderNameInput = document.getElementById('folder-name-input');
 
-    fetch('http://localhost:8070/EasyLearning?' + new URLSearchParams({
-        'queryType': 'add-new-folder'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/add/add-new-folder', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -177,9 +178,7 @@ mergeFoldersConfirmButton.addEventListener('click', () => {
     const folderNames = folderNamesInput.value.split(',');
     const folders = folderNames.map(name => ({name}));
 
-    fetch('http://localhost:8070/EasyLearning//folder/${newFolderNameInput.value}/merge?' + new URLSearchParams({
-        'queryType': 'merge-folders'
-    }), {
+    fetch('http://localhost:8070/EasyLearning/folder/${newFolderNameInput.value}/merge/merge-folders', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
