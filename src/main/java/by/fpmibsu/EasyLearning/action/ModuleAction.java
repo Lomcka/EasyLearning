@@ -38,7 +38,7 @@ public class ModuleAction implements Action {
             result.put("content", getCards(module.get()));
         } else {
             result.put("repeat", getCards(module.get()));
-            result.put("ok", new JSONObject());
+            result.put("ok", new JSONArray());
         }
         return result;
     }
