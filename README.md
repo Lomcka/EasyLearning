@@ -49,6 +49,8 @@ Usecase - диаграмма проекта:
 
 ![](/docs/img/validators_diagram.png)
 
+![](/docs/img/controller_diagram.png)
+
 
 ER - диаграмма проекта:
 ![](/docs/img/er_diagram.jpg)
