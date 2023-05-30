@@ -35,11 +35,17 @@ Usecase - диаграмма проекта:
 
 ![](/docs/img/beans_diagram.png)
 
+![](/docs/img/dao_beans_diagram.png)
+
 ![](/docs/img/dao_diagram.png)
+
+![](/docs/img/dao_impl_diagram.png)
 
 ![](/docs/img/exceptions_diagram.png)
 
 ![](/docs/img/service_diagram.png)
+
+![](/docs/img/service_impl_diagram.png)
 
 ![](/docs/img/validators_diagram.png)
 
