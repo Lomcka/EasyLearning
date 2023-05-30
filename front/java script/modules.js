@@ -20,12 +20,6 @@ function showCards() {
     fetch('http://localhost:8070/EasyLearning/module/get-cards-to-repeat?' + new URLSearchParams({
         moduleName: moduleName
     }))
-        .then(response => response.json())
-        .then(data => {
-            // Сохраняем исходный порядок карточек в переменную originalOrder
-            let originalOrder = data.map((_, index) => index);
-            renderCards(data, originalOrder);
-        })
         .catch(error => console.error(error));
     window.location.href = `cards.html?moduleName=${encodeURIComponent(window.location.search.split('=')[1])}`;
 }

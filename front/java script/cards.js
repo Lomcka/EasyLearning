@@ -86,8 +86,8 @@ function handleRightAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
-    currentIndex++;
     okCards.push(cards[order[currentIndex]]);
+    currentIndex++;
 }
 
 function handleWrongAnswer() {
@@ -103,8 +103,8 @@ function handleWrongAnswer() {
         }
         currentCard.remove(); // Remove the card from the DOM after the animation
     }, 500);
-    currentIndex++;
     repeatCards.push(cards[order[currentIndex]]);
+    currentIndex++;
 }
 
 function Repeat() {
@@ -112,6 +112,10 @@ function Repeat() {
 }
 
 function showCard() {
+    if (currentIndex >= cards.length) {
+        Relocate();
+    }
+
     console.log('I\'m showing ' + currentIndex);
     const card = document.createElement('div');
     const word = document.createElement('div');
@@ -138,7 +142,6 @@ function showCard() {
     });
 
     cardContainer.appendChild(card);
-
 }
 
 document.addEventListener('keydown', event => {
@@ -164,6 +167,7 @@ function loadCards() {
         .then(data => {
             // Сохраняем исходный порядок карточек в переменную originalOrder
             cards = data.repeat;
+            okCards = data.ok;
             let i = 0;
             while (i < cards.length) {
                 order.push(i);
